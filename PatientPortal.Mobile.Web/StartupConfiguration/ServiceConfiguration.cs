@@ -5,10 +5,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using PatientPortal.Mobile.Data;
+using PatientPortal.Mobile.Web.Filters;
 //using PatientPortal.Mobile.Web.Filters;
 using PatientPortal.Mobile.Web.Infrastructure.Adaptors;
 using PatientPortal.Mobile.Web.Infrastructure.Utilities;
 using PatientPortal.Mobile.Web.Models;
+using PatientPortal.Mobile.Web.Services;
+using PatientPortal.Mobile.Web.Services.Interface;
 //using PatientPortal.Mobile.Web.Services;
 //using PatientPortal.Mobile.Web.Services.Interface;
 using Serilog;
@@ -46,12 +49,12 @@ namespace PatientPortal.Mobile.Web.StartupConfiguration
             services.AddJwtAuthentication(configuration);
             services.AddMvc(options =>
             {
-                //options.Filters.Add(typeof(ModelStateActionFilter));
+                options.Filters.Add(typeof(ModelStateActionFilter));
             });
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ENSUserOnly", policy => policy.RequireClaim("ENSUserId"));
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("ENSUserOnly", policy => policy.RequireClaim("ENSUserId"));
+            //});
             services.RegisterDependencies(configuration);
             services.AddSwagger();
         }
@@ -67,10 +70,9 @@ namespace PatientPortal.Mobile.Web.StartupConfiguration
             //services.AddSingleton<IMobileUserService, MobileUserService>();
             services.AddSingleton<HttpClient>();
             services.AddSingleton<IHttpNotificationClient, HttpNotificationClient>();
-            //services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IUserService, UserService>();
             //services.AddSingleton<IContactsService, ContactsService>();
-            services.AddSingleton<SessionManagerSoap>(_ => new SessionManagerSoapClient(SessionManagerSoapClient.EndpointConfiguration.SessionManagerSoap));
-            //services.AddSingleton<IJwtService, JwtService>();
+            services.AddSingleton<IJwtService, JwtService>();
             //services.AddSingleton<IFCMTokenService, FCMTokenService>();
 
             var opt = new DbContextOptionsBuilder<PatientPortalMobileContext>()

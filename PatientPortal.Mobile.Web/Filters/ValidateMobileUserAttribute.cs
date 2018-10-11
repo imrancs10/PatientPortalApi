@@ -54,8 +54,8 @@ namespace PatientPortal.Mobile.Web.Filters
                 {
                     using (var dbContext = _dbProvider())
                     {
-                        MobileUser user = dbContext.MobileUser.Where(c => c.Username == username).FirstOrDefault();
-                        isUserValid = user != null;
+                        //MobileUser user = dbContext.MobileUser.Where(c => c.Username == username).FirstOrDefault();
+                        //isUserValid = user != null;
                     }
                 }
                 return isUserValid;

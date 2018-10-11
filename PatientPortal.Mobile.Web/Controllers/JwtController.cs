@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 //using PatientPortal.Mobile.Web.Filters;
 using PatientPortal.Mobile.Web.Models;
+using PatientPortal.Mobile.Web.Services.Interface;
 //using PatientPortal.Mobile.Web.Services.Interface;
 using System.Threading.Tasks;
 
@@ -8,14 +9,14 @@ namespace PatientPortal.Mobile.Web.Controllers
 {
     public class JwtController : ControllerBase
     {
-        //readonly IJwtService _jwtService;
-        //readonly IUserService _userService;
+        readonly IJwtService _jwtService;
+        readonly IUserService _userService;
 
-        //public JwtController(IJwtService jwtService, IUserService userService)
-        //{
-        //    _jwtService = jwtService;
-        //    _userService = userService;
-        //}
+        public JwtController(IJwtService jwtService, IUserService userService)
+        {
+            _jwtService = jwtService;
+            _userService = userService;
+        }
 
         /// <summary>
         ///  Provides the Jwt token for the user.

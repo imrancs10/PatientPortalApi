@@ -4,6 +4,7 @@ using PatientPortal.Mobile.Data;
 //using PatientPortal.Mobile.Data.Entites;
 using PatientPortal.Mobile.Web.Infrastructure.Utilities;
 using PatientPortal.Mobile.Web.Models;
+using PatientPortal.Mobile.Web.Services.Interface;
 //using PatientPortal.Mobile.Web.Services.Interface;
 using SessionManager;
 using System;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace PatientPortal.Mobile.Web.Services
 {
-    public class JwtService //: IJwtService
+    public class JwtService : IJwtService
     {
         readonly Func<PatientPortalMobileContext> _dbContextProvider;
         readonly IPasswordHasherService _passwordHasherService;
@@ -71,114 +72,114 @@ namespace PatientPortal.Mobile.Web.Services
 
             return new Errorable<JwtResponse>(ErrorCode.InvalidUsernameOrPassword);
         }
-        private string GetLoginToken(UserClaims userClaims)
-        {
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration[TokenSecretConfKey]));
-            var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
-
-            var tokenValidityInMinuts = Convert.ToDouble(_configuration[TokenValidityConfKey]);
-            var token = new JwtSecurityToken(
-                issuer: Convert.ToString(_configuration[TokenIssuer]),
-                claims: GetClaims(userClaims),
-                expires: DateTime.Now.AddMinutes(tokenValidityInMinuts),
-                signingCredentials: signingCredentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        private IList<Claim> GetClaims(UserClaims userClaims)
-        {
-            List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim("MobileUserId", userClaims.MobileUserId.ToString()));
-            claims.Add(new Claim("AccountId", userClaims.AccountId.ToString()));           
-            claims.Add(new Claim("MemberId", userClaims.MemberId));
-            claims.Add(new Claim("RecipientId", userClaims.RecipientId.ToString()));
-            switch (userClaims)
-            {
-                case ENSUserClaims ensClaims:
-                    claims.Add(new Claim("UserId", ensClaims.UserId.ToString()));
-                    break;
-            }                      
-            return claims;
-        }
-
-        //public async Task<bool> ValidateEnsUser(string username, string password)
+        //private string GetLoginToken(UserClaims userClaims)
         //{
-            //var userDetail = await _userService.GetMobileUserContactDetail(username);
-            //if (userDetail != null && userDetail.Locked)
-            //{
-            //    return false;
-            //}
-            //LoginRequest loginRequest = new LoginRequest()
-            //{
-            //    Username = username,
-            //    Password = password,
-            //    ServiceEntryPoint = ServiceEntryPointType.AlertingWebService
-            //};
+        //    var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration[TokenSecretConfKey]));
+        //    var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
 
-            //return await _sessionManagerService.CheckAuthenticationAsync(loginRequest);
+        //    var tokenValidityInMinuts = Convert.ToDouble(_configuration[TokenValidityConfKey]);
+        //    var token = new JwtSecurityToken(
+        //        issuer: Convert.ToString(_configuration[TokenIssuer]),
+        //        claims: GetClaims(userClaims),
+        //        expires: DateTime.Now.AddMinutes(tokenValidityInMinuts),
+        //        signingCredentials: signingCredentials);
+
+        //    return new JwtSecurityTokenHandler().WriteToken(token);
         //}
 
-        public bool ValidateMobileUser(string password 
-            //,MobileUser mobileUser
-            )
-        {
-            var isValid = false;
-            if (!String.IsNullOrEmpty(password))
-            {
-                //var passwordHash = _passwordHasherService.GetPasswordHash(password, mobileUser.Salt);
-                //isValid = mobileUser.Password == passwordHash;
-            }
-            return isValid;
-        }
-
-        public async Task<JwtResponse> CreateJwtResponse(string jwtToken, int accountId)
-        {
-            var jwtResponse = new JwtResponse();
-            jwtResponse.JwtToken = jwtToken;
-            //var accountDetail = await _userService.GetAccountDetails(accountId);
-            //jwtResponse.AccountName = accountDetail.AccountName;
-            //jwtResponse.CompanyName = accountDetail.CompanyName;
-            return jwtResponse;
-        }
-
-        //public async Task<string> GetJwtTokenForUser(MobileUser mobileUser)
+        //private IList<Claim> GetClaims(UserClaims userClaims)
         //{
-        //    if (mobileUser.ENSUserId.HasValue)
+        //    List<Claim> claims = new List<Claim>();
+        //    claims.Add(new Claim("MobileUserId", userClaims.MobileUserId.ToString()));
+        //    claims.Add(new Claim("AccountId", userClaims.AccountId.ToString()));           
+        //    claims.Add(new Claim("MemberId", userClaims.MemberId));
+        //    claims.Add(new Claim("RecipientId", userClaims.RecipientId.ToString()));
+        //    switch (userClaims)
         //    {
-        //        return await GetJwtTokenForENSUser(mobileUser);
-        //    }
-        //    return await GetJwtTokenForContactPointUser(mobileUser);
+        //        case ENSUserClaims ensClaims:
+        //            claims.Add(new Claim("UserId", ensClaims.UserId.ToString()));
+        //            break;
+        //    }                      
+        //    return claims;
         //}
 
-        //private async Task<string> GetJwtTokenForContactPointUser(MobileUser mobileUser)
-        //{
-        //    var contactDetail = await _contactsService.GetContactPointDetail(mobileUser.RecipientId);
-        //    var claims = new UserClaims()
-        //    {
-        //        MobileUserId = mobileUser.Id,
-        //        AccountId = mobileUser.AccountId,               
-        //        MemberId = (new Guid()).ToString(),
-        //        RecipientId = mobileUser.RecipientId
-        //    };
-        //    return GetLoginToken(claims);
-        //}
+        ////public async Task<bool> ValidateEnsUser(string username, string password)
+        ////{
+        //    //var userDetail = await _userService.GetMobileUserContactDetail(username);
+        //    //if (userDetail != null && userDetail.Locked)
+        //    //{
+        //    //    return false;
+        //    //}
+        //    //LoginRequest loginRequest = new LoginRequest()
+        //    //{
+        //    //    Username = username,
+        //    //    Password = password,
+        //    //    ServiceEntryPoint = ServiceEntryPointType.AlertingWebService
+        //    //};
 
-        //private async Task<string> GetJwtTokenForENSUser(
-        //    //MobileUser mobileUser
+        //    //return await _sessionManagerService.CheckAuthenticationAsync(loginRequest);
+        ////}
+
+        //public bool ValidateMobileUser(string password 
+        //    //,MobileUser mobileUser
         //    )
         //{
-        //    //var contactDetail = await _contactsService.GetENSUserByUserId(mobileUser.ENSUserId.Value);
-        //    //var claims = new ENSUserClaims()
-        //    //{
-        //    //    MobileUserId = mobileUser.Id,
-        //    //    AccountId = mobileUser.AccountId,
-        //    //    UserId = contactDetail.ENSUserId.Value,
-        //    //    MemberId = contactDetail.MemberId.ToString(),
-        //    //    RecipientId = mobileUser.RecipientId
-        //    //};
-        //    //return GetLoginToken(claims);
+        //    var isValid = false;
+        //    if (!String.IsNullOrEmpty(password))
+        //    {
+        //        //var passwordHash = _passwordHasherService.GetPasswordHash(password, mobileUser.Salt);
+        //        //isValid = mobileUser.Password == passwordHash;
+        //    }
+        //    return isValid;
         //}
+
+        //public async Task<JwtResponse> CreateJwtResponse(string jwtToken, int accountId)
+        //{
+        //    var jwtResponse = new JwtResponse();
+        //    jwtResponse.JwtToken = jwtToken;
+        //    //var accountDetail = await _userService.GetAccountDetails(accountId);
+        //    //jwtResponse.AccountName = accountDetail.AccountName;
+        //    //jwtResponse.CompanyName = accountDetail.CompanyName;
+        //    return jwtResponse;
+        //}
+
+        ////public async Task<string> GetJwtTokenForUser(MobileUser mobileUser)
+        ////{
+        ////    if (mobileUser.ENSUserId.HasValue)
+        ////    {
+        ////        return await GetJwtTokenForENSUser(mobileUser);
+        ////    }
+        ////    return await GetJwtTokenForContactPointUser(mobileUser);
+        ////}
+
+        ////private async Task<string> GetJwtTokenForContactPointUser(MobileUser mobileUser)
+        ////{
+        ////    var contactDetail = await _contactsService.GetContactPointDetail(mobileUser.RecipientId);
+        ////    var claims = new UserClaims()
+        ////    {
+        ////        MobileUserId = mobileUser.Id,
+        ////        AccountId = mobileUser.AccountId,               
+        ////        MemberId = (new Guid()).ToString(),
+        ////        RecipientId = mobileUser.RecipientId
+        ////    };
+        ////    return GetLoginToken(claims);
+        ////}
+
+        ////private async Task<string> GetJwtTokenForENSUser(
+        ////    //MobileUser mobileUser
+        ////    )
+        ////{
+        ////    //var contactDetail = await _contactsService.GetENSUserByUserId(mobileUser.ENSUserId.Value);
+        ////    //var claims = new ENSUserClaims()
+        ////    //{
+        ////    //    MobileUserId = mobileUser.Id,
+        ////    //    AccountId = mobileUser.AccountId,
+        ////    //    UserId = contactDetail.ENSUserId.Value,
+        ////    //    MemberId = contactDetail.MemberId.ToString(),
+        ////    //    RecipientId = mobileUser.RecipientId
+        ////    //};
+        ////    //return GetLoginToken(claims);
+        ////}
 
 
     }
