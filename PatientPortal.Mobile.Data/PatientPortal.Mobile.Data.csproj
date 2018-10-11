@@ -71,6 +71,26 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entites\AppointmentInfo.cs" />
+    <Compile Include="Entites\AppointmentSetting.cs" />
+    <Compile Include="Entites\City.cs" />
+    <Compile Include="Entites\DayMaster.cs" />
+    <Compile Include="Entites\Department.cs" />
+    <Compile Include="Entites\Doctor.cs" />
+    <Compile Include="Entites\DoctorLeave.cs" />
+    <Compile Include="Entites\DoctorSchedule.cs" />
+    <Compile Include="Entites\GblMasterLogin.cs" />
+    <Compile Include="Entites\GblMasterUser.cs" />
+    <Compile Include="Entites\HospitalDetail.cs" />
+    <Compile Include="Entites\LabReport.cs" />
+    <Compile Include="Entites\MeridiemMaster.cs" />
+    <Compile Include="Entites\PatientBillReport.cs" />
+    <Compile Include="Entites\PatientInfo.cs" />
+    <Compile Include="Entites\PatientLabReport.cs" />
+    <Compile Include="Entites\PatientLoginEntry.cs" />
+    <Compile Include="Entites\PatientLoginHistory.cs" />
+    <Compile Include="Entites\PatientTransaction.cs" />
+    <Compile Include="Entites\State.cs" />
     <Compile Include="PatientPortalMobileContext.cs" />
     <Compile Include="PatientPortalMobileContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,7 +106,6 @@
     <Content Include="EFSetupReadme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entites\" />
     <Folder Include="Enum\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
