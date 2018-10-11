@@ -5,3 +5,4 @@ bower_components/
 packages/
 *.user
 logs/
+/PatientPortal.Mobile.Web/Properties/PublishProfiles/FolderProfile1.pubxml
