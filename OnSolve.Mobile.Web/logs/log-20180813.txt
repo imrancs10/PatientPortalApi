@@ -1,8 +1,0 @@
-2018-08-13 17:15:44.382 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
-2018-08-13 17:15:44.382 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
-2018-08-13 17:15:44.515 +05:30 [Information] Request finished in 171.0063ms 200 
-2018-08-13 17:15:44.947 +05:30 [Information] Request finished in 628.0072ms 404 
-2018-08-13 17:33:31.348 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
-2018-08-13 17:33:31.348 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
-2018-08-13 17:33:31.449 +05:30 [Information] Request finished in 137.1219ms 200 
-2018-08-13 17:33:31.777 +05:30 [Information] Request finished in 468.8082ms 404 

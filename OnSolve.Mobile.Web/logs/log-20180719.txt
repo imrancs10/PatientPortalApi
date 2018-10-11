@@ -1,2 +1,0 @@
-2018-07-19 14:31:52.029 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
-2018-07-19 14:31:52.373 +05:30 [Information] Request finished in 353.1473ms 404 
