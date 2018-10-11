@@ -35,10 +35,9 @@ namespace PatientPortal.Mobile.Web.Controllers
         //[ValidMobileUser]
         public async Task<IActionResult> Post(string username, [FromBody] JwtRequest request)
         {
-            //var user = await _userService.GetMobileUser(username);
-            //var result = await _jwtService.Login(user, request);
-            //return result.BuildResult(Ok);
-            return Ok();
+            var user = await _userService.GetPatientInfoByRegisterNumber(username);
+            var result = await _jwtService.Login(user, request);
+            return result.BuildResult(Ok);
         }
 
     }

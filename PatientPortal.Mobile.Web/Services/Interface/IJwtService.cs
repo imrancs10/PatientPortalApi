@@ -6,11 +6,8 @@ namespace PatientPortal.Mobile.Web.Services.Interface
 {
     public interface IJwtService
     {
-        Task<Errorable<JwtResponse>> Login(
-            //MobileUser user, 
-            JwtRequest jwtRequest);
-        //Task<string> GetJwtTokenForUser(MobileUser user);
-        //Task<bool> ValidateEnsUser(string username, string password);
-        //Task<JwtResponse> CreateJwtResponse(string jwtToken, int accountId);
+        Task<Errorable<JwtResponse>> Login(PatientInfo user, JwtRequest jwtRequest);
+        Task<string> GetJwtTokenForUser(PatientInfo user);
+        Task<JwtResponse> CreateJwtResponse(string jwtToken);
     }
 }

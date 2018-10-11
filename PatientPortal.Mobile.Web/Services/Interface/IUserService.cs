@@ -7,7 +7,7 @@ namespace PatientPortal.Mobile.Web.Services.Interface
 {
     public interface IUserService
     {
-        //Task<MobileUser> GetMobileUser(string username);
+        Task<PatientInfo> GetPatientInfoByRegisterNumber(string username);
         //Task<ContactDetail> GetMobileUserContactDetail(string username);
         //Task<CreateUserResponse> CreateUser(UserRequest userRequest);
         //Task<bool> AreRegistrationDetailsValid(UserRequest userRequest);

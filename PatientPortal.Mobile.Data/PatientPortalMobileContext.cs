@@ -29,6 +29,7 @@ namespace PatientPortal.Mobile.Data
         public virtual DbSet<PatientTransaction> PatientTransaction { get; set; }
         public virtual DbSet<State> State { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

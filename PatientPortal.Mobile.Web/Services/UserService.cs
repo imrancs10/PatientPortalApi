@@ -32,12 +32,21 @@ namespace PatientPortal.Mobile.Web.Services
             _dbContextProvider = dbContextProvider;
         }
 
-        //public async Task<MobileUser> GetMobileUser(string username)
-        //{
-        //    using (var dbContext = _dbContextProvider())
-        //    {
-        //        return await dbContext.MobileUser.FirstOrDefaultAsync(x => x.Username == username);
-        //    }
-        //}
+        public async Task<PatientInfo> GetPatientInfoByRegisterNumber(string username)
+        {
+            try
+            {
+                using (var dbContext = _dbContextProvider())
+                {
+                    return await dbContext.PatientInfo.FirstOrDefaultAsync(x => x.RegistrationNumber == username);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
+        }
     }
 }
