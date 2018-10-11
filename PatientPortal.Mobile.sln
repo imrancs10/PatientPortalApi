@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnSolve.Mobile.Web", "OnSolve.Mobile.Web\OnSolve.Mobile.Web.csproj", "{D12ED431-6BC1-46A9-B74E-1BF1F4BF0721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientPortal.Mobile.Web", "PatientPortal.Mobile.Web\PatientPortal.Mobile.Web.csproj", "{D12ED431-6BC1-46A9-B74E-1BF1F4BF0721}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnSolve.Mobile.Web.Test", "OnSolve.Mobile.Web.Test\OnSolve.Mobile.Web.Test.csproj", "{5D841473-8D97-42D9-8BF0-365DF12D1314}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnSolve.Mobile.Data", "OnSolve.Mobile.Data\OnSolve.Mobile.Data.csproj", "{48B80CC3-E25C-45E8-A166-C2422A42981B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientPortal.Mobile.Data", "PatientPortal.Mobile.Data\PatientPortal.Mobile.Data.csproj", "{48B80CC3-E25C-45E8-A166-C2422A42981B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{D12ED431-6BC1-46A9-B74E-1BF1F4BF0721}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D12ED431-6BC1-46A9-B74E-1BF1F4BF0721}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D12ED431-6BC1-46A9-B74E-1BF1F4BF0721}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D841473-8D97-42D9-8BF0-365DF12D1314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D841473-8D97-42D9-8BF0-365DF12D1314}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D841473-8D97-42D9-8BF0-365DF12D1314}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D841473-8D97-42D9-8BF0-365DF12D1314}.Release|Any CPU.Build.0 = Release|Any CPU
 		{48B80CC3-E25C-45E8-A166-C2422A42981B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{48B80CC3-E25C-45E8-A166-C2422A42981B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48B80CC3-E25C-45E8-A166-C2422A42981B}.Release|Any CPU.ActiveCfg = Release|Any CPU

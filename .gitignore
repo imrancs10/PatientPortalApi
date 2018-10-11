@@ -1,0 +1,7 @@
+﻿.vs/
+bin/
+obj/
+bower_components/
+packages/
+*.user
+logs/

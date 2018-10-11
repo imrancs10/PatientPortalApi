@@ -1,0 +1,13 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PatientPortal.Mobile.Web.Models
+{
+    public class FCMTokenUpdateModel
+    {
+        [Required]
+        public string FCMToken { get; set; }
+
+        [Required]
+        public string OldFCMToken { get; set; }
+    }
+}
