@@ -1,0 +1,184 @@
+2018-09-27 12:29:28.688 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-09-27 12:29:28.688 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-09-27 12:29:28.765 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger  
+2018-09-27 12:29:28.904 +05:30 [Information] Request finished in 254.9099ms 200 
+2018-09-27 12:29:28.905 +05:30 [Information] Request finished in 120.1805ms 301 
+2018-09-27 12:29:28.927 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-09-27 12:29:28.963 +05:30 [Information] Request finished in 35.0341ms 200 text/html
+2018-09-27 12:29:28.984 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-09-27 12:29:29.011 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-09-27 12:29:29.011 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-09-27 12:29:29.074 +05:30 [Information] Sending file. Request path: '"/swagger-ui-bundle.js"'. Physical path: '"N/A"'
+2018-09-27 12:29:29.075 +05:30 [Information] Sending file. Request path: '"/swagger-ui.css"'. Physical path: '"N/A"'
+2018-09-27 12:29:29.077 +05:30 [Information] Sending file. Request path: '"/swagger-ui-standalone-preset.js"'. Physical path: '"N/A"'
+2018-09-27 12:29:29.164 +05:30 [Information] Request finished in 164.6656ms 200 text/css
+2018-09-27 12:29:29.276 +05:30 [Information] Request finished in 267.0796ms 200 application/javascript
+2018-09-27 12:29:29.344 +05:30 [Information] Request finished in 363.7433ms 200 application/javascript
+2018-09-27 12:29:29.564 +05:30 [Information] Request finished in 944.576ms 404 
+2018-09-27 12:29:30.714 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-09-27 12:29:30.772 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/favicon-32x32.png  
+2018-09-27 12:29:30.777 +05:30 [Information] Sending file. Request path: '"/favicon-32x32.png"'. Physical path: '"N/A"'
+2018-09-27 12:29:30.780 +05:30 [Information] Request finished in 7.3003ms 200 image/png
+2018-09-27 12:29:30.787 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/favicon-16x16.png  
+2018-09-27 12:29:30.791 +05:30 [Information] Sending file. Request path: '"/favicon-16x16.png"'. Physical path: '"N/A"'
+2018-09-27 12:29:30.795 +05:30 [Information] Request finished in 7.162ms 200 image/png
+2018-09-27 12:29:30.978 +05:30 [Information] Request finished in 261.1025ms 200 application/json
+2018-09-27 12:30:31.864 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-09-27 12:30:31.864 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-09-27 12:30:31.990 +05:30 [Information] Request finished in 168.5585ms 200 
+2018-09-27 12:30:32.324 +05:30 [Information] Request finished in 527.1127ms 404 
+2018-09-27 12:30:33.358 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-09-27 12:30:33.385 +05:30 [Information] Request finished in 26.6012ms 200 text/html
+2018-09-27 12:30:33.420 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-09-27 12:30:33.424 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-09-27 12:30:33.443 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-09-27 12:30:33.504 +05:30 [Information] The file "/swagger-ui.css" was not modified
+2018-09-27 12:30:33.506 +05:30 [Information] The file "/swagger-ui-standalone-preset.js" was not modified
+2018-09-27 12:30:33.507 +05:30 [Information] The file "/swagger-ui-bundle.js" was not modified
+2018-09-27 12:30:33.555 +05:30 [Information] Request finished in 113.2383ms 304 application/javascript
+2018-09-27 12:30:33.561 +05:30 [Information] Request finished in 134.6413ms 304 text/css
+2018-09-27 12:30:33.562 +05:30 [Information] Request finished in 92.4321ms 304 application/javascript
+2018-09-27 12:30:33.975 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-09-27 12:30:34.162 +05:30 [Error] Connection id ""0HLH48RL4DGQ1"", Request id ""0HLH48RL4DGQ1:00000004"": An unhandled exception was thrown by the application.
+System.NotSupportedException: HTTP method "GET" & path "api/user" overloaded by actions - OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web),OnSolve.Mobile.Web.Controllers.UserController.Get (OnSolve.Mobile.Web). Actions require unique method/path combination for Swagger 2.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.CreatePathItem(IEnumerable`1 apiDescriptions, ISchemaRegistry schemaRegistry)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.<>c__DisplayClass4_0.<GetSwagger>b__5(IGrouping`2 group)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath, String[] schemes)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.<Invoke>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2018-09-27 12:30:34.166 +05:30 [Information] Request finished in 191.6255ms 500 
+2018-09-27 12:31:52.670 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-09-27 12:31:52.670 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-09-27 12:31:52.761 +05:30 [Information] Request finished in 152.0773ms 200 
+2018-09-27 12:31:53.126 +05:30 [Information] Request finished in 522.6813ms 404 
+2018-09-27 12:31:53.515 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-09-27 12:31:53.600 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-09-27 12:31:53.630 +05:30 [Information] Request finished in 82.9779ms 200 text/html
+2018-09-27 12:31:53.654 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-09-27 12:31:53.679 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-09-27 12:31:53.749 +05:30 [Information] The file "/swagger-ui.css" was not modified
+2018-09-27 12:31:53.750 +05:30 [Information] The file "/swagger-ui-standalone-preset.js" was not modified
+2018-09-27 12:31:53.752 +05:30 [Information] The file "/swagger-ui-bundle.js" was not modified
+2018-09-27 12:31:53.784 +05:30 [Information] Request finished in 161.0368ms 304 text/css
+2018-09-27 12:31:53.789 +05:30 [Information] Request finished in 143.0455ms 304 application/javascript
+2018-09-27 12:31:53.796 +05:30 [Information] Request finished in 148.2411ms 304 application/javascript
+2018-09-27 12:31:53.974 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-09-27 12:31:54.197 +05:30 [Information] Request finished in 239.8971ms 200 application/json
+2018-09-27 12:32:56.553 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 12:32:57.101 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 12:33:22.451 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 12:33:22.506 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 25807.2256ms
+2018-09-27 12:33:22.509 +05:30 [Information] Request finished in 25956.487ms 200 application/json; charset=utf-8
+2018-09-27 12:34:43.114 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 12:34:43.119 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 12:34:53.883 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 12:34:53.888 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 10767.6137ms
+2018-09-27 12:34:53.893 +05:30 [Information] Request finished in 10777.2445ms 200 application/json; charset=utf-8
+2018-09-27 12:37:30.465 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-09-27 12:37:30.465 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-09-27 12:37:30.465 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-09-27 12:37:30.611 +05:30 [Information] Request finished in 215.1748ms 200 
+2018-09-27 12:37:30.633 +05:30 [Information] Request finished in 259.6696ms 200 text/html
+2018-09-27 12:37:30.645 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-09-27 12:37:30.677 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-09-27 12:37:30.683 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-09-27 12:37:30.766 +05:30 [Information] The file "/swagger-ui-bundle.js" was not modified
+2018-09-27 12:37:30.767 +05:30 [Information] The file "/swagger-ui-standalone-preset.js" was not modified
+2018-09-27 12:37:30.769 +05:30 [Information] The file "/swagger-ui.css" was not modified
+2018-09-27 12:37:30.817 +05:30 [Information] Request finished in 129.9393ms 304 text/css
+2018-09-27 12:37:30.817 +05:30 [Information] Request finished in 124.2992ms 304 application/javascript
+2018-09-27 12:37:30.822 +05:30 [Information] Request finished in 149.9343ms 304 application/javascript
+2018-09-27 12:37:31.004 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-09-27 12:37:31.238 +05:30 [Information] Request finished in 846.0803ms 404 
+2018-09-27 12:37:31.353 +05:30 [Information] Request finished in 350.1628ms 200 application/json
+2018-09-27 12:37:54.528 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 12:37:55.090 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 12:37:58.761 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 12:37:58.800 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 4157.5532ms
+2018-09-27 12:37:58.805 +05:30 [Information] Request finished in 4276.7379ms 200 application/json; charset=utf-8
+2018-09-27 15:28:36.187 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-09-27 15:28:36.186 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-09-27 15:28:36.298 +05:30 [Information] Request finished in 195.984ms 200 
+2018-09-27 15:28:36.709 +05:30 [Information] Request finished in 590.8124ms 404 
+2018-09-27 15:30:38.635 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-09-27 15:30:38.635 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-09-27 15:30:38.754 +05:30 [Information] Request finished in 156.2614ms 200 
+2018-09-27 15:30:39.174 +05:30 [Information] Request finished in 605.4524ms 404 
+2018-09-27 15:30:47.816 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-09-27 15:30:47.856 +05:30 [Information] Request finished in 40.1903ms 200 text/html
+2018-09-27 15:30:47.868 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-09-27 15:30:47.911 +05:30 [Information] The file "/swagger-ui.css" was not modified
+2018-09-27 15:30:47.917 +05:30 [Information] Request finished in 48.8797ms 304 text/css
+2018-09-27 15:30:48.878 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-09-27 15:30:48.906 +05:30 [Information] The file "/swagger-ui-bundle.js" was not modified
+2018-09-27 15:30:48.909 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-09-27 15:30:48.910 +05:30 [Information] Request finished in 33.8097ms 304 application/javascript
+2018-09-27 15:30:48.915 +05:30 [Information] The file "/swagger-ui-standalone-preset.js" was not modified
+2018-09-27 15:30:48.921 +05:30 [Information] Request finished in 39.7944ms 304 application/javascript
+2018-09-27 15:30:49.184 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-09-27 15:30:49.433 +05:30 [Information] Request finished in 248.519ms 200 application/json
+2018-09-27 15:31:03.410 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 15:31:03.999 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 15:31:25.030 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 15:31:25.057 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 21533.6159ms
+2018-09-27 15:31:25.060 +05:30 [Information] Request finished in 21671.3524ms 200 application/json; charset=utf-8
+2018-09-27 15:31:48.105 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 15:31:48.109 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 15:31:49.420 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 15:31:49.423 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 1314.0042ms
+2018-09-27 15:31:49.426 +05:30 [Information] Request finished in 1320.8379ms 200 application/json; charset=utf-8
+2018-09-27 15:32:32.745 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 15:32:32.748 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 15:32:34.802 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 15:32:34.805 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 2057.2154ms
+2018-09-27 15:32:34.808 +05:30 [Information] Request finished in 2063.5144ms 200 application/json; charset=utf-8
+2018-09-27 15:32:50.793 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 15:32:50.797 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 15:32:51.038 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 15:32:51.042 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 244.9842ms
+2018-09-27 15:32:51.047 +05:30 [Information] Request finished in 273ms 200 application/json; charset=utf-8
+2018-09-27 15:33:15.342 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 15:33:15.345 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 15:33:15.636 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 15:33:15.638 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 293.622ms
+2018-09-27 15:33:15.641 +05:30 [Information] Request finished in 301.5591ms 200 application/json; charset=utf-8
+2018-09-27 15:35:32.063 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-09-27 15:35:32.063 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-09-27 15:35:32.063 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-09-27 15:35:32.189 +05:30 [Information] Request finished in 200.0352ms 200 
+2018-09-27 15:35:32.232 +05:30 [Information] Request finished in 221.9988ms 200 text/html
+2018-09-27 15:35:32.233 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-09-27 15:35:32.283 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-09-27 15:35:32.288 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-09-27 15:35:32.371 +05:30 [Information] The file "/swagger-ui-bundle.js" was not modified
+2018-09-27 15:35:32.372 +05:30 [Information] The file "/swagger-ui-standalone-preset.js" was not modified
+2018-09-27 15:35:32.374 +05:30 [Information] The file "/swagger-ui.css" was not modified
+2018-09-27 15:35:32.393 +05:30 [Information] Request finished in 131.0934ms 304 application/javascript
+2018-09-27 15:35:32.399 +05:30 [Information] Request finished in 144.0106ms 304 application/javascript
+2018-09-27 15:35:32.412 +05:30 [Information] Request finished in 105.3833ms 304 text/css
+2018-09-27 15:35:32.614 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-09-27 15:35:32.778 +05:30 [Information] Request finished in 797.0305ms 404 
+2018-09-27 15:35:32.941 +05:30 [Information] Request finished in 305.5535ms 200 application/json
+2018-09-27 15:35:58.377 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 15:35:58.892 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 15:36:00.444 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 15:36:00.477 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 1995.446ms
+2018-09-27 15:36:00.481 +05:30 [Information] Request finished in 2102.6548ms 200 application/json; charset=utf-8
+2018-09-27 15:36:21.562 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/user/10243  
+2018-09-27 15:36:21.567 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" with arguments (["10243"]) - ModelState is Valid
+2018-09-27 15:36:21.813 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-09-27 15:36:21.815 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Get (OnSolve.Mobile.Web)" in 249.7607ms
+2018-09-27 15:36:21.817 +05:30 [Information] Request finished in 256.0278ms 200 application/json; charset=utf-8

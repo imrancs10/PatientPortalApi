@@ -1,0 +1,238 @@
+2018-10-05 11:23:32.290 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-10-05 11:23:32.290 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-10-05 11:23:32.445 +05:30 [Information] Request finished in 228.5265ms 200 
+2018-10-05 11:23:33.202 +05:30 [Information] Request finished in 991.5006ms 404 
+2018-10-05 11:23:50.834 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-10-05 11:23:50.864 +05:30 [Information] Request finished in 30.8949ms 200 text/html
+2018-10-05 11:23:50.874 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-10-05 11:23:50.911 +05:30 [Information] The file "/swagger-ui.css" was not modified
+2018-10-05 11:23:50.936 +05:30 [Information] Request finished in 42.6153ms 304 text/css
+2018-10-05 11:23:51.328 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-10-05 11:23:51.349 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-10-05 11:23:51.351 +05:30 [Information] The file "/swagger-ui-standalone-preset.js" was not modified
+2018-10-05 11:23:51.387 +05:30 [Information] Request finished in 27.4206ms 304 application/javascript
+2018-10-05 11:23:51.393 +05:30 [Information] The file "/swagger-ui-bundle.js" was not modified
+2018-10-05 11:23:51.399 +05:30 [Information] Request finished in 70.3395ms 304 application/javascript
+2018-10-05 11:23:51.542 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-10-05 11:23:51.714 +05:30 [Information] Request finished in 172.2113ms 200 application/json
+2018-10-05 11:24:13.297 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/password/123 application/json-patch+json 25
+2018-10-05 11:24:13.927 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" with arguments (["123", "OnSolve.Mobile.Web.Models.PasswordModel"]) - ModelState is Valid
+2018-10-05 11:24:40.074 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" in 26680.2413ms
+2018-10-05 11:24:40.340 +05:30 [Error] Connection id ""0HLHAGRGR7LV2"", Request id ""0HLHAGRGR7LV2:00000004"": An unhandled exception was thrown by the application.
+System.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server) ---> System.ComponentModel.Win32Exception (0x80004005): The network path was not found
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at AsyncPoco.Database.<OpenSharedConnectionAsync>d__17.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at AsyncPoco.Database.<QueryAsync>d__54`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at AsyncPoco.Database.<FirstAsync>d__63`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at OnSolve.Mobile.Web.Services.PasswordService.<GetSecurityPreference>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at OnSolve.Mobile.Web.Controllers.PasswordController.<HasMatchSecurityPreferences>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at OnSolve.Mobile.Web.Controllers.PasswordController.<Create>d__8.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResourceFilter>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeFilterPipelineAsync>d__17.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeAsync>d__15.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.<Invoke>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIIndexMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.<Invoke>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:53,State:0,Class:20
+2018-10-05 11:24:40.348 +05:30 [Information] Request finished in 27072.0845ms 500 
+2018-10-05 11:24:54.040 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/password/123 application/json-patch+json 25
+2018-10-05 11:24:54.049 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" with arguments (["123", "OnSolve.Mobile.Web.Models.PasswordModel"]) - ModelState is Valid
+2018-10-05 11:25:04.214 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 400
+2018-10-05 11:25:04.221 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" in 10173.6901ms
+2018-10-05 11:25:04.225 +05:30 [Information] Request finished in 10189.2537ms 400 
+2018-10-05 11:25:10.924 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/password/123 application/json-patch+json 25
+2018-10-05 11:25:12.909 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" with arguments (["123", "OnSolve.Mobile.Web.Models.PasswordModel"]) - ModelState is Valid
+2018-10-05 11:25:40.879 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 400
+2018-10-05 11:25:40.883 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" in 29945.2284ms
+2018-10-05 11:25:40.886 +05:30 [Information] Request finished in 29962.3987ms 400 
+2018-10-05 11:25:49.312 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/password/123 application/json-patch+json 28
+2018-10-05 11:25:49.315 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" with arguments (["123", "OnSolve.Mobile.Web.Models.PasswordModel"]) - ModelState is Valid
+2018-10-05 11:26:07.660 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 400
+2018-10-05 11:26:07.665 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" in 18347.3467ms
+2018-10-05 11:26:07.668 +05:30 [Information] Request finished in 18356.6432ms 400 
+2018-10-05 11:26:12.755 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/password/123 application/json-patch+json 31
+2018-10-05 11:26:12.758 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" with arguments (["123", "OnSolve.Mobile.Web.Models.PasswordModel"]) - ModelState is Valid
+2018-10-05 11:26:34.526 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 400
+2018-10-05 11:26:34.528 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" in 21770.2361ms
+2018-10-05 11:26:34.531 +05:30 [Information] Request finished in 21776.5205ms 400 
+2018-10-05 11:26:46.013 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/password/123 application/json-patch+json 32
+2018-10-05 11:26:46.016 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" with arguments (["123", "OnSolve.Mobile.Web.Models.PasswordModel"]) - ModelState is Valid
+2018-10-05 11:26:58.113 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-10-05 11:26:58.137 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Create (OnSolve.Mobile.Web)" in 12100.8067ms
+2018-10-05 11:26:58.140 +05:30 [Information] Request finished in 12127.9859ms 200 
+2018-10-05 11:28:08.620 +05:30 [Information] Request starting HTTP/1.1 PUT http://localhost:55306/api/user/rajeev.soni@nagarro.com/password application/json-patch+json 97
+2018-10-05 11:28:08.649 +05:30 [Information] Authorization failed for user: null.
+2018-10-05 11:28:08.654 +05:30 [Information] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'.
+2018-10-05 11:28:08.660 +05:30 [Information] Executing ChallengeResult with authentication schemes ([]).
+2018-10-05 11:28:08.675 +05:30 [Information] AuthenticationScheme: "Bearer" was challenged.
+2018-10-05 11:28:08.677 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Put (OnSolve.Mobile.Web)" in 50.594ms
+2018-10-05 11:28:08.679 +05:30 [Information] Request finished in 81.7666ms 401 
+2018-10-05 11:28:32.781 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-10-05 11:28:32.781 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-10-05 11:28:32.899 +05:30 [Information] Request finished in 175.1072ms 200 
+2018-10-05 11:28:33.477 +05:30 [Information] Request finished in 757.9648ms 404 
+2018-10-05 11:28:33.763 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-10-05 11:28:33.796 +05:30 [Information] Request finished in 32.4201ms 200 text/html
+2018-10-05 11:28:33.831 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-10-05 11:28:33.863 +05:30 [Information] The file "/swagger-ui.css" was not modified
+2018-10-05 11:28:33.888 +05:30 [Information] Request finished in 60.1216ms 304 text/css
+2018-10-05 11:28:34.536 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-10-05 11:28:34.538 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-10-05 11:28:34.562 +05:30 [Information] The file "/swagger-ui-standalone-preset.js" was not modified
+2018-10-05 11:28:34.568 +05:30 [Information] Request finished in 49.6521ms 304 application/javascript
+2018-10-05 11:28:34.573 +05:30 [Information] The file "/swagger-ui-bundle.js" was not modified
+2018-10-05 11:28:34.598 +05:30 [Information] Request finished in 65.0764ms 304 application/javascript
+2018-10-05 11:28:34.724 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-10-05 11:28:34.910 +05:30 [Information] Request finished in 185.0551ms 200 application/json
+2018-10-05 11:28:55.806 +05:30 [Information] Request starting HTTP/1.1 PUT http://localhost:55306/api/user/rajeev.soni@nagarro.com/password application/json-patch+json 97
+2018-10-05 11:28:56.358 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Put (OnSolve.Mobile.Web)" with arguments (["rajeev.soni@nagarro.com", "OnSolve.Mobile.Web.Models.ChangePasswordModel"]) - ModelState is Valid
+2018-10-05 11:29:03.968 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Put (OnSolve.Mobile.Web)" in 8057.0388ms
+2018-10-05 11:29:04.030 +05:30 [Error] Connection id ""0HLHAGUAD6OB6"", Request id ""0HLHAGUAD6OB6:00000004"": An unhandled exception was thrown by the application.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at OnSolve.Mobile.Web.Controllers.PasswordController.<Put>d__9.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResourceFilter>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeFilterPipelineAsync>d__17.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeAsync>d__15.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.<Invoke>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIIndexMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.<Invoke>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2018-10-05 11:29:04.037 +05:30 [Information] Request finished in 8230.595ms 500 
+2018-10-05 11:29:15.669 +05:30 [Information] Request starting HTTP/1.1 PUT http://localhost:55306/api/user/rajeev.soni@nagarro.com/password application/json-patch+json 97
+2018-10-05 11:29:15.674 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Put (OnSolve.Mobile.Web)" with arguments (["rajeev.soni@nagarro.com", "OnSolve.Mobile.Web.Models.ChangePasswordModel"]) - ModelState is Valid
+2018-10-05 11:29:49.624 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 400
+2018-10-05 11:29:49.631 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Put (OnSolve.Mobile.Web)" in 33957.0324ms
+2018-10-05 11:29:49.634 +05:30 [Information] Request finished in 33964.6255ms 400 
+2018-10-05 11:30:05.207 +05:30 [Information] Request starting HTTP/1.1 PUT http://localhost:55306/api/user/rajeev.soni@nagarro.com/password application/json-patch+json 103
+2018-10-05 11:30:05.211 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Put (OnSolve.Mobile.Web)" with arguments (["rajeev.soni@nagarro.com", "OnSolve.Mobile.Web.Models.ChangePasswordModel"]) - ModelState is Valid
+2018-10-05 11:30:27.227 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 400
+2018-10-05 11:30:27.230 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Put (OnSolve.Mobile.Web)" in 22021.5034ms
+2018-10-05 11:30:27.233 +05:30 [Information] Request finished in 22028.5936ms 400 
+2018-10-05 11:30:40.349 +05:30 [Information] Request starting HTTP/1.1 PUT http://localhost:55306/api/user/rajeev.soni@nagarro.com/password application/json-patch+json 105
+2018-10-05 11:30:40.352 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.PasswordController.Put (OnSolve.Mobile.Web)" with arguments (["rajeev.soni@nagarro.com", "OnSolve.Mobile.Web.Models.ChangePasswordModel"]) - ModelState is Valid
+2018-10-05 11:31:05.184 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 200
+2018-10-05 11:31:05.187 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Put (OnSolve.Mobile.Web)" in 24837.7521ms
+2018-10-05 11:31:05.191 +05:30 [Information] Request finished in 24843.7281ms 200 

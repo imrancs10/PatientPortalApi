@@ -1,0 +1,291 @@
+2018-08-09 16:03:25.279 +05:30 [Fatal] Application startup exception
+System.Data.SqlClient.SqlException (0x80131904): There is already an object named 'MobileUser' in the database.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.Execute(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.Migrate(DatabaseFacade databaseFacade)
+   at OnSolve.Mobile.Web.Startup.Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Func`1 dbprovider)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.Configure(IApplicationBuilder app)
+   at Microsoft.ApplicationInsights.AspNetCore.ApplicationInsightsStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISSetupFilter.<>c__DisplayClass3_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.Internal.AutoRequestServicesStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+ClientConnectionId:6e1a61cc-e8f1-4423-8b10-8891d99f07c9
+Error Number:2714,State:6,Class:16
+2018-08-09 16:03:25.734 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-08-09 16:03:25.735 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger  
+2018-08-09 16:03:25.734 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger  
+2018-08-09 16:03:25.879 +05:30 [Information] Request finished in 153.7796ms 500 text/html; charset=utf-8
+2018-08-09 16:03:25.879 +05:30 [Information] Request finished in 156.8679ms 500 
+2018-08-09 16:03:25.879 +05:30 [Error] Connection id ""0HLFTSE4UAM79"", Request id ""0HLFTSE4UAM79:00000001"": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Collections.Generic.List`1.Enumerator.MoveNextRare()
+   at System.Collections.Generic.List`1.Enumerator.MoveNext()
+   at System.String.Join(String separator, IEnumerable`1 values)
+   at Microsoft.Extensions.RazorViews.BaseView.EndWriteAttribute()
+   at Microsoft.AspNetCore.Hosting.Views.ErrorPage.<ExecuteAsync>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Extensions.RazorViews.BaseView.<ExecuteAsync>d__29.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2018-08-09 16:03:25.880 +05:30 [Information] Request finished in 159.9107ms 500 
+2018-08-09 16:46:17.717 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-08-09 16:46:17.717 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-08-09 16:46:17.833 +05:30 [Information] Request finished in 154.3705ms 200 
+2018-08-09 16:46:18.486 +05:30 [Information] Request finished in 830.2639ms 404 
+2018-08-09 16:47:29.068 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger  
+2018-08-09 16:47:29.079 +05:30 [Information] Request finished in 21.0489ms 301 
+2018-08-09 16:47:29.084 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-08-09 16:47:29.107 +05:30 [Information] Request finished in 22.2452ms 200 text/html
+2018-08-09 16:47:29.123 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-08-09 16:47:29.125 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-08-09 16:47:29.143 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-08-09 16:47:29.203 +05:30 [Information] Sending file. Request path: '"/swagger-ui.css"'. Physical path: '"N/A"'
+2018-08-09 16:47:29.204 +05:30 [Information] Sending file. Request path: '"/swagger-ui-standalone-preset.js"'. Physical path: '"N/A"'
+2018-08-09 16:47:29.207 +05:30 [Information] Sending file. Request path: '"/swagger-ui-bundle.js"'. Physical path: '"N/A"'
+2018-08-09 16:47:29.255 +05:30 [Information] Request finished in 123.3175ms 200 text/css
+2018-08-09 16:47:29.283 +05:30 [Information] Request finished in 127.4087ms 200 application/javascript
+2018-08-09 16:47:29.421 +05:30 [Information] Request finished in 293.787ms 200 application/javascript
+2018-08-09 16:47:30.393 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-08-09 16:47:30.428 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/favicon-32x32.png  
+2018-08-09 16:47:30.432 +05:30 [Information] Sending file. Request path: '"/favicon-32x32.png"'. Physical path: '"N/A"'
+2018-08-09 16:47:30.436 +05:30 [Information] Request finished in 9.8922ms 200 image/png
+2018-08-09 16:47:30.445 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/favicon-16x16.png  
+2018-08-09 16:47:30.448 +05:30 [Information] Sending file. Request path: '"/favicon-16x16.png"'. Physical path: '"N/A"'
+2018-08-09 16:47:30.452 +05:30 [Information] Request finished in 7.5083ms 200 image/png
+2018-08-09 16:47:30.647 +05:30 [Information] Request finished in 254.9497ms 200 application/json
+2018-08-09 16:47:49.475 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/contact?Email=sheikh.imran%40nagarro.com  
+2018-08-09 16:47:49.687 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.ContactController.Get (OnSolve.Mobile.Web)" with arguments (["OnSolve.Mobile.Web.Models.ContactListRequest"]) - ModelState is Valid
+2018-08-09 16:47:52.278 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 16:47:52.308 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.ContactController.Get (OnSolve.Mobile.Web)" in 2711.6975ms
+2018-08-09 16:47:52.311 +05:30 [Information] Request finished in 2836.0666ms 200 application/json; charset=utf-8
+2018-08-09 16:48:36.556 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/device?DeviceIdentifier=12345&UserName=sheikh.imran%40nagarro.com  0
+2018-08-09 16:48:36.564 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" with arguments (["OnSolve.Mobile.Web.Models.VerifyDeviceRequest"]) - ModelState is Valid
+2018-08-09 16:48:37.921 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 400
+2018-08-09 16:48:37.926 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" in 1362.7856ms
+2018-08-09 16:48:37.929 +05:30 [Information] Request finished in 1374.4942ms 400 
+2018-08-09 16:54:07.139 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/device?DeviceIdentifier=12345&UserName=imrannagarro  0
+2018-08-09 16:54:07.146 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" with arguments (["OnSolve.Mobile.Web.Models.VerifyDeviceRequest"]) - ModelState is Valid
+2018-08-09 16:54:09.759 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" in 2614.3123ms
+2018-08-09 16:54:09.821 +05:30 [Error] Connection id ""0HLFTT63E2K7E"", Request id ""0HLFTT63E2K7E:00000001"": An unhandled exception was thrown by the application.
+System.Exception: Device verification message Email request failed for receiver: 
+   at OnSolve.Mobile.Web.Infrastructure.Adaptors.EmailService.<SendDeviceVerificationMessageAsync>d__16.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at OnSolve.Mobile.Web.Services.DeviceVerificationService.<SendMail>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at OnSolve.Mobile.Web.Services.DeviceVerificationService.<RequestAuthorizationChallengeEmail>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at OnSolve.Mobile.Web.Controllers.DeviceVerificationController.<Post>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResourceFilter>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeFilterPipelineAsync>d__17.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeAsync>d__15.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.<Invoke>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIIndexMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.<Invoke>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2018-08-09 16:54:09.827 +05:30 [Information] Request finished in 2685.8699ms 500 
+2018-08-09 16:54:36.740 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/device?DeviceIdentifier=12345&UserName=imrannagarro  0
+2018-08-09 16:54:36.745 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" with arguments (["OnSolve.Mobile.Web.Models.VerifyDeviceRequest"]) - ModelState is Valid
+2018-08-09 16:57:48.027 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" in 191283.2348ms
+2018-08-09 16:57:48.038 +05:30 [Error] Connection id ""0HLFTT63E2K7E"", Request id ""0HLFTT63E2K7E:00000002"": An unhandled exception was thrown by the application.
+System.Exception: Device verification message Email request failed for receiver: 
+   at OnSolve.Mobile.Web.Infrastructure.Adaptors.EmailService.<SendDeviceVerificationMessageAsync>d__16.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at OnSolve.Mobile.Web.Services.DeviceVerificationService.<SendMail>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at OnSolve.Mobile.Web.Services.DeviceVerificationService.<RequestAuthorizationChallengeEmail>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at OnSolve.Mobile.Web.Controllers.DeviceVerificationController.<Post>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__12.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeNextActionFilterAsync>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeInnerFilterAsync>d__14.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeNextResourceFilter>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeFilterPipelineAsync>d__17.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.<InvokeAsync>d__15.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.<Invoke>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIIndexMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.<Invoke>d__6.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Server.IISIntegration.IISMiddleware.<Invoke>d__11.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNetCore.Hosting.Internal.RequestServicesContainerMiddleware.<Invoke>d__3.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.Frame`1.<ProcessRequestsAsync>d__2.MoveNext()
+2018-08-09 16:57:48.042 +05:30 [Information] Request finished in 191302.0223ms 500 
+2018-08-09 16:58:12.887 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/device/token?authorizationKey=w7y%5D6bq~zTvk1U%5E%60E0um16V9NXtCcJfw%7C%5B%7D)l5ONsk*DorZPVfL%7BrWKRf~aGauJ5&deviceIdentifier=12345  0
+2018-08-09 16:58:12.893 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" with arguments (["OnSolve.Mobile.Web.Models.DeviceTokenChallengeRequest"]) - ModelState is Valid
+2018-08-09 16:58:12.976 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 16:58:12.981 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" in 87.3119ms
+2018-08-09 16:58:12.984 +05:30 [Information] Request finished in 97.8809ms 200 application/json; charset=utf-8
+2018-08-09 17:00:21.445 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/api/fcmtokens?mobileUserIds=1  
+2018-08-09 17:00:21.473 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.FCMTokenController.Get (OnSolve.Mobile.Web)" with arguments (["System.Collections.Generic.List`1[System.Int32]"]) - ModelState is Valid
+2018-08-09 17:00:21.540 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:00:21.564 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.FCMTokenController.Get (OnSolve.Mobile.Web)" in 88.1361ms
+2018-08-09 17:00:21.567 +05:30 [Information] Request finished in 122.0931ms 200 application/json; charset=utf-8
+2018-08-09 17:00:38.787 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/sheikhimran/jwt application/json-patch+json 43
+2018-08-09 17:00:39.438 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:00:39.451 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 642.162ms
+2018-08-09 17:00:39.460 +05:30 [Information] Request finished in 673.2026ms 401 application/json; charset=utf-8
+2018-08-09 17:01:05.219 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/imrannagarro/jwt application/json-patch+json 43
+2018-08-09 17:01:05.233 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" with arguments (["imrannagarro", "zPzEVC]vialCUwsvW5|oR{WO!B$COBw(AX@mE]q}[@g4D`BpqqWOO!cQTkP4Fd0F", "OnSolve.Mobile.Web.Models.JwtRequest"]) - ModelState is Valid
+2018-08-09 17:01:09.948 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:01:09.954 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 4728.1583ms
+2018-08-09 17:01:09.958 +05:30 [Information] Request finished in 4738.8451ms 401 application/json; charset=utf-8
+2018-08-09 17:02:43.417 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/imrannagarro/jwt application/json-patch+json 38
+2018-08-09 17:02:43.431 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" with arguments (["imrannagarro", "zPzEVC]vialCUwsvW5|oR{WO!B$COBw(AX@mE]q}[@g4D`BpqqWOO!cQTkP4Fd0F", "OnSolve.Mobile.Web.Models.JwtRequest"]) - ModelState is Valid
+2018-08-09 17:02:45.076 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:02:45.079 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 1659.5934ms
+2018-08-09 17:02:45.082 +05:30 [Information] Request finished in 1667.725ms 401 application/json; charset=utf-8
+2018-08-09 17:13:19.127 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/imrannagarro/jwt application/json-patch+json 38
+2018-08-09 17:13:19.155 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" with arguments (["imrannagarro", "zPzEVC]vialCUwsvW5|oR{WO!B$COBw(AX@mE]q}[@g4D`BpqqWOO!cQTkP4Fd0F", "OnSolve.Mobile.Web.Models.JwtRequest"]) - ModelState is Valid
+2018-08-09 17:13:22.239 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:13:22.245 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 3111.8714ms
+2018-08-09 17:13:22.249 +05:30 [Information] Request finished in 3121.2544ms 401 application/json; charset=utf-8
+2018-08-09 17:14:01.860 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/imrannagarro/jwt application/json-patch+json 38
+2018-08-09 17:14:01.872 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" with arguments (["imrannagarro", "zPzEVC]vialCUwsvW5|oR{WO!B$COBw(AX@mE]q}[@g4D`BpqqWOO!cQTkP4Fd0F", "OnSolve.Mobile.Web.Models.JwtRequest"]) - ModelState is Valid
+2018-08-09 17:14:53.441 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:14:53.448 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 51581.0758ms
+2018-08-09 17:14:53.453 +05:30 [Information] Request finished in 51592.786ms 401 application/json; charset=utf-8
+2018-08-09 17:15:34.425 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/imrannagarro/jwt application/json-patch+json 48
+2018-08-09 17:15:34.436 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" with arguments (["imrannagarro", "zPzEVC]vialCUwsvW5|oR{WO!B$COBw(AX@mE]q}[@g4D`BpqqWOO!cQTkP4Fd0F", "OnSolve.Mobile.Web.Models.JwtRequest"]) - ModelState is Valid
+2018-08-09 17:19:13.461 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:19:13.464 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 219036.3145ms
+2018-08-09 17:19:13.470 +05:30 [Information] Request finished in 219044.9181ms 401 application/json; charset=utf-8
+2018-08-09 17:19:16.237 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/imrannagarro/jwt application/json-patch+json 48
+2018-08-09 17:19:16.251 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" with arguments (["imrannagarro", "zPzEVC]vialCUwsvW5|oR{WO!B$COBw(AX@mE]q}[@g4D`BpqqWOO!cQTkP4Fd0F", "OnSolve.Mobile.Web.Models.JwtRequest"]) - ModelState is Valid
+2018-08-09 17:19:53.435 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:19:53.462 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 37200.237ms
+2018-08-09 17:19:53.466 +05:30 [Information] Request finished in 37228.7133ms 200 application/json; charset=utf-8
+2018-08-09 17:23:36.673 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/sheikhimran/passwordresetchallenge  0
+2018-08-09 17:23:36.711 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:23:36.716 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Post (OnSolve.Mobile.Web)" in 34.0656ms
+2018-08-09 17:23:36.722 +05:30 [Information] Request finished in 48.0026ms 401 application/json; charset=utf-8
+2018-08-09 17:24:13.437 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/sheikhimran/passwordresetchallenge  0
+2018-08-09 17:24:13.447 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-09 17:24:13.452 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.PasswordController.Post (OnSolve.Mobile.Web)" in 9.5142ms
+2018-08-09 17:24:13.457 +05:30 [Information] Request finished in 21.3243ms 401 application/json; charset=utf-8
+2018-08-09 21:00:50.656 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-08-09 21:00:50.657 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-08-09 21:00:50.800 +05:30 [Information] Request finished in 233.2557ms 200 
+2018-08-09 21:00:51.632 +05:30 [Information] Request finished in 1075.769ms 404 

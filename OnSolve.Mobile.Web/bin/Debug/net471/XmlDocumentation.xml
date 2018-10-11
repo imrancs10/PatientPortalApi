@@ -1,0 +1,1194 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OnSolve.Mobile.Web</name>
+    </assembly>
+    <members>
+        <member name="M:OnSolve.Mobile.Web.Controllers.ContactController.Get(OnSolve.Mobile.Web.Models.ContactListRequest)">
+            <summary>
+            Returns contacts details
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            1. A valid verification code must be provided as a querystring
+            </remarks>
+            <response code="400">If contactlist email is not matched with any contact or Contact is duplicated within account</response>
+            <response code="200">OK - with a list of contacts and account details</response>
+            <param name="contactListRequest">The contact list request consisting the code from the openApp api for android and IOS.</param>
+            <returns>
+            List of contacts with account details
+            </returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.ContactController.Get(System.String)">
+            <summary>
+            Returns a contact verification link based on IOS and Android device
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            This is api returns a url for opening app.
+            If user-agent contains android, then this api will return android url, for all other cases, it returns Ios url.
+            </remarks>
+            <response code="200">OK - If reset password link is sent.</response>
+            <response code="400">If username or resetcode is not provided</response>
+            <param name="code">code received from the email verification email.</param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.ContactController.Post(OnSolve.Mobile.Web.Models.EmailVerificationRequest)">
+            <summary>
+            verifies the ownership of the email to the contact.
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            1. A valid email address must be provided as a querystring
+            </remarks>
+            <response code="400">If contactlist email is not matched with any contact or Contact is duplicated within account</response>
+            <response code="200">OK - with a list of contact points and account details</response>
+            <param name="emailVerificationRequest">The contact list request.</param>
+            <returns>
+            Ok and sends a verification email to the given email id.
+            </returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.FCMTokenController.Post(OnSolve.Mobile.Web.Models.FCMTokenRequest)">
+            <summary>
+             creates fcm token for user corresponding to a device.
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            User should be logged in and have valid jwt token
+            </remarks>
+            <response code="200">Ok - on successful creation of fcmToken on server</response>
+            <param name="fcmTokenRequestModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.FCMTokenController.Put(OnSolve.Mobile.Web.Models.FCMTokenUpdateModel)">
+            <summary>
+             Update fcm token for user corresponding to a device.
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            User should be logged in and have valid jwt token
+            </remarks>
+            <response code="201">Ok - on successful updation of fcmToken</response>
+            <param name="fcmTokenUpdateModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.FCMTokenController.Delete(OnSolve.Mobile.Web.Models.FCMTokenRequest)">
+            <summary>
+             Delete fcm token for user corresponding to a device.
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            User should be logged in and have valid jwt token
+            </remarks>
+            <response code="201">Ok - on successful deletion of fcmToken</response>
+            <param name="fcmTokenRequestModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.JwtController.Post(System.String,OnSolve.Mobile.Web.Models.JwtRequest)">
+            <summary>
+             Provides the Jwt token for the user.
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            Device of user must be verified before reaching this step.
+            </remarks>
+            <response code="200">OK - If able to login.</response>
+            <response code="401">Unauthorized if username or password is incorrect.</response>
+            <param name="username"></param>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.PasswordController.Post(System.String)">
+            <summary>
+            Sends the reset password link to user
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            Device of user must be verified before reaching this step.
+            An email/message with reset password link will be sent to user.
+            </remarks>
+            <response code="200">OK - If reset password link is sent.</response>
+            <response code="400">If user is not valid.</response>
+            <response code="403">If user is restricted user.</response>
+            <param name="username">Username for which we want to reset password.</param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.PasswordController.Get(System.String)">
+            <summary>
+            Returns a reset password link based on IOS and Android device
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            This is API returns a url for opening app.
+            It won't verify security code and user, that would be done in later step.
+            If user-agent contains android, then this API will return android url, for all other cases, it returns IOS url.
+            </remarks>
+            <response code="200">OK - If reset password link is sent.</response>
+            <response code="400">If username or resetcode is not provided</response>
+            <param name="resetCode">To Get from request header.</param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.PasswordController.Create(System.String,OnSolve.Mobile.Web.Models.PasswordModel)">
+            <summary>
+            Reset user password
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            Device of user must be verified before reaching this step.
+            An authorized email/message that was sent initiates this request.
+            
+            </remarks>
+            <response code="200">OK - If password created.</response>
+            <response code="400">If request is not valid for password reset.</response>
+            <response code="403">When reset code is invalid.</response>
+            <param name="passwordModel">New Password</param>
+            <param name="resetcode">reset Code to be veified</param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.PasswordController.Put(System.String,OnSolve.Mobile.Web.Models.ChangePasswordModel)">
+            <summary>
+            Change user password
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            User should be authorized for password change.    
+            
+            </remarks>
+            <response code="200">OK - If password changed.</response>
+            <response code="400">If User name or password do not matched.</response>
+            <response code="404">If user is not found.</response>
+            <response code="403">If user is locked.</response>
+            <param name="username">Username for which you want to change password.</param>
+            <param name="changePasswordModel">Change password Details</param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.UserController.Post(OnSolve.Mobile.Web.Models.UserRequest)">
+            <summary>
+            Creates/Registers a contact point user and returns the jwt token.
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            1. recipientId - Mandatory
+            2. emailAddress - Mandatory (should be valid email address)
+            3. accountId - Mandatory (and should match recipient id)
+            4. password - Required, if account settings need it. Should confirm to password requirements.
+            </remarks>
+            <response code="200">User created successfully and jwt token sent.</response>
+            <response code="400">BadRequest(Password is empty or registration details are invalid.</response>
+            <param name="userRequest">The user model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.UserController.Get">
+            <summary>
+            Get user detail.
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            1. Provide JWT token
+            </remarks>
+            <response code="200">Successful result.</response>
+            <response code="404">users not found.</response>
+            <returns></returns>
+        </member>
+        <member name="M:OnSolve.Mobile.Web.Controllers.UserController.Post(OnSolve.Mobile.Web.Models.ENSLoginModel)">
+            <summary>
+            Login the ENS user and returns the details so that the mobile user can be registered.
+            </summary>
+            <remarks>
+            ### Usage Notes ###
+            1. Provide list of recipient id
+            </remarks>
+            <response code="200">Successful result along with the ENS user details returned.</response>
+            <response code="400">Invalid credentials.</response>
+            <param name="loginModel">Model containing the ENS user credentials.</param>
+            <returns></returns>
+        </member>
+        <member name="T:SessionManager.LoginRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginRequest.Password">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginRequest.Username">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginRequest.Passcode">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.LoginRequestBase">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginRequestBase.IpAddress">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginRequestBase.ServiceEntryPoint">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.ServiceEntryPointType">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.AlertingWebSite">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.AlertingWebService">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.FreeTestWebSite">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.GcmWebService">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.ImportProcess">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.ImsWebSite">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.MessageMillService">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.PalmWebService">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.QuicksendViaEmail">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.QuicksendWebSite">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.UspsWebService">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.SelfSignUp">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.Unknown">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.BlackberryClient">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.IPhoneClient">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.AndroidClient">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.DesktopAlertingClient">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ServiceEntryPointType.MediaServer">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetAccessPhoneRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetAccessPhoneRequest.Username">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetAccessPhoneRequest.AccessPhone">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetAccessPhoneRequest.IsAccessByPhoneActive">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetAccessPhoneRequest.SessionId">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetResultBase">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetResultBase.ResultDescription">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetResultBase.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetAccessPhoneResult">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetPinResult">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetPinRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetPinRequest.Username">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetPinRequest.Pin">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetPinRequest.SessionId">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.GetUserActionsListResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.GetUserActionsListResult.UserActions">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.GetUserActionsListRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.GetUserActionsListRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SessionToken">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SessionToken.SessionId">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SignedSessionToken">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SignedSessionToken.TokenHash">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.Permission">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.Permission.Id">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.Permission.Type">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.Permission.Name">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.Permission.Code">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.PermissionType">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.PermissionType.Feature">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.PermissionType.Permission">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SysKey">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SysKey.Name">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SysKey.Type">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SysKey.StringValue">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SysKey.NumericValue">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.Types">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.Types.String">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.Types.Number">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.AuthenticationInfo">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.AccountId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.AccountStatus">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.Enabled">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.Password">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.RecipientStatusId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.UserId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.RoleId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.Username">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.UserStatus">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationInfo.MemberId">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SettingResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SettingResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SettingResult.NumericData">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SettingResult.ResultCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SettingResult.ResultDescription">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SettingResult.TextData">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SessionSettingResultType">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SessionSettingResultType.Unknown">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SessionSettingResultType.SuccessNumber">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SessionSettingResultType.SuccessString">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SessionSettingResultType.SuccessText">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SessionSettingResultType.FailureNotFound">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SessionSettingResultType.ErrorDB">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SessionSettingResultType.ErrorBadParameter">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SessionSettingResultType.ErrorUnknown">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SettingCheckRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SettingCheckRequest.Key">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SettingCheckRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.PermissionCheck">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionCheck.Code">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionCheck.IsEnable">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.PermissionListCheckResponse">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionListCheckResponse.PermissionCheckList">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.PermissionListCheckRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionListCheckRequest.Codes">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionListCheckRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.RoleDynamicPermissionsCheckRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.RoleDynamicPermissionsCheckRequest.CheckCondition">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.RoleDynamicPermissionsCheckRequest.Keys">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.RoleDynamicPermissionsCheckRequest.RoleId">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.DynamicPermissionsCheckCondition">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.DynamicPermissionsCheckCondition.All">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.DynamicPermissionsCheckCondition.Any">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.RoleDynamicPermissionCheckRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.RoleDynamicPermissionCheckRequest.Key">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.RoleDynamicPermissionCheckRequest.RoleId">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.PermissionCheckRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionCheckRequest.Key">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionCheckRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.PaginationResponse">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PaginationResponse.TotalRowCount">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PaginationResponse.PageIndex">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PaginationResponse.PageSize">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PaginationResponse.TotalPageCount">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.UserInfoWithStatusFlag">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.UserInfoWithStatusFlag.UserId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.UserInfoWithStatusFlag.Username">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.UserInfoWithStatusFlag.MemberId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.UserInfoWithStatusFlag.FirstName">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.UserInfoWithStatusFlag.MiddleName">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.UserInfoWithStatusFlag.LastName">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.UserInfoWithStatusFlag.ActionVal">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.GetAccountLoginsAndStatusFlagResults">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.GetAccountLoginsAndStatusFlagResults.Users">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.GetAccountLoginsAndStatusFlagResults.ActionCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.GetAccountLoginsAndStatusFlagResults.Pagination">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.PaginationRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PaginationRequest.PageIndex">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PaginationRequest.PageSize">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.GetAccountLoginsAndStatusFlagsRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.GetAccountLoginsAndStatusFlagsRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.GetAccountLoginsAndStatusFlagsRequest.ActionCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.GetAccountLoginsAndStatusFlagsRequest.Pagination">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.PermissionsResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionsResult.PermissionsList">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionsResult.SessionToken">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.PermissionsRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.PermissionsRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SecurityQuestionResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SecurityQuestionResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SecurityQuestionResult.ResultCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SecurityQuestionResult.ResultDescription">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SecurityQuestionResult.SecurityQuestion">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SecurityResultType">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SecurityResultType.Unknown">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SecurityResultType.Success">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SecurityResultType.FailureUserNotFound">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SecurityResultType.FailureSecurityAnswerInvalid">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SecurityResultType.FailureSecurityQuestionNotFound">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SecurityResultType.ErrorException">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SecurityAnswerValidationResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SecurityAnswerValidationResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SecurityAnswerValidationResult.ResultCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SecurityAnswerValidationResult.ResultDescription">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.UserSecurityAnswerRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.UserSecurityAnswerRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.UserSecurityAnswerRequest.SecurityAnswer">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.ValidationResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.ValidationResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.ValidationResult.ResultCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.ValidationResult.ResultDescription">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.ValidationResult.CodeMinLength">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.ValidationResultType">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.Unknown">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.Success">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.ErrorException">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureCodeInvalid">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureInvalidTooShort">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureInvalidMustUseUpperLowerCase">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureInvalidMustContainOneSymbol">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureInvalidNotUnique">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureInvalidTooSimple">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureInvalidCannotReUse">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureIllegalCharacters">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureInvalidTooLong">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.ValidationResultType.FailureInvalidExpired">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetUserPermissionRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetUserPermissionRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetUserPermissionRequest.UserId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetUserPermissionRequest.ActionCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetUserPermissionRequest.ActionVal">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetQuickSendCodeResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetQuickSendCodeResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetQuickSendCodeResult.ResultCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetQuickSendCodeResult.ResultDescription">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetQuickSendCodeResult.Extension">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetQuickSendCodeResultType">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.Unknown">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.Success">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.FailureUserNotFound">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.FailureQuickSendCodeInvalid">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.ErrorException">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.ErrorMultipleUpdate">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.FailureQuickSendCodeInvalidTooShort">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.FailureQuickSendCodeInvalidMustUseUpperLowerCase">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.FailureQuickSendCodeInvalidMustContainOneSymbol">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.FailureQuickSendCodeInvalidTooSimple">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.FailureQuickSendCodeInvalidMustBeUnique">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetQuickSendCodeResultType.FailureQuickSendCodeInvalidCannotReUse">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetUserQuickSendCodeRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetUserQuickSendCodeRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetUserQuickSendCodeRequest.QuickSendCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetUserQuickSendCodeRequest.Username">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetPasswordResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetPasswordResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetPasswordResult.ResultCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetPasswordResult.ResultDescription">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetPasswordResult.Extension">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetPasswordResultType">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.Unknown">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.Success">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.FailureUserNotFound">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.FailurePasswordInvalid">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.ErrorException">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.ErrorMultipleUpdate">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.FailurePasswordInvalidTooShort">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.FailurePasswordInvalidMustUseUpperLowerCase">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.FailurePasswordInvalidMustContainOneSymbol">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.FailurePasswordInvalidTooSimple">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.SetPasswordResultType.FailurePasswordInvalidCannotReUse">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetPasswordRequestBase">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetPasswordRequestBase.Password">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetPasswordRequestBase.SessionToken">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetUserPasswordRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetUserPasswordRequest.UserId">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetMemberUserPasswordRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.SetMemberUserPasswordRequest.Username">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.SetSessionUserPasswordRequest">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.LogoutResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LogoutResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.LogoutRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LogoutRequest.ServiceEntryPoint">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LogoutRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.ExpireOtidResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.ExpireOtidResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.GetOtidRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.GetOtidRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.LoginResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.ResultCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.ResultDescription">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.Username">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.UserId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.SessionToken">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.RoleId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.PartnerId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.PasswordExpiredAfter">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.QuickSendExpiredAfter">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.AccountId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginResult.CultureName">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.LoginResultType">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.Unknown">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.SuccessDb">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.SuccessCache">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.SuccessCheck">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.UserExpiredQuickSend">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ImpersonatorExpiredQuickSend">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ImpersonatorForcePasswordChange">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureDb">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureCache">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserNotFound">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureRsaPrincipalIdNotFound">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserNotEnabled">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserActionNotAllowed">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserInvalidAccountStatus">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserInvalidUserStatus">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserDisabledLogin">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserBlackberryNotEnabled">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserInvalidPassword">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserInvalidPasscode">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserLockedOut">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserExpiredPassword">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserInvalidUsername">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureImpersonationNotAllowed">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureImpersonatorNotFound">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureImpersonatorNotEnabled">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureImpersonatorActionNotAllowed">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureImpersonatorInvalidUserStatus">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureImpersonatorInvalidAccountStatus">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureImpersonatorInvalidPassword">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureImpersonatorLockedOut">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureImpersonatorExpiredPassword">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureBlackberryNotEnabled">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureOtidInvalid">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailurePasscode">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureNextTokencodeMode">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ErrorDb">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ErrorCache">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ErrorSystem">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ErrorUser">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ErrorDuplicateUsers">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ErrorImpersonator">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ErrorImpersonation">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ErrorAuthentication">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ErrorSession">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.ForcePasswordChange">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureIpAddressNotFound">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.UserLoginDisabled">
+            <remarks/>
+        </member>
+        <member name="F:SessionManager.LoginResultType.FailureUserInvalidPin">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.CheckUserRequiresPasscodeResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.CheckUserRequiresPasscodeResult.Required">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.CheckUserRequiresPasscodeRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.CheckUserRequiresPasscodeRequest.Username">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.AuthenticationCheckResult">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationCheckResult.IsSuccess">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationCheckResult.ResultCode">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationCheckResult.ResultDescription">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationCheckResult.Username">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AuthenticationCheckResult.PartnerId">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.ExpireOtidRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.ExpireOtidRequest.Otid">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.OtidLoginRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.OtidLoginRequest.Otid">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.OtidLoginRequest.IsExpireOtid">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.OtidLoginRequest.Passcode">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.AccountLinkLoginRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AccountLinkLoginRequest.SessionToken">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AccountLinkLoginRequest.AccountLinkId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.AccountLinkLoginRequest.NonNativeAdminUserId">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.QuickSendLoginRequest">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.QuickSendLoginRequest.QuickSendCode">
+            <remarks/>
+        </member>
+        <member name="T:SessionManager.LoginRequestWithAccountId">
+            <remarks/>
+        </member>
+        <member name="P:SessionManager.LoginRequestWithAccountId.AccountId">
+            <remarks/>
+        </member>
+    </members>
+</doc>

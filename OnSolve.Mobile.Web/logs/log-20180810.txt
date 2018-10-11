@@ -1,0 +1,61 @@
+2018-08-10 14:58:36.274 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/  
+2018-08-10 14:58:36.274 +05:30 [Information] Request starting HTTP/1.1 DEBUG http://localhost:55306/  0
+2018-08-10 14:58:36.432 +05:30 [Information] Request finished in 199.716ms 200 
+2018-08-10 14:58:36.899 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-08-10 14:58:36.964 +05:30 [Information] Request finished in 46.2382ms 200 text/html
+2018-08-10 14:58:37.014 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-08-10 14:58:37.017 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-08-10 14:58:37.019 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-08-10 14:58:37.090 +05:30 [Information] The file "/swagger-ui-standalone-preset.js" was not modified
+2018-08-10 14:58:37.091 +05:30 [Information] The file "/swagger-ui-bundle.js" was not modified
+2018-08-10 14:58:37.143 +05:30 [Information] Request finished in 103.5162ms 304 application/javascript
+2018-08-10 14:58:37.120 +05:30 [Information] The file "/swagger-ui.css" was not modified
+2018-08-10 14:58:37.150 +05:30 [Information] Request finished in 128.9731ms 304 application/javascript
+2018-08-10 14:58:37.157 +05:30 [Information] Request finished in 174.379ms 304 text/css
+2018-08-10 14:58:37.300 +05:30 [Information] Request finished in 1092.3273ms 404 
+2018-08-10 14:58:38.009 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-08-10 14:58:38.235 +05:30 [Information] Request finished in 225.8658ms 200 application/json
+2018-08-10 15:00:12.702 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/imrannagarro/jwt application/json-patch+json 38
+2018-08-10 15:00:14.013 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" with arguments (["imrannagarro", "zPzEVC]vialCUwsvW5|oR{WO!B$COBw(AX@mE]q}[@g4D`BpqqWOO!cQTkP4Fd0F", "OnSolve.Mobile.Web.Models.JwtRequest"]) - ModelState is Valid
+2018-08-10 15:00:21.478 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-10 15:00:21.517 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 8710.9125ms
+2018-08-10 15:00:21.524 +05:30 [Information] Request finished in 8822.5267ms 401 application/json; charset=utf-8
+2018-08-10 15:01:45.840 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/device?DeviceIdentifier=12345&UserName=sheikh.imran%40nagarro.com  0
+2018-08-10 15:01:45.894 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" with arguments (["OnSolve.Mobile.Web.Models.VerifyDeviceRequest"]) - ModelState is Valid
+2018-08-10 15:01:46.146 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 400
+2018-08-10 15:01:46.150 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" in 287.2593ms
+2018-08-10 15:01:46.155 +05:30 [Information] Request finished in 315.1222ms 400 
+2018-08-10 15:09:40.371 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/device?DeviceIdentifier=12345&UserName=imran%40nagarro.com  0
+2018-08-10 15:09:40.375 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" with arguments (["OnSolve.Mobile.Web.Models.VerifyDeviceRequest"]) - ModelState is Valid
+2018-08-10 15:09:41.548 +05:30 [Information] Executing HttpStatusCodeResult, setting HTTP status code 400
+2018-08-10 15:09:41.552 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.DeviceVerificationController.Post (OnSolve.Mobile.Web)" in 1176.7365ms
+2018-08-10 15:09:41.558 +05:30 [Information] Request finished in 1186.0232ms 400 
+2018-08-10 15:10:26.128 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/imran@nagarro.com/jwt application/json-patch+json 38
+2018-08-10 15:10:26.141 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" with arguments (["imran@nagarro.com", "zPzEVC]vialCUwsvW5|oR{WO!B$COBw(AX@mE]q}[@g4D`BpqqWOO!cQTkP4Fd0F", "OnSolve.Mobile.Web.Models.JwtRequest"]) - ModelState is Valid
+2018-08-10 15:10:26.443 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-10 15:10:26.445 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 314.4411ms
+2018-08-10 15:10:26.448 +05:30 [Information] Request finished in 321.3483ms 200 application/json; charset=utf-8
+2018-08-10 15:21:24.807 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/  
+2018-08-10 15:21:24.811 +05:30 [Information] Request finished in 2.7609ms 200 text/html
+2018-08-10 15:21:24.835 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui.css  
+2018-08-10 15:21:24.864 +05:30 [Information] The file "/swagger-ui.css" was not modified
+2018-08-10 15:21:24.867 +05:30 [Information] Request finished in 35.9555ms 304 text/css
+2018-08-10 15:21:24.874 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-standalone-preset.js  
+2018-08-10 15:21:24.881 +05:30 [Information] The file "/swagger-ui-standalone-preset.js" was not modified
+2018-08-10 15:21:24.884 +05:30 [Information] Request finished in 10.0612ms 304 application/javascript
+2018-08-10 15:21:24.887 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/swagger-ui-bundle.js  
+2018-08-10 15:21:24.889 +05:30 [Information] The file "/swagger-ui-bundle.js" was not modified
+2018-08-10 15:21:24.893 +05:30 [Information] Request finished in 54.5382ms 304 application/javascript
+2018-08-10 15:21:25.230 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/v1/swagger.json  
+2018-08-10 15:21:25.246 +05:30 [Information] Request finished in 10.6698ms 200 application/json
+2018-08-10 15:21:25.248 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/favicon-32x32.png  
+2018-08-10 15:21:25.261 +05:30 [Information] Sending file. Request path: '"/favicon-32x32.png"'. Physical path: '"N/A"'
+2018-08-10 15:21:25.274 +05:30 [Information] Request finished in 29.6198ms 200 image/png
+2018-08-10 15:21:25.376 +05:30 [Information] Request starting HTTP/1.1 GET http://localhost:55306/swagger/favicon-16x16.png  
+2018-08-10 15:21:25.381 +05:30 [Information] Sending file. Request path: '"/favicon-16x16.png"'. Physical path: '"N/A"'
+2018-08-10 15:21:25.405 +05:30 [Information] Request finished in 8.287ms 200 image/png
+2018-08-10 15:22:33.379 +05:30 [Information] Request starting HTTP/1.1 POST http://localhost:55306/api/user/imran@nagarro.com/jwt application/json-patch+json 38
+2018-08-10 15:22:33.408 +05:30 [Information] Executing action method "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" with arguments (["imran@nagarro.com", "zPzEVC]vialCUwsvW5|oR{WO!B$COBw(AX@mE]q}[@g4D`BpqqWOO!cQTkP4Fd0F", "OnSolve.Mobile.Web.Models.JwtRequest"]) - ModelState is Valid
+2018-08-10 15:22:34.785 +05:30 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2018-08-10 15:22:34.790 +05:30 [Information] Executed action "OnSolve.Mobile.Web.Controllers.JwtController.Post (OnSolve.Mobile.Web)" in 1405.9006ms
+2018-08-10 15:22:34.792 +05:30 [Information] Request finished in 1413.7782ms 200 application/json; charset=utf-8
