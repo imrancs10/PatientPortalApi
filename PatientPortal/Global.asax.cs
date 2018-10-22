@@ -21,7 +21,6 @@ namespace PatientPortal
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            
         }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
