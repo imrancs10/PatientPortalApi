@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "AddDoctorLeave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/App/Masters/DoctorLeave.js"></script>
+<div class="">
+    <div class="col-sm-12 col-lg-12" style="padding-top:20px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Set Leave</div>
+            <div class="panel-body">
+                <div class="col-container">
+                    <div class="col">
+                        <select class="form-control" id="ddlDepartments" name="departmentid" required="required">
+                            <option value="">Select Department</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="form-control" id="ddlDoctors" name="doctorid" required="required">
+                            <option value="">Select Doctor</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <input class="form-control" type="date" id="txtleavedate" name="leavedate" required="required" />
+                    </div>
+
+                    <div class="col">
+                        <button class="btn btn-primary" id="btnSave">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-12" style="padding-top:20px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Leave History</div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover table-responsive text-center" id="docTable">
+                    <thead>
+                        <tr>
+                            <th style="width:10%">Sr. No.</th>
+                            <th name="DoctorName">Department Name</th>
+                            <th name="DoctorName">Doctor Name</th>
+                            <th style="width:20%">Leave Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="4">No Record Found</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .col-container {
+        display: table; /* Make the container element behave like a table */
+        width: 100%; /* Set full-width to expand the whole page */
+    }
+
+    .col {
+        display: table-cell; /* Make elements inside the container behave like table cells */
+        width:25%;
+    }
+
+        .col select,input {
+            width: 95% !important;
+        }
+</style>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://103.78.201.146/PateintPortalWebservice/GetPatient_Info_insert.asmx?wsdl" filename="GetPatient_Info_insert.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://103.78.201.146/PateintPortalWebservice/GetPatient_Info_insert.asmx?disco" filename="GetPatient_Info_insert.disco" />
+  </Results>
+</DiscoveryClientResultsFile>

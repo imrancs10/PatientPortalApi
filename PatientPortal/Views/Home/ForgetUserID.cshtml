@@ -1,0 +1,119 @@
+﻿@{
+    Layout = null;
+}
+
+@using PatientPortal.Global
+@using PatientPortal.Controllers;
+@using DataLayer;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @hospitalName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Login/Login.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%">
+                @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="float:right">
+                    @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="" style="margin-top:0px;padding-top:20px;">
+        <div class="col-sm-12 col-lg-12">
+            <div class="panel panel-primary" style="width:50%;margin:0 auto">
+                <div class="panel-heading">
+                    Forget User Id
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <form id="form" class="form-horizontal" action="ForgetUserID" method="post" autocomplete="off">
+                            <div class="col-sm-12 col-lg-12">
+                                @if (!string.IsNullOrEmpty(Convert.ToString(ViewData["msg"])))
+                                {
+                                    <div class="col-sm-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label>@Convert.ToString(ViewData["msg"])</label>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label>Enter Mobile Number/Email Id</label>
+                                            <div>
+                                                <input type="text" value="" name="emailmobile" required data-valid="required" class="form-control"
+                                                       id="emailmobile" placeholder="Mobile Number/Email" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label></label>
+                                            <div>
+                                                <div>
+                                                    <input type="submit" name="Submit" class="btn btn-warning pull-right" value="Submit">
+                                                    <a href="/Home/Index" class="btn btn-warning pull-right" style="margin:0 20px;">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+</body>
+</html>
+

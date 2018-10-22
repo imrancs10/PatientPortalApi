@@ -1,0 +1,29 @@
+﻿@using System.Configuration;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TransactionPay</title>
+    <script type="text/javascript">
+        function PostData() {
+            document.getElementById("form1").submit();
+        }
+    </script>
+</head>
+<body onload="PostData()">
+    <form id="form1" action="https://cgt.in.worldline.com/ipg/doMEPayRequest" runat="server" method="post">
+        <div style="text-align:center;font-size:20px">
+            <input type="hidden" name="merchantRequest" id="merchantRequest" value=@Session["Message"] />
+            <input type="hidden" name="MID" id="MID" value=@Session["MID"] />
+            <asp:Literal runat="server" ID="ltrPostData"></asp:Literal>
+            <br />
+            <asp:Label runat="server" ID="lbl" style="text-align:center" Font-Bold="true" Font-Size="X-Large" CssClass="StrongText"> Please Do not close and Refresh Browser <br />Payment Process on the way for Registration Fee <span style="font-size:larger;color:brown"> @Convert.ToString(ConfigurationManager.AppSettings["TransactionAmount"]) Rs.</span></asp:Label>
+        </div>
+    </form>
+</body>
+</html>

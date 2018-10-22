@@ -1,0 +1,48 @@
+﻿@using PatientPortal.Global;
+@{
+    ViewBag.Title = "GetAppointments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/App/Masters/appSetting.js"></script>
+<div class="" style="margin-top:0px;padding-top:20px;">
+    @{
+        <input type="hidden" id="hdnAppointmentPeriodInMinuts" value="@WebSession.AppointmentSlot" />
+    }
+    <div class="col-sm-4 col-lg-4 col-lg-offset-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Appointment Setting</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="txtAppointmentSlot">Appointment Slot (in minutes)</label>
+                    <input type="number" class="form-control" required="required" id="txtAppointmentSlot" name="AppointmentSlot" value="30" min="10" max="120" />
+                </div>
+                <div class="form-group">
+                    <label for="txtCalenderPeriod">Calender Period (in days)</label>
+                    <input type="number" class="form-control" required="required" id="txtCalenderPeriod" name="CalenderPeriod" value="30" min="1" max="366" />
+                </div>
+                <div class="form-group">
+                    <label for="txtAppointmentMessage">Appointment Message</label>
+                    <input type="text" class="form-control" id="txtAppointmentMessage" name="AppointmentMessage" value="" maxlength="250" />
+                </div>
+                <div class="form-group">
+                    <label for="txtAppointmentLimitPerUser">Appointment Limit (per user)</label>
+                    <input type="number" class="form-control" required="required" id="txtAppointmentLimitPerUser" name="AppointmentLimitPerUser" value="1" min="1" />
+                </div>
+                <div class="form-group">
+                    <label for="txtAppointmentCancelPeriod">Appointment Cancel Period (in minutes)</label>
+                    <input type="number" class="form-control" required="required" id="txtAppointmentCancelPeriod" name="AppointmentCancelPeriod" value="30" min="10" max="30" />
+                </div>
+                <div class="form-group">
+                    <label for="txtAutoCancelMessage">Appointment Auto Cancel Message</label>
+                    <input type="text" class="form-control" required="required" id="txtAutoCancelMessage" name="AutoCancelMessage" value="" maxlength="250" />
+                </div><div class="form-group">
+                    <label for="chkIsActiveAppointmentMessage">Is Active Appointment Message</label>
+                    <input type="checkbox" id="chkIsActiveAppointmentMessage" name="IsActiveAppointmentMessage" />
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-primary" id="btnSave">Save</button> 
+            </div>
+        </div>
+    </div>
+</div>

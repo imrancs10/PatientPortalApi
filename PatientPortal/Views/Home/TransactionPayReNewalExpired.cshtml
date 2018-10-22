@@ -1,0 +1,164 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using PatientPortal.Global
+@using PatientPortal.Controllers;
+@using DataLayer;
+@using PatientPortal.Models;
+@using System.Configuration;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @hospitalName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+
+</head>
+<body>
+    <script type="text/javascript">
+        var jsonPatient = null;
+    </script>
+    @{
+        bool registerPage = false;
+        if (Convert.ToString(ViewData["registerAction"]) != "getotpscreen")
+        {
+            registerPage = true;
+        }
+    }
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%">
+                @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="float:right">
+                    @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main page-bg">
+        <div class="container mobile-padding-lr0 ">
+            <div class="col-md-8 col-md-offset-21 col-sm-12 no-padding-sm register-main">
+                <div class="col-md-12 RegisterPage-container">
+
+                    <div class="" style="margin-top:0px;padding-top:20px;">
+                        <div class="col-sm-12 col-lg-12">
+                            <div class="panel panel-primary" style="width:50%;margin:0 auto">
+                                <div class="panel-heading">
+                                    Registration Renewal
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-lg-12">
+                                            <div class="col-sm-12 col-lg-12">
+                                                <div class="form-group">
+                                                    <b>Please Pay @Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["TransactionAmount"]) Rs. to renew your registration</b><br />
+                                                    Kindly click on Pay Button to proceed.
+                                                </div>
+                                                <div class="form-group">
+                                                    <label></label>
+                                                    <div>
+                                                        <div>
+                                                            <a class="btn btn-success" href="~/Home/PaymentTransaction" style="float:left;width:100px">Pay</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/App/Login/Login.js"></script>
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+    <style>
+        #profileimage {
+            width: 120px;
+            height: 150px;
+            box-shadow: 3px 3px 3px #8080803b;
+            border-radius: 4px;
+            border: 1px solid #8080803d;
+        }
+
+        .form-group {
+            margin-bottom: 6px !important;
+            padding-right: 10px;
+        }
+
+            .form-group div {
+                font-size: 11px;
+                min-height: 15px;
+                height: auto;
+            }
+
+            .form-group label {
+                margin-bottom: 0px !important;
+                font-weight: 550 !important;
+            }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            cursor: pointer;
+            color: brown;
+            padding-top: 7px;
+        }
+
+        #filename {
+            color: brown;
+            font-size: smaller;
+        }
+    </style>
+</body>
+</html>
+

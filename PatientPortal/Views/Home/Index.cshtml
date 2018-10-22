@@ -1,0 +1,384 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using PatientPortal.Global
+@using PatientPortal.Controllers;
+@using DataLayer;
+@using PatientPortal.Models.Masters;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @hospitalName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/dist/jquery.slide.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.slide').slide({
+                'slideSpeed': 3000,
+                'isShowArrow': true,
+                'dotsEvent': 'mouseenter',
+                'isLoadAllImgs': true
+            });
+        });
+    </script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Login/Login.js"></script>
+    <link rel="stylesheet" href="~/Scripts/App/index.css" />
+    <link rel="stylesheet" href="~/Scripts/App/jquery.slide.css" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%;">
+                <div class="row">
+                    <div class="col-md-9 blink">@Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
+                    <div class="col-md-3 blink hidden-xs"><h4 style="color:#fff;">Emergency no:- +91-1234-567-890</h4></div>
+                </div>
+
+                @*<div style="float:right">
+                        @Html.ActionLink("Already Have CR Number", "CRIntegrate", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+    <div class="container1">
+        @*<div class="col-md-8 col-md-offset-2 col-sm-12 no-padding-sm">*@
+        <div class="col-md-12 loginpage-container">
+            <div class="col-md-8 no-padding">
+                <div class="col-md-12 no-padding">
+                    <div class="col-md-5 no-padding loginpage-leftimg">
+                        <img src="@imgsrc" class="img-responsive" alt="banner" />
+                    </div>
+                    <div class="col-md-7 no-padding loginpage-leftimg">
+                        <img src="../img/p3.jpg" class="img-responsive" alt="banner" />
+                        @*<h2 style="font-size:3vw; color: dodgerblue;">Welcome To</h2>
+                            <p style="font-size:1.5vw;">Ram Manohar Lohiya Hospital<br>Lucknow</p>*@
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    @*<div class="loginpage-leftimg"><img src="../img/banner-bg.jpg" class="img-responsive" alt="banner" /></div>*@
+                    <div class="loginpage-leftimg no-padding">
+                        <div class="slide">
+                            <ul>
+                                <li data-bg="../img/slider1.jpg"></li>
+                                <li data-bg="../img/slider01.jpg"></li>
+                                <li data-bg="../img/slider03.jpg"></li>
+                                <li data-bg="../img/slider004.jpg"></li>
+                                <li data-bg="../img/slider06.jpg"></li>
+                                <li data-bg="../img/slider002.jpg"></li>
+                                @*<li data-bg="../img/slider005.jpg"></li>*@
+                                <li data-bg="../img/slider006.jpg"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-md-4 no-padding logintoggle">
+                <div class="shadow">
+                    <form id="login_form" class="dialog-form" action="/home/GetPatientLogin" method="POST">
+                        <div class="login-page-section" style="min-height:350px;">
+                            <small class="loginpage-alert lv-alert alert-success text-center" style="display:none;font-weight: 600;">
+                            </small>
+                            <h3 style="text-align:center;font-size:18px;font-weight:700;color:#434142">Login to Patient Portal Account</h3>
+                            <p style="text-align:center;font-size:13px;font-weight:normal;color:#888888">
+                                If you have already CR No. then
+                                <a href="/Home/CRIntegrate" id="showforgotpass">CLICK HERE</a>
+                            </p>
+                            <hr />
+                            <div class="left">
+                                <div class="form-group">
+                                    <label for="user_username" class="control-label">Registration No.:</label>
+                                    <input type="text" id="user_username" class="form-control" name="username" autofocus />
+                                </div>
+                                <div class="form-group">
+                                    <label for="user_password" class="control-label">Password:</label>
+                                    <input type="password" id="user_password" class="form-control" name="password" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" style="float:left;">
+                                </div>
+                                <div class="login-forgot-link" style="">
+                                    <ul class="list-inline">
+                                        <li><a href="/Home/ForgetPassword" id="showforgotpass">Forgot Password?</a></li>
+                                        <li><a href="/Home/ForgetUserID" id="showforgotpass1">Forgot User Id?</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="login-page-register-section" style="">
+                        <p>Don't have an account?</p>
+                        <div class="form-group">
+                            <div class="src_field_box">
+                                <a href="../home/Register" id="registerBTN" class="btn btn-lg btn-blue btn-block ripplelink"> REGISTER </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container1">
+        <div class="col-md-12">
+            <div style="background:#d3d7e6; height:52px;width:101%;">
+                <div class="col-md-3">
+                    @*<a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank" class="btn btn-lg btn-dark btn-block ripplelink"> OPD SCHEDULE </a>*@
+                    <img src="~/img/click.gif" class="img-responsive" style="height:55px;width:250px;" />
+                </div>
+                <div class="col-md-8 hidden-xs">
+                    <marquee behavior="scroll" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop();"
+                             OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" direction="left" scrollamount="3" scrolldelay="1">
+                        @{
+                            PatientPortal.Models.PDModel pdmodel;
+                            string totOPD = "0000";
+                            string totIPD = "0000";
+                            string total = "0000";
+                            if (ViewData["PDDetail"] != null)
+                            {
+                                pdmodel = ViewData["PDDetail"] as PatientPortal.Models.PDModel;
+                                totOPD = pdmodel.totOPD;
+                                totIPD = pdmodel.totIPD;
+                                total = Convert.ToString(Convert.ToInt32(pdmodel.totOPD) + Convert.ToInt32(pdmodel.totIPD));
+                            }
+                        }
+                        <div align="left">
+                            <a href="#" target="_parent" style="float:left;margin-left:10px; margin-top: 15px;color:#000;">
+                                No. of OPD: <span style="color:#953b39;">
+                                    @totOPD
+                                </span>
+                                || No.of IN Patient: <span style="color:#953b39;">
+                                    @totIPD
+                                </span>
+                                || No.Of Total Patient:
+                                <span style="color:#953b39;">
+                                    @total
+                                </span>
+                            </a>
+                        </div>
+                    </marquee>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container1">
+        <div class="col-md-12">
+            <div class="col-sm-8" id="tohide">
+                <hr />
+
+                <div class="col-md-12 shadow">
+                    <div class="moto-widget moto-widget-text moto-preset-default moto-spacing-top-small moto-spacing-right-auto moto-spacing-bottom-medium moto-spacing-left-auto" data-widget="text" data-preset="default" data-spacing="sama">
+                        <div class="moto-widget-text-content moto-widget-text-editable">
+                            <br />
+                            <div class="col-sm-12">
+                                <h4> <strong>The institute has presently following specialties:-</strong></h4>
+                                <br>
+                                @{
+                                    if (ViewData["Departments"] != null)
+                                    {
+                                        List<DepartmentModel> departments = ViewData["Departments"] as List<DepartmentModel>;
+                                        int rowCount = departments.Count() / 3;
+                                        int row = 0;
+                                        int index = 0;
+                                        <div class="col-sm-4 lists">
+                                            @for (int i = 0; i < rowCount; i++)
+                                            {
+                                                <p>
+                                                    <img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">@(++index)</span>
+                                                    @departments[i].DeparmentName
+                                                </p>
+                                                row = row + 1;
+                                            }
+                                        </div>
+                                        <div class="col-sm-4 lists">
+                                            @for (int i = 0; i < rowCount; i++)
+                                            {
+                                                <p>
+                                                    <img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">@(++index)</span>
+                                                    @departments[row].DeparmentName
+                                                </p>
+                                                row = row + 1;
+                                            }
+                                        </div>
+                                        <div class="col-sm-4 lists">
+                                            @for (int i = 0; i < (departments.Count() - 2 * rowCount); i++)
+                                            {
+                                                <p>
+                                                    <img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">@(++index)</span>
+                                                    @departments[row].DeparmentName
+                                                </p>
+                                                row = row + 1;
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="moto-text_system_10" style="float:left;">
+                                    The hospital works as a referral hospital and patients are required to bring a referral slip from the referring physician. The referring physicians are requested to indicate the nature of patients' problem, including investigation done and treatment provided, the specialty at the Institute they wish to refer the patient to and the nature of help required from the Institute. The Institute hospital endeavours to work on an appointment system. Thus, the patients are expected to re-visit the Institute hospital only on appointed days, except in case of an emergency. For blood transfusion, the Institute relies entirely on its own blood bank and expects the patients' family and friends to provide replacement blood donors.
+                                    <br>
+                                    <br>
+                                    The Institute is paid hospital .Facilities are available only on payment and there is no provision for free treatment or investigations. However patients belonging to the category of B.P.L. and AsadhyaRog (as per govt. order) are provided free indoor treatment. Patients and their relatives are advised to contact Patient Welfare Cell located in the OPD (in front of hall no 6) for this free treatment facility. Drugs, consumables and investigation facilities are provided round the clock at bedside for inpatient and for outpatient medicines are available on same price at<strong> OPD Pharmacy </strong>through the Institute’s novel in house inventory management system, <br />
+                                    the<strong> “Hospital Revolving Fund”</strong> which is fully computerized and online.<br> The <strong> “Investigation Revolving Fund”</strong>  provides uninterrupted self-sustaining investigational facilities to both indoor and outdoor patients at subsidized rates.
+                                </p>
+                                <br /><br />
+                                <strong style="color: #0199CD;">Other facilities:-</strong>
+                                <br />
+                                <p class="txtbtm">1.	<strong>OPD Pharmacy</strong> for drugs and medical consumables for registered patients ONLY.</p>
+                                <p class="txtbtm">2.	<strong>PRA (Patients Relative’s Accommodation):</strong> This accommodation is available to relatives of patients admitted to the hospital, on payment basis. </p>
+                                <p class="txtbtm">3.	<strong>Vishramalaya:</strong> This day-time facility is available for patients and relatives visiting the outpatient department, on a nominal payment (7AM to 7PM). The facility includes lockers, a place to relax, a restaurant, bathrooms, toilets, etc. </p>
+                                <p class="txtbtm">4.	<strong>Cafeteria</strong> in hospital area for snacks and lunch </p>
+                                <p class="txtbtm">5.	A branch of <strong>State Bank of India</strong> </p>
+                                <br />
+                                <br />
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="content">
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+
+            </div>
+
+            <div class="col-md-4">
+                <hr />
+                <div class="shadow">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="active">
+                                <table class="table table-bordered table-condensed">
+
+                                    <tbody>
+                                        <tr class="primary"><td colspan="3" style="text-align:center;"><strong>Important contact number for Information:- </strong></td></tr>
+                                        <tr>
+                                            <td>Emergency </td>
+                                            <td>0522-xxxxxxxx</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Intensive Care Unit (ICU)</td>
+                                            <td>xxxxxxxxx</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>General Enquiry</td>
+                                            <td> 0522-xxxxxxxx</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>BPL/AsadhyaRog free treatment facility</td>
+                                            <td>0522-xxxxxxxx</td>
+                                        </tr>
+
+
+                                        <!--<tr>
+                                            <td>Patient relative’s accommodation II </td>
+                                            <td>0522-xxxxxxxx</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>VIP Patient’s Guest House</td>
+                                            <td>0522-xxxxxxxx</td>
+                                        </tr>-->
+
+                                        <tr>
+                                            <td>Vishramalaya</td>
+                                            <td>0522-xxxxxxxx</td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blogSidebar">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Patient Portal Features</div>
+                            <div class="panel-body">
+                                <ul class="list-unstyle categoryList">
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Online Registration</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Dash Board</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Electronic Medical Record (EMR)</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Book/Cancel Doctor Appointment</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Patient Visit Summary</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Patient Profile</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Lab/Billing Reports</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Duplicate Receipts</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Patient Accounts Statement</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> Make Payment</a></li>
+                                    <li><a href="#"><img src="~/img/arrow.png" /> OPD Schedule</a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="text-center navbar-fixed-bottom" />
+
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+
+
+</body>
+</html>
+

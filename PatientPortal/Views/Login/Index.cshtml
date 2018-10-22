@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+
+<div id="loginContainer" class="dialog dialog-effect-in">
+    <div class="dialog-front">
+        <div class="dialog-content">
+            <form id="login_form" class="dialog-form" action="/login/getlogin" method="POST">
+                <fieldset>
+                    <legend>Log in</legend>
+                    <div class="form-group">
+                        <label for="user_username" class="control-label">Username:</label>
+                        <input type="text" id="user_username" class="form-control" name="username" autofocus />
+                    </div>
+                    <div class="form-group">
+                        <label for="user_password" class="control-label">Password:</label>
+                        <input type="password" id="user_password" class="form-control" name="password" />
+                    </div>
+                    @*<div class="text-center pad-top-20">
+                        <p>Have you forgotten your<br><a href="#" class="link"><strong>username</strong></a> or <a href="#" class="link"><strong>password</strong></a>?</p>
+                    </div>*@
+                    <div class="pad-top-20 pad-btm-20">
+                        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Continue">
+                    </div>
+                    @*<div class="text-center">
+                        <p>Do you wish to register<br> for <a href="#" class="link user-actions"><strong>a new account</strong></a>?</p>
+                    </div>*@
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/App/Login/Login.js"></script>

@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Registration Renewal";
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+
+<div class="" style="margin-top:0px;padding-top:20px;">
+    <div class="col-sm-12 col-lg-12">
+        <div class="panel panel-primary" style="width:50%;margin:0 auto">
+            <div class="panel-heading">
+                Registration Renewal
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="col-sm-12 col-lg-12">
+                            <div class="form-group">
+                                <b>Please Pay @Convert.ToString(System.Configuration.ConfigurationManager.AppSettings["TransactionAmount"]) Rs. to renew your registration</b><br />
+                                Kindly click on Pay Button to proceed.
+                            </div>
+                            <div class="form-group">
+                                <label></label>
+                                <div>
+                                    <div>
+                                        <a class="btn btn-success" href="~/Home/PaymentTransaction" style="float:left;width:100px">Pay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

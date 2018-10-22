@@ -1,0 +1,74 @@
+﻿@using DataLayer
+
+@model List<PatientLabReport>
+@{
+    ViewBag.Title = "Report Viewing";
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+<form action="/Report/DownloadReportFile" method="post" id="_form">
+    <div class="" style="padding-top:20px;">
+        <div class="col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Report Viewing</div>
+                <div class="panel-body">
+                    <input type="hidden" name="fileurl" id="_fileurl" value="" />
+                    <table class="table table-bordered table-hover table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th>Reference No</th>
+                                <th>Lab Name</th>
+                                <th>Bill No.</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.RefNo</td>
+                                        <td>@item.LabName</td>
+                                        <td>@item.BillNo</td>
+                                        <td>@item.CreatedDate.ToShortDateString()</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                @if (!string.IsNullOrEmpty(item.ReportUrl))
+                                                {
+                                                    <div class="btn-group">
+                                                        <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
+                                                        <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <text>No Reports</text>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<script>
+    $(document).on('click', '[id*="_download"]', function () {
+        $('#_fileurl').val($(this).data('url'));
+        $('#_form').submit();
+    });
+
+    $(document).on('click', '[id*="view"]', function () {
+        $('#_form').attr('action', '/Report/ViewReportFile');
+        $('#_fileurl').val($(this).data('url'));
+        // $('#_form').submit();
+    });
+</script>
+
+
+

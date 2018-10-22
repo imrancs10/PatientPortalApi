@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx?wsdl" docRef="http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx" xmlns:q1="http://tempuri.org/" binding="q1:GetPatientDetailsSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx" xmlns:q2="http://tempuri.org/" binding="q2:GetPatientDetailsSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

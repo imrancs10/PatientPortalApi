@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "AddDepartments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/App/Masters/Department.js"></script>
+<div class="row" style="margin-top:50px;">   
+    <div class="col-sm-12 col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Department List</div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover table-responsive text-center" id="deptTable">
+                    <thead>
+                        <tr>
+                            <th style="width:10%">Sr. No.</th>
+                            <th name="DeparmentName">Departments</th>
+                            <th style="width:20%">
+                                <input type="button" class="btn btn-primary" onclick="department.addNew()" name="btnAdd" value="Add New Department" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-secondary">Left</button>
+                                    <button type="button" class="btn btn-secondary">Middle</button>
+                                    <button type="button" class="btn btn-secondary">Right</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   
+</div>
+

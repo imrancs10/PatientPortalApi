@@ -1,0 +1,88 @@
+﻿@using DataLayer
+
+@model List<PatientBillReport>
+@{
+    ViewBag.Title = "Billing Report";
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+
+<form action="/Report/DownloadReportFile" method="post" id="_form">
+    <div class="" style="padding-top:20px;">
+        <div class="col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Billing Reports</div>
+                <div class="panel-body">
+                    <input type="hidden" name="fileurl" id="_fileurl" value="" />
+                    <table class="table table-bordered table-hover table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th>Bill Date</th>
+                                <th>Bill No</th>
+                                <th>Bill Type</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>@item.BillDate.ToShortDateString()</td>
+                                        <td>@item.BillNo</td>
+                                        <td title="'+javascript:getBillType(@item.BillType)+'">@item.BillType</td>
+                                        <td>@item.BillAmount</td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(item.ReportUrl))
+                                            {
+                                                <div class="btn-group">
+                                                    <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&_view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
+                                                    <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    *SV-Procedure/Diagnostic Billing,
+                    *PH-Pharmacy Billing-Refund,
+                    *GP-Patient Payment,
+                    *GR-Receipt from Patient,
+                    *PHR-Pharmacy Return,
+                    *SR-Sales Return
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<script>
+    var _billType = {
+        SV: 'Procedure/Diagnostic Billing',
+        PH: 'Pharmacy Billing-Refund',
+        GP: 'Patient Payment',
+        GR: 'Receipt from Patient',
+        PHR: 'Pharmacy Return',
+        SR: 'Sales Return'
+    }
+    function getBillType(_type) {
+        var billType = _billType[_type];
+        return billType === undefined ? 'Not Define' : billType;
+    }
+    $(document).on('click', '[id*="_download"]', function () {
+        $('#_form').attr('action', '/Report/DownloadReportFile');
+        $('#_fileurl').val($(this).data('url'));
+        $('#_form').submit();
+    });
+
+    $(document).on('click', '[id*="view"]', function () {
+        $('#_form').attr('action', '/Report/ViewReportFile');
+        $('#_fileurl').val($(this).data('url'));
+       // $('#_form').submit();
+    });
+</script>

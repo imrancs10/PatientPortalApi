@@ -1,0 +1,236 @@
+﻿.innercontentDashboard {
+    padding: 0px 30px;
+    color: #fff;
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+    .innercontentDashboard .dataBoxSec {
+    }
+
+        .innercontentDashboard .dataBoxSec .dataBox {
+            background: #ffffff;
+            border-radius: 5px;
+            position: relative;
+        }
+
+            .innercontentDashboard .dataBoxSec .dataBox .txtInner {
+                display: inline-block;
+                padding: 0px 20px;
+                position: absolute;
+                top: 50%;
+                transform: translate(0, -50%);
+            }
+
+                .innercontentDashboard .dataBoxSec .dataBox .txtInner p, h3 {
+                    padding: 0px;
+                    margin: 0px;
+                }
+
+            .innercontentDashboard .dataBoxSec .dataBox span {
+                font-size: 28px;
+            }
+
+        .innercontentDashboard .dataBoxSec .labSec {
+            background-color: #248fea;
+            position: relative;
+        }
+
+            .innercontentDashboard .dataBoxSec .labSec:before {
+                position: absolute;
+                font-size: 14px;
+                color: rgba(255,255,255,0.1);
+                font-family: 'FontAwesome';
+                bottom: 0;
+                right: 10px;
+                content: "\f0c3";
+            }
+
+            .innercontentDashboard .dataBoxSec .labSec span {
+                background-color: #0862af;
+                padding: 30px 15px;
+                border-radius: 5px 0px 0px 5px;
+            }
+
+        .innercontentDashboard .dataBoxSec .rxSec {
+            background-color: #248fea;
+            position: relative;
+        }
+
+            .innercontentDashboard .dataBoxSec .rxSec:before {
+                position: absolute;
+                font-size: 14px;
+                color: rgba(255,255,255,0.1);
+                font-family: 'FontAwesome';
+                bottom: 0;
+                right: 10px;
+                content: "\f2c0";
+            }
+
+            .innercontentDashboard .dataBoxSec .rxSec span {
+                background-color: #0862af;
+                padding: 30px 15px;
+                border-radius: 5px 0px 0px 5px;
+            }
+
+        .innercontentDashboard .dataBoxSec .meetSec {
+            background-color: #248fea;
+            position: relative;
+        }
+
+            .innercontentDashboard .dataBoxSec .meetSec:before {
+                position: absolute;
+                font-size: 14px;
+                color: rgba(255,255,255,0.1);
+                font-family: 'FontAwesome';
+                bottom: 0;
+                right: 10px;
+                content: "\f2b5";
+            }
+
+            .innercontentDashboard .dataBoxSec .meetSec span {
+                background-color: #0862af;
+                padding: 30px 15px;
+                border-radius: 5px 0px 0px 5px;
+            }
+
+        .innercontentDashboard .dataBoxSec .reqSec {
+            background-color: #248fea;
+            position: relative;
+        }
+
+            .innercontentDashboard .dataBoxSec .reqSec:before {
+                position: absolute;
+                font-size: 14px;
+                color: rgba(255,255,255,0.1);
+                font-family: 'FontAwesome';
+                bottom: 0;
+                right: 10px;
+                content: "\f274";
+            }
+
+            .innercontentDashboard .dataBoxSec .reqSec span {
+                background-color: #0862af;
+                padding: 30px 15px;
+                border-radius: 5px 0px 0px 5px;
+            }
+
+        .innercontentDashboard .dataBoxSec .ticketSec {
+            background-color: #ffc000;
+            position: relative;
+        }
+
+            .innercontentDashboard .dataBoxSec .ticketSec:before {
+                position: absolute;
+                font-size: 48px;
+                color: rgba(255,255,255,0.1);
+                font-family: 'FontAwesome';
+                bottom: 0;
+                right: 10px;
+                content: "\f003";
+            }
+
+            .innercontentDashboard .dataBoxSec .ticketSec span {
+                background-color: #e1aa03;
+                padding: 30px 15px;
+                border-radius: 5px 0px 0px 5px;
+            }
+
+
+        .innercontentDashboard .dataBoxSec .DocSec {
+            background-color: #ffc000;
+            position: relative;
+        }
+
+            .innercontentDashboard .dataBoxSec .DocSec:before {
+                position: absolute;
+                font-size: 48px;
+                color: rgba(255,255,255,0.1);
+                font-family: 'FontAwesome';
+                bottom: 0;
+                right: 10px;
+                content: "\f0f6";
+            }
+
+            .innercontentDashboard .dataBoxSec .DocSec span {
+                background-color: #e1aa03;
+                padding: 30px 15px;
+                border-radius: 5px 0px 0px 5px;
+            }
+
+        .innercontentDashboard .dataBoxSec .workSec {
+            background-color: #f47548;
+            position: relative;
+        }
+
+            .innercontentDashboard .dataBoxSec .workSec:before {
+                position: absolute;
+                font-size: 48px;
+                color: rgba(255,255,255,0.1);
+                font-family: 'FontAwesome';
+                bottom: 0;
+                right: 10px;
+                content: "\f128";
+            }
+
+            .innercontentDashboard .dataBoxSec .workSec span {
+                background-color: #c54e24;
+                padding: 30px 15px;
+                border-radius: 5px 0px 0px 5px;
+            }
+
+        .innercontentDashboard .dataBoxSec .custSec {
+            background-color: #fe0000;
+            position: relative;
+        }
+
+            .innercontentDashboard .dataBoxSec .custSec:before {
+                position: absolute;
+                font-size: 48px;
+                color: rgba(255,255,255,0.1);
+                font-family: 'FontAwesome';
+                bottom: 0;
+                right: 10px;
+                content: "\f118";
+            }
+
+            .innercontentDashboard .dataBoxSec .custSec span {
+                background-color: #e50000;
+                padding: 30px 15px;
+                border-radius: 5px 0px 0px 5px;
+            }
+
+    .innercontentDashboard .clientSec {
+        background: #fff;
+        border: 1px solid #dadada;
+        margin: 30px 15px;
+        color: #4d4d4d;
+        font-size: 14px;
+        padding: 12px;
+    }
+
+        .innercontentDashboard .clientSec span {
+            opacity: 0.6;
+            padding-right: 40px;
+            margin-right: 35px;
+            background: url(../images/side-arrow.png) no-repeat scroll right -2px;
+            font-weight: bold;
+        }
+
+        .innercontentDashboard .clientSec ul.clientlist {
+            margin: 0px;
+            padding: 0px;
+            display: inline;
+        }
+
+            .innercontentDashboard .clientSec ul.clientlist li {
+                margin: 0px;
+                margin-right: 40px;
+                padding: 0px;
+                display: inline-block;
+                text-transform: uppercase;
+            }
+
+                .innercontentDashboard .clientSec ul.clientlist li i {
+                    padding-right: 5px;
+                }

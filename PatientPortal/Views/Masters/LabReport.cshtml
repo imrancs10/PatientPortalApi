@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "LabReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using DataLayer
+<script src="~/Scripts/App/Masters/LabReport.js"></script>
+<div class="row" style="margin-top:50px;">
+    <div class="col-sm-12 col-lg-12">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Lab Report
+            </div>
+            <div class="panel-body" style="overflow: auto;">
+                <form id="Seach_form" class="dialog-form" action="/Masters/LabReport" method="get">
+                    <div class="row">
+                        <div class="col-sm-3 col-lg-3">
+                            <div class="form-group">
+                                <label>Search Patient By Registration No:</label>
+                                <div>
+                                    <input type="text" id="search" class="form-control" name="search" autofocus value="@Convert.ToString(ViewData["search"])" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 col-lg-9">
+                            <div class="form-group">
+                                <label></label>
+                                <div>
+                                    <input type="submit" class="btn btn-primary form-control" name="btnSearch" value="Search" style="width:100px" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                @{
+                    var patients = ViewData["PatientInfo"] as List<PatientInfo>;
+                    int index = 1;
+                    if (patients != null && patients.Any())
+                    {
+                        <table class="table table-bordered table-hover table-responsive text-center" id="doctorTable">
+                            <thead>
+                                <tr>
+                                    <th class="hidden"></th>
+                                    <th>Action</th>
+                                    <th style="width:6%">Sr. No.</th>
+                                    <th>Registration No</th>
+                                    <th>Name</th>
+                                    <th>Father/Husband</th>
+                                    <th>Deaprtment</th>
+                                    <th>Email</th>
+                                    <th>Mobile Number</th>
+                                    <th>Gender</th>
+                                    <th>Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var patient in patients)
+                                {
+                                    <tr>
+                                        <td class="hidden">@patient.PatientId</td>
+                                        <td>
+                                            <a class="btn" onclick="labreport.openModal(this)" name="btnAdd">Upload Report</a>
+                                        </td>
+                                        <td>@index</td>
+                                        <td>@patient.RegistrationNumber</td>
+                                        <td>@patient.FirstName @patient.MiddleName @patient.LastName</td>
+                                        <td>@patient.FatherOrHusbandName</td>
+                                        <td>@patient.Department.DepartmentName</td>
+                                        <td>@patient.Email</td>
+                                        <td>@patient.MobileNumber</td>
+                                        <td>@patient.Gender</td>
+                                        <td>@patient.Address</td>
+                                    </tr>
+                                    index = index + 1;
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <span>No record found</span>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        @using (Html.BeginForm("LabReport", "Masters", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><b>Upload Lab Report</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                            <div class="form-group">
+                                <label>Report Name</label>
+                                <div>
+                                    <input type="text" name="report" id="report" style="width: 100%;" required />
+                                    <input type="text" name="patientId" id="patientId" class="hidden" />
+                                    <input type="text" name="registrationNumber" id="registrationNumber" class="hidden" />
+                                    <input type="text" name="searchText" id="searchText" class="hidden" value="@Convert.ToString(ViewData["search"])" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Select File</label>
+                                <div>
+                                    <input type="file" name="file" id="file" style="width: 100%;" required accept="application/pdf" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<style>
+    #doctorTable th {
+        white-space: nowrap;
+    }
+</style>
