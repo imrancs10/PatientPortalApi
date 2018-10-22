@@ -1,0 +1,390 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using PatientPortalAPI.Global
+@using PatientPortalAPI.Controllers;
+@using DataLayer;
+@using PatientPortalAPI.Models;
+@using System.Configuration;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @hospitalName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+
+</head>
+<body>
+    <script type="text/javascript">
+        var jsonPatient = null;
+    </script>
+    @{
+        bool registerPage = false;
+        if (Convert.ToString(ViewData["registerAction"]) != "getotpscreen")
+        {
+            registerPage = true;
+        }
+    }
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%">
+                @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="float:right">
+                    @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main page-bg">
+        <div class="container mobile-padding-lr0 ">
+            <div class="col-md-8 col-md-offset-21 col-sm-12 no-padding-sm register-main">
+                <div class="col-md-12 RegisterPage-container">
+
+                    @if (registerPage == true)
+                    {
+                    <form id="register_form" class="form-horizontal" action="GetPatientOTP" method="post" autocomplete="off">
+                        <h2>Register an Account</h2>
+                        <p style="margin-bottom:0px;">Fill the form below to signup your account </p>
+                        <hr>
+                        <div class="form-group">
+                            <label for="title" class="control-label col-md-4 col-sm-12 col-xs-12">Title<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <select id="title" class="common-input selectval" name="title" data-live-search="true" data-valid="required" required>
+                                    <option value="">Select</option>
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Ms.">Ms.</option>
+                                    <option value="Dr.">Dr.</option>
+                                    <option value="Mohd.">Mohd.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>First Name<font color="FF0000">*</font></span></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="text" value="" name="firstname" required data-valid="required" class="register-input" id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Middle Name</span></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="text" value="" name="middlename" data-valid="required" class="register-input" id="middlename" placeholder="Enter Middle Name " maxlength="50" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Last Name<font color="FF0000">*</font></span></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="text" class="register-input" required id="lastname" placeholder="Enter Last Name " value="" name="lastname" data-valid="required" maxlength="50" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="FatherHusbandName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Father/Husband Name<font color="FF0000">*</font></span></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="text" class="register-input" required id="FatherHusbandName" placeholder="Enter Father/Husband Name " value="" name="FatherHusbandName" data-valid="required" maxlength="100" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="MaritalStatus" class="control-label col-md-4 col-sm-12 col-xs-12">Marital Status<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <select id="MaritalStatus" class="common-input selectval" name="MaritalStatus" data-live-search="true" data-valid="required" required>
+                                    <option value="">Select</option>
+                                    <option value="S">Single</option>
+                                    <option value="M">Married</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="control-label col-md-4 col-sm-12 col-xs-12">Aadhar Number</label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input name="aadharNumber" id="aadharNumber" class="common-input" placeholder="Enter your Aadhar Number" minlength="12"
+                                       maxlength='12' type="text" onkeypress="return isNumber(event)" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="control-label col-md-4 col-sm-12 col-xs-12">Email address<font color="FF0000">*</font></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input name="email" id="email" class="common-input" required placeholder="Enter your email address" maxlength='50' type="email" autocomplete="off" value="" data-valid="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="control-label col-md-4 col-sm-12 col-xs-12">Mobile Number<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <input id="mobilenumber" class="common-input" required name="mobilenumber" placeholder="Enter Mobile Number" autocomplete="off" onkeypress="return isNumber(event)" value="" type="text" maxlength="10" data-valid="required" data-type="phone" minlength="10">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="gender" class="control-label col-md-4 col-sm-12 col-xs-12">Gender<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <select id="Gender" class="common-input selectval" name="Gender" data-live-search="true" data-valid="required" required>
+                                    <option value="">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="DOB" class="control-label col-md-4 col-sm-12 col-xs-12">Date of Birth<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <input type="date" id="DOB" class="form-control" name="DOB" required maxlength="8" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Address" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Address<font color="FF0000">*</font></span></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <input type="text" value="" name="address" data-valid="required" class="register-input" id="address" placeholder="Enter Address " maxlength="50" autocomplete="off" required>
+                            </div>
+                        </div>
+                        @*<div class="form-group hidden">
+            <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">Country<font color="FF0000">*</font></label>
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <select class="common-input selectval" id="country" name="country" data-valid="required" required></select>
+            </div>
+        </div>*@
+                        <div class="form-group" id="state_val">
+                            <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">State<font color="FF0000">*</font></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <select class="common-input selectval" id="state" name="state" data-live-search="true" data-valid="required" required></select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="show_city">
+                            <label for="City" class="control-label col-md-4 col-sm-12 col-xs-12">City<font color="FF0000">*</font></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <select class="common-input selectval" name="city" id="city" data-live-search="true" data-valid="required" required></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Pin Code" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Pin Code</span></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <input type="text" class="register-input" id="pincode" placeholder="Enter Pin Code " value=""
+                                       name="pincode" maxlength="6" onkeypress="return isNumber(event)" autocomplete="off" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Religion" class="control-label col-md-4 col-sm-12 col-xs-12">Religion<font color="FF0000">*</font></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <select class="common-input selectval" id="religion" name="religion" data-live-search="true" data-valid="required" required>
+                                    <option value="">Select</option>
+                                    <option value="Hindu" title="Hindu">Hindu</option>
+                                    <option value="Jain" title="Jain">Jain</option>
+                                    <option value="Muslim" title="Muslim">Muslim</option>
+                                    <option value="Sikh" title="Sikh">Sikh</option>
+                                    <option value="Christian" title="Christian">Christian</option>
+                                    <option value="Spiritual" title="Spiritual">Spiritual</option>
+                                    <option value="Parsi" title="Parsi">Parsi</option>
+                                    <option value="Jewish" title="Jewish">Jewish</option>
+                                    <option value="Buddhist" title="Buddhist">Buddhist</option>
+                                    <option value="Other" title="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="resi_status">
+                            <label for="department" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department<font color="FF0000">*</font></span></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <select class="common-input selectval" name="department" id="department" required></select>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <input type="submit" name="getotp" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:200px;">
+                        </div>
+                    </form>
+                    }
+                    else
+                    {
+                        var json = (PatientInfoModel)ViewData["PatientData"];
+                        <script type="text/javascript">
+                            @{
+                                var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                                serializer.MaxJsonLength = Int32.MaxValue;
+                                var jsonModel = serializer.Serialize(json);
+                            }
+                             jsonPatient=@Html.Raw(jsonModel);
+                        </script>
+                        <form id="OTP_form" class="form-horizontal" action="verifyOTP" method="post" autocomplete="off">
+                            <h2>Verify OTP</h2>
+                            <p style="margin-bottom:0px;">
+                                Verify Your OTP and Continue to pay
+                                <span style="font-size:larger;color:brown"> @Convert.ToString(ConfigurationManager.AppSettings["TransactionAmount"]) Rs.</span>
+                            </p>
+                            <hr />
+                            <div class="col-sm-12 col-lg-12">
+                                <div class="col-sm-4 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Fisrt Name</label>
+                                        <div>@json.FirstName</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fathre/Husband Name</label>
+                                        <div>@json.FatherOrHusbandName</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mobile</label>
+                                        <div>@json.MobileNumber</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <div>@json.Gender</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <div id="stateLabel"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Middle Name</label>
+                                        <div>@json.MiddleName</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <div>@json.Email</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Religion</label>
+                                        <div>@json.Religion</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <div>@json.Address</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <div id="cityLabel"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <div>@json.LastName</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>DOB</label>
+                                        <div>@Convert.ToDateTime(json.DOB).ToShortDateString()</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Department</label>
+                                        <div>@json.Department</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Pin</label>
+                                        <div>@json.PinCode</div>
+                                    </div>
+                                    <div class="form-group">
+                                    </div>
+                                    @*<div class="form-group hidden">
+                                        <label>Country</label>
+                                        <div id="countryLabel"></div>
+                                    </div>*@
+                                </div>
+                            </div>
+                            <br />
+                            <hr style="width:100%" />
+                            <div class="col-lg-12">
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="register-input" id="user_OTP" placeholder="Enter OTP Here" value="" name="OTP" data-valid="required">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="submit" name="verifyOTP" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:200px;">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/App/Login/Login.js"></script>
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+    <style>
+        #profileimage {
+            width: 120px;
+            height: 150px;
+            box-shadow: 3px 3px 3px #8080803b;
+            border-radius: 4px;
+            border: 1px solid #8080803d;
+        }
+
+        .form-group {
+            margin-bottom: 6px !important;
+            padding-right: 10px;
+        }
+
+            .form-group div {
+                font-size: 11px;
+                min-height: 15px;
+                height: auto;
+            }
+
+            .form-group label {
+                margin-bottom: 0px !important;
+                font-weight: 550 !important;
+            }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            cursor: pointer;
+            color: brown;
+            padding-top: 7px;
+        }
+
+        #filename {
+            color: brown;
+            font-size: smaller;
+        }
+    </style>
+</body>
+</html>
+

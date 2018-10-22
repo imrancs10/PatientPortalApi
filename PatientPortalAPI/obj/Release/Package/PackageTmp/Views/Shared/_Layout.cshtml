@@ -1,0 +1,251 @@
+﻿@using PatientPortal.Global
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Patient Portal Management system</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <link href="~/Content/App/Common.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/Menu.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+
+</head>
+<body>
+    <div class="navbar-wrapper">
+        <div class="container-fluid">
+            <nav class="navbar navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Patient Portal</a>
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(UserData.FirstName))
+                    {
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#" class="">Home</a></li>
+                                <li class=" dropdown">
+                                    <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Masters <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="~/Masters/AddDoctors"><i></i>Add New Department</a></li>
+                                        <li><a href="~/Masters/AddDoctors"><i></i>Add New Doctor</a></li>
+                                        <li><a href="~/Masters/AddSchedule"><i></i>Doctor Schedule</a></li>
+                                        <li><a href="~/Masters/AddDoctorLeave"><i></i>Doctor Leave</a></li>
+                                        <li><a href="~/Masters/AppointmentSetting"><i></i>Appointment Setting</a></li>
+                                        <li><a href="~/Masters/HospitalDetail"><i></i>Hospital Detail</a></li>
+                                    </ul>
+                                </li>
+                                <li class=" dropdown">
+                                    <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Transaction <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        @*<li><a href="~/Masters/AddDoctors"><i></i>Add New Doctor</a></li>*@
+                                    </ul>
+                                </li>
+                                <li class=" dropdown">
+                                    <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Bulk Upload</a></li>
+                                        <li><a href="#">Add New Report</a></li>
+                                        <li><a href="~/Masters/LabReport"><i></i>Lab Report</a></li>
+                                    </ul>
+                                </li>
+                                <li class=" down">
+                                    <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HR <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Report</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav pull-right">
+                                <li class=" dropdown">
+                                    <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signed in as  <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Change Password</a></li>
+                                        <li><a href="#">My Profile</a></li>
+                                        <li class=""><a href="Logout">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+                </div>
+            </nav>
+        </div>
+    </div>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            @if (string.IsNullOrWhiteSpace(UserData.FirstName) && Convert.ToBoolean(ViewData["LoginPage"]) != true)
+            {
+                <div class="navbar-header" style="width:100%">
+                    @Html.ActionLink("Patient Portal", "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                    <div style="float:right">
+                        @Html.ActionLink("Login", "Index", "Login", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="navbar-header">
+                    @Html.ActionLink("Patient Portal", "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            }
+                <div class="navbar-collapse collapse">
+                    @if (!string.IsNullOrWhiteSpace(UserData.FirstName))
+                    {
+                        <ul class="nav navbar-nav">
+                            <li><a href="~/Masters/AddDepartments"><i></i>Department</a></li>
+                    <li><a href="~/Masters/AddDoctors"><i></i>Doctor</a></li>
+                    <li><a href="~/Masters/AddSchedule"><i></i>Doctor Schedule</a></li>
+                    <li><a href="~/Masters/AddDoctorLeave"><i></i>Doctor Leave</a></li>
+                    <li><a href="~/Masters/AppointmentSetting"><i></i>Appointment Setting</a></li>
+                    <li><a href="~/Masters/HospitalDetail"><i></i>Hospital Detail</a></li>
+                     @*<li>@Html.ActionLink("Department", "AddDepartments", "Masters")</li>
+                <li>@Html.ActionLink("Doctor", "AddDoctors", "Masters")</li>
+                <li>@Html.ActionLink("Doctor Schedule", "AddSchedule", "Masters")</li>
+                <li>@Html.ActionLink("Doctor Leave", "AddDoctorLeave", "Masters")</li>
+                <li>@Html.ActionLink("Appointment Setting", "AppointmentSetting", "Masters")</li>
+                <li>@Html.ActionLink("Hospital Detail", "HospitalDetail", "Masters")</li>*@
+    @* </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <strong>@UserData.FirstName</strong>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </a>
+                <ul class="dropdown-menu" style="width:240px">
+                    <li>
+                        <div class="navbar-login">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <p class="text-center">
+                                        <span class="glyphicon glyphicon-user icon-size"></span>
+                                    </p>
+                                </div>
+                                <div class="col-lg-8">
+                                    <p class="text-left"><strong>@UserData.FirstName @UserData.MiddleName @UserData.LastName</strong></p>
+                                    <p class="text-left small">@UserData.Email</p>
+                                    @*<p class="text-left">
+                            <a href="#" class="btn btn-primary btn-block btn-sm" style="width:90%">View Profile</a>
+                        </p>*@
+    @* </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="navbar-login navbar-login-session">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <p>
+                                                        <a href="Logout" class="btn btn-danger btn-block" style="width:40%;float:right;margin-right:10px;">Logout</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                    @* <div class="topnav" id="myTopnav">
+            <a href="~/Masters/AddDepartments" class="active">Department</a>
+            <a href="~/Masters/AddDoctors"><i></i>Doctor</a>
+            <a href="~/Masters/AddSchedule"><i></i>Doctor Schedule</a>
+            <a href="~/Masters/AddDoctorLeave"><i></i>Doctor Leave</a>
+            <a href="~/Masters/AppointmentSetting"><i></i>Appointment Setting</a>
+            <a href="~/Masters/HospitalDetail"><i></i>Hospital Detail</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>*@
+    @*</div>
+
+        </div>
+        </div>*@
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+
+    <script>
+        $(function () {
+
+            $("#dialog").dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+    </script>
+    @*Ajax Loader*@
+
+    <div class="ajaxloader">
+        <img src="~/img/ajax-loader.gif" />
+    </div>
+    <style>
+        .ajaxloader {
+            background: #808080a3;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+            .ajaxloader img {
+                width: 80px;
+                height: 80px;
+                position: absolute;
+                top: 43%;
+                left: 45%;
+            }
+    </style>
+</body>
+</html>
