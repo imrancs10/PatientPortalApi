@@ -1,0 +1,116 @@
+﻿@using PatientPortal.Global
+@using DataLayer;
+@using PatientPortal.Controllers;
+@{
+    ViewBag.Title = "Transaction Response";
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+
+@if (Convert.ToBoolean(ViewData["FailTransaction"]) == true)
+{
+    <form id="form" class="form-horizontal" action="PaymentTransaction" method="post" autocomplete="off">
+        <div class="container body-content" style="padding-bottom: 20px;">
+            <div id="loginContainer" class="dialog dialog-effect-in" style="width:550px;margin:0 auto;">
+                <div class="dialog-front">
+                    <div class="dialog-content">
+                        <fieldset>
+                            <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                <font style="font-size:18px">Transaction Response Fail</font><br />
+                                <font style="font-size:13px">
+                                    <b>Your Transaction is Fail</b><br />
+                                    Please try again by clicking on Make Payment Button<br />
+                                </font>
+                            </legend>
+                            <div>
+                                <input type="submit" name="makepayment" class="btn btn-primary btn-blue btn-block btn-lg" value="Retry Payment" style="float:right;width:200px;">
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <div class="container body-content" style="padding-bottom: 20px;">
+        <div id="loginContainer" class="dialog dialog-effect-in" style="width:550px;margin: 0 auto;padding-top: 20px;">
+            <div class="dialog-front">
+                <div class="dialog-content">
+                    @if (ViewData["TransactionSuccessResult"] != null)
+                    {
+                        var result = (PatientTransaction)ViewData["TransactionSuccessResult"];
+                        <form id="login_form" class="dialog-form">
+                            <fieldset>
+                                <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                    <font style="font-size:18px">Transaction Response</font><br />
+                                    <font style="font-size:13px">
+                                        <b>Your Transaction is successful</b><br />
+                                        Your registration is Renew, now you can login to account.
+                                    </font>
+                                </legend>
+
+                                <div class="form-group">
+                                    <label for="registrationnumber" class="control-label">Registration Number:</label>
+                                    <label id="registrationnumber" class="form-control" name="registrationnumber">@result.OrderId</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="amount" class="control-label">Transaction Amount:</label>
+                                    <label id="amount" class="form-control" name="amount">@result.Amount</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="refenceno" class="control-label">Transaction Referance No:</label>
+                                    <label id="refenceno" class="form-control" name="refenceno">@result.TransactionNumber</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date" class="control-label">Transaction Date:</label>
+                                    <label id="date" class="form-control" name="date">@result.TransactionDate</label>
+                                </div>
+                            </fieldset>
+                        </form>
+                    }
+                    else
+                    {
+                        <label class="control-label">There Was Some Error in transaction Processing.....Please Check The Data you have Entered</label>
+                    }
+                </div>
+            </div>
+        </div>
+        <div style="padding-top:5px;padding-bottom:5px;padding-left:450px;">
+            <input type="button" id="btnPrint" value="Print" class="btn btn-success" style="float:left;width:100px" />&nbsp;&nbsp;
+            @*<div class="divider">
+                    <input type="button" id="" value="Go to Login" class="btn btn-success" onclick="window.location='../';" style="float:left;width:100px" />
+                </div>*@
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnPrint").click(function () {
+            var contents = $("#loginContainer").html();
+            var frame1 = $('<iframe />');
+            frame1[0].name = "frame1";
+            frame1.css({ "position": "absolute", "top": "-1000000px" });
+            $("body").append(frame1);
+            var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+            frameDoc.document.open();
+            //Create a new HTML document.
+            frameDoc.document.write('<html><head><title>Payment Reciept</title>');
+            frameDoc.document.write('</head><body>');
+            //Append the external CSS file.
+            frameDoc.document.write('<link href="Login.css" rel="stylesheet" type="text/css" />');
+            //Append the DIV contents.
+            frameDoc.document.write(contents);
+            frameDoc.document.write('</body></html>');
+            frameDoc.document.close();
+            setTimeout(function () {
+                window.frames["frame1"].focus();
+                window.frames["frame1"].print();
+                frame1.remove();
+            }, 500);
+        });
+    });
+</script>
+

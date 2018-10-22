@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PatientPortalAPIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PatientPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppointmentInfo">
           <Key>
             <PropertyRef Name="AppointmentId" />
@@ -154,7 +154,7 @@
           <Property Name="MeridiemValue" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PateintLeadger">
           <Key>
             <PropertyRef Name="Billid" />
@@ -552,7 +552,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PatientPortalAPIModelStoreContainer">
+        <EntityContainer Name="PatientPortalModelStoreContainer">
           <EntitySet Name="AppointmentInfo" EntityType="Self.AppointmentInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppointmentSetting" EntityType="Self.AppointmentSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
@@ -712,106 +712,106 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PatientPortalAPIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="PatientPortalAPIEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppointmentInfoes" EntityType="PatientPortalAPIModel.AppointmentInfo" />
-          <EntitySet Name="AppointmentSettings" EntityType="PatientPortalAPIModel.AppointmentSetting" />
-          <EntitySet Name="Cities" EntityType="PatientPortalAPIModel.City" />
-          <EntitySet Name="DayMasters" EntityType="PatientPortalAPIModel.DayMaster" />
-          <EntitySet Name="Departments" EntityType="PatientPortalAPIModel.Department" />
-          <EntitySet Name="Doctors" EntityType="PatientPortalAPIModel.Doctor" />
-          <EntitySet Name="DoctorLeaves" EntityType="PatientPortalAPIModel.DoctorLeave" />
-          <EntitySet Name="DoctorSchedules" EntityType="PatientPortalAPIModel.DoctorSchedule" />
-          <EntitySet Name="Gbl_Master_Login" EntityType="PatientPortalAPIModel.Gbl_Master_Login" />
-          <EntitySet Name="Gbl_Master_User" EntityType="PatientPortalAPIModel.Gbl_Master_User" />
-          <EntitySet Name="HospitalDetails" EntityType="PatientPortalAPIModel.HospitalDetail" />
-          <EntitySet Name="LabReports" EntityType="PatientPortalAPIModel.LabReport" />
-          <EntitySet Name="MeridiemMasters" EntityType="PatientPortalAPIModel.MeridiemMaster" />
-          <EntitySet Name="PatientBillReports" EntityType="PatientPortalAPIModel.PatientBillReport" />
-          <EntitySet Name="PatientInfoes" EntityType="PatientPortalAPIModel.PatientInfo" />
-          <EntitySet Name="PatientLabReports" EntityType="PatientPortalAPIModel.PatientLabReport" />
-          <EntitySet Name="PatientLoginEntries" EntityType="PatientPortalAPIModel.PatientLoginEntry" />
-          <EntitySet Name="PatientLoginHistories" EntityType="PatientPortalAPIModel.PatientLoginHistory" />
-          <EntitySet Name="PatientTransactions" EntityType="PatientPortalAPIModel.PatientTransaction" />
-          <EntitySet Name="States" EntityType="PatientPortalAPIModel.State" />
-          <EntitySet Name="PateintLeadgers" EntityType="PatientPortalAPIModel.PateintLeadger" />
-          <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="PatientPortalAPIModel.FK_AppointmentInfo_Doctor">
+      <Schema Namespace="PatientPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PatientPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppointmentInfoes" EntityType="PatientPortalModel.AppointmentInfo" />
+          <EntitySet Name="AppointmentSettings" EntityType="PatientPortalModel.AppointmentSetting" />
+          <EntitySet Name="Cities" EntityType="PatientPortalModel.City" />
+          <EntitySet Name="DayMasters" EntityType="PatientPortalModel.DayMaster" />
+          <EntitySet Name="Departments" EntityType="PatientPortalModel.Department" />
+          <EntitySet Name="Doctors" EntityType="PatientPortalModel.Doctor" />
+          <EntitySet Name="DoctorLeaves" EntityType="PatientPortalModel.DoctorLeave" />
+          <EntitySet Name="DoctorSchedules" EntityType="PatientPortalModel.DoctorSchedule" />
+          <EntitySet Name="Gbl_Master_Login" EntityType="PatientPortalModel.Gbl_Master_Login" />
+          <EntitySet Name="Gbl_Master_User" EntityType="PatientPortalModel.Gbl_Master_User" />
+          <EntitySet Name="HospitalDetails" EntityType="PatientPortalModel.HospitalDetail" />
+          <EntitySet Name="LabReports" EntityType="PatientPortalModel.LabReport" />
+          <EntitySet Name="MeridiemMasters" EntityType="PatientPortalModel.MeridiemMaster" />
+          <EntitySet Name="PatientBillReports" EntityType="PatientPortalModel.PatientBillReport" />
+          <EntitySet Name="PatientInfoes" EntityType="PatientPortalModel.PatientInfo" />
+          <EntitySet Name="PatientLabReports" EntityType="PatientPortalModel.PatientLabReport" />
+          <EntitySet Name="PatientLoginEntries" EntityType="PatientPortalModel.PatientLoginEntry" />
+          <EntitySet Name="PatientLoginHistories" EntityType="PatientPortalModel.PatientLoginHistory" />
+          <EntitySet Name="PatientTransactions" EntityType="PatientPortalModel.PatientTransaction" />
+          <EntitySet Name="States" EntityType="PatientPortalModel.State" />
+          <EntitySet Name="PateintLeadgers" EntityType="PatientPortalModel.PateintLeadger" />
+          <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="PatientPortalModel.FK_AppointmentInfo_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="AppointmentInfo" EntitySet="AppointmentInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_AppointmentInfo_PatientInfo" Association="PatientPortalAPIModel.FK_AppointmentInfo_PatientInfo">
+          <AssociationSet Name="FK_AppointmentInfo_PatientInfo" Association="PatientPortalModel.FK_AppointmentInfo_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="AppointmentInfo" EntitySet="AppointmentInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_City_State" Association="PatientPortalAPIModel.FK_City_State">
+          <AssociationSet Name="FK_City_State" Association="PatientPortalModel.FK_City_State">
             <End Role="State" EntitySet="States" />
             <End Role="City" EntitySet="Cities" />
           </AssociationSet>
-          <AssociationSet Name="FK_PatientInfo_City" Association="PatientPortalAPIModel.FK_PatientInfo_City">
+          <AssociationSet Name="FK_PatientInfo_City" Association="PatientPortalModel.FK_PatientInfo_City">
             <End Role="City" EntitySet="Cities" />
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_DoctorScheduleDay_DayMaster1" Association="PatientPortalAPIModel.FK_DoctorScheduleDay_DayMaster1">
+          <AssociationSet Name="FK_DoctorScheduleDay_DayMaster1" Association="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1">
             <End Role="DayMaster" EntitySet="DayMasters" />
             <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
           </AssociationSet>
-          <AssociationSet Name="FK_Doctor_Doctor" Association="PatientPortalAPIModel.FK_Doctor_Doctor">
+          <AssociationSet Name="FK_Doctor_Doctor" Association="PatientPortalModel.FK_Doctor_Doctor">
             <End Role="Department" EntitySet="Departments" />
             <End Role="Doctor" EntitySet="Doctors" />
           </AssociationSet>
-          <AssociationSet Name="FK_PatientInfo_Department" Association="PatientPortalAPIModel.FK_PatientInfo_Department">
+          <AssociationSet Name="FK_PatientInfo_Department" Association="PatientPortalModel.FK_PatientInfo_Department">
             <End Role="Department" EntitySet="Departments" />
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_DoctorLeave_Doctor" Association="PatientPortalAPIModel.FK_DoctorLeave_Doctor">
+          <AssociationSet Name="FK_DoctorLeave_Doctor" Association="PatientPortalModel.FK_DoctorLeave_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="DoctorLeave" EntitySet="DoctorLeaves" />
           </AssociationSet>
-          <AssociationSet Name="FK_DoctorScheduleDay_DoctorSchedule" Association="PatientPortalAPIModel.FK_DoctorScheduleDay_DoctorSchedule">
+          <AssociationSet Name="FK_DoctorScheduleDay_DoctorSchedule" Association="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
           </AssociationSet>
-          <AssociationSet Name="FK_DoctorScheduleDay_MeridiemMaster" Association="PatientPortalAPIModel.FK_DoctorScheduleDay_MeridiemMaster">
+          <AssociationSet Name="FK_DoctorScheduleDay_MeridiemMaster" Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster">
             <End Role="MeridiemMaster" EntitySet="MeridiemMasters" />
             <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
           </AssociationSet>
-          <AssociationSet Name="FK_DoctorScheduleDay_MeridiemMaster1" Association="PatientPortalAPIModel.FK_DoctorScheduleDay_MeridiemMaster1">
+          <AssociationSet Name="FK_DoctorScheduleDay_MeridiemMaster1" Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1">
             <End Role="MeridiemMaster" EntitySet="MeridiemMasters" />
             <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
           </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Login_Gbl_Master_User" Association="PatientPortalAPIModel.FK_Gbl_Master_Login_Gbl_Master_User">
+          <AssociationSet Name="FK_Gbl_Master_Login_Gbl_Master_User" Association="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_Master_Login" EntitySet="Gbl_Master_Login" />
           </AssociationSet>
-          <AssociationSet Name="FK_LabReport_PatientInfo" Association="PatientPortalAPIModel.FK_LabReport_PatientInfo">
+          <AssociationSet Name="FK_LabReport_PatientInfo" Association="PatientPortalModel.FK_LabReport_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="LabReport" EntitySet="LabReports" />
           </AssociationSet>
-          <AssociationSet Name="FK__PatientBi__Patie__3A4CA8FD" Association="PatientPortalAPIModel.FK__PatientBi__Patie__3A4CA8FD">
+          <AssociationSet Name="FK__PatientBi__Patie__3A4CA8FD" Association="PatientPortalModel.FK__PatientBi__Patie__3A4CA8FD">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientBillReport" EntitySet="PatientBillReports" />
           </AssociationSet>
-          <AssociationSet Name="FK__PatientLa__Patie__3B40CD36" Association="PatientPortalAPIModel.FK__PatientLa__Patie__3B40CD36">
+          <AssociationSet Name="FK__PatientLa__Patie__3B40CD36" Association="PatientPortalModel.FK__PatientLa__Patie__3B40CD36">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientLabReport" EntitySet="PatientLabReports" />
           </AssociationSet>
-          <AssociationSet Name="FK_PatientInfo_PatientInfo" Association="PatientPortalAPIModel.FK_PatientInfo_PatientInfo">
+          <AssociationSet Name="FK_PatientInfo_PatientInfo" Association="PatientPortalModel.FK_PatientInfo_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientInfo1" EntitySet="PatientInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_PatientInfo_State" Association="PatientPortalAPIModel.FK_PatientInfo_State">
+          <AssociationSet Name="FK_PatientInfo_State" Association="PatientPortalModel.FK_PatientInfo_State">
             <End Role="State" EntitySet="States" />
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="PatientPortalAPIModel.FK_PatientLoginEntry_PatientInfo">
+          <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="PatientPortalModel.FK_PatientLoginEntry_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientLoginEntry" EntitySet="PatientLoginEntries" />
           </AssociationSet>
-          <AssociationSet Name="FK_PatientLoginHistory_PatientInfo" Association="PatientPortalAPIModel.FK_PatientLoginHistory_PatientInfo">
+          <AssociationSet Name="FK_PatientLoginHistory_PatientInfo" Association="PatientPortalModel.FK_PatientLoginHistory_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientLoginHistory" EntitySet="PatientLoginHistories" />
           </AssociationSet>
-          <AssociationSet Name="FK_PatientTransaction_PatientInfo" Association="PatientPortalAPIModel.FK_PatientTransaction_PatientInfo">
+          <AssociationSet Name="FK_PatientTransaction_PatientInfo" Association="PatientPortalModel.FK_PatientTransaction_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientTransaction" EntitySet="PatientTransactions" />
           </AssociationSet>
@@ -832,8 +832,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="CancelDate" Type="DateTime" Precision="3" />
           <Property Name="CancelReason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Reminder" Type="Boolean" />
-          <NavigationProperty Name="Doctor" Relationship="PatientPortalAPIModel.FK_AppointmentInfo_Doctor" FromRole="AppointmentInfo" ToRole="Doctor" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalAPIModel.FK_AppointmentInfo_PatientInfo" FromRole="AppointmentInfo" ToRole="PatientInfo" />
+          <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_AppointmentInfo_Doctor" FromRole="AppointmentInfo" ToRole="Doctor" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_AppointmentInfo_PatientInfo" FromRole="AppointmentInfo" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="AppointmentSetting">
           <Key>
@@ -857,8 +857,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="CityId" Type="Int32" Nullable="false" />
           <Property Name="CityName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="StateId" Type="Int32" />
-          <NavigationProperty Name="State" Relationship="PatientPortalAPIModel.FK_City_State" FromRole="City" ToRole="State" />
-          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalAPIModel.FK_PatientInfo_City" FromRole="City" ToRole="PatientInfo" />
+          <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_City_State" FromRole="City" ToRole="State" />
+          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_City" FromRole="City" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -866,7 +866,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </Key>
           <Property Name="DayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DayName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalAPIModel.FK_DoctorScheduleDay_DayMaster1" FromRole="DayMaster" ToRole="DoctorSchedule" />
+          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1" FromRole="DayMaster" ToRole="DoctorSchedule" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -874,8 +874,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </Key>
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Doctors" Relationship="PatientPortalAPIModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
-          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalAPIModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
+          <NavigationProperty Name="Doctors" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
+          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -888,10 +888,10 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="Degree" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalAPIModel.FK_AppointmentInfo_Doctor" FromRole="Doctor" ToRole="AppointmentInfo" />
-          <NavigationProperty Name="Department" Relationship="PatientPortalAPIModel.FK_Doctor_Doctor" FromRole="Doctor" ToRole="Department" />
-          <NavigationProperty Name="DoctorLeaves" Relationship="PatientPortalAPIModel.FK_DoctorLeave_Doctor" FromRole="Doctor" ToRole="DoctorLeave" />
-          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalAPIModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
+          <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalModel.FK_AppointmentInfo_Doctor" FromRole="Doctor" ToRole="AppointmentInfo" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Doctor" ToRole="Department" />
+          <NavigationProperty Name="DoctorLeaves" Relationship="PatientPortalModel.FK_DoctorLeave_Doctor" FromRole="Doctor" ToRole="DoctorLeave" />
+          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
         </EntityType>
         <EntityType Name="DoctorLeave">
           <Key>
@@ -902,7 +902,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="LeaveDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Doctor" Relationship="PatientPortalAPIModel.FK_DoctorLeave_Doctor" FromRole="DoctorLeave" ToRole="Doctor" />
+          <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_DoctorLeave_Doctor" FromRole="DoctorLeave" ToRole="Doctor" />
         </EntityType>
         <EntityType Name="DoctorSchedule">
           <Key>
@@ -915,10 +915,10 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="TimeFromMeridiemID" Type="Int32" />
           <Property Name="TimeTo" Type="Int32" />
           <Property Name="TimeToMeridiemID" Type="Int32" />
-          <NavigationProperty Name="DayMaster" Relationship="PatientPortalAPIModel.FK_DoctorScheduleDay_DayMaster1" FromRole="DoctorSchedule" ToRole="DayMaster" />
-          <NavigationProperty Name="Doctor" Relationship="PatientPortalAPIModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="DoctorSchedule" ToRole="Doctor" />
-          <NavigationProperty Name="MeridiemMaster" Relationship="PatientPortalAPIModel.FK_DoctorScheduleDay_MeridiemMaster" FromRole="DoctorSchedule" ToRole="MeridiemMaster" />
-          <NavigationProperty Name="MeridiemMaster1" Relationship="PatientPortalAPIModel.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="DoctorSchedule" ToRole="MeridiemMaster" />
+          <NavigationProperty Name="DayMaster" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1" FromRole="DoctorSchedule" ToRole="DayMaster" />
+          <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="DoctorSchedule" ToRole="Doctor" />
+          <NavigationProperty Name="MeridiemMaster" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster" FromRole="DoctorSchedule" ToRole="MeridiemMaster" />
+          <NavigationProperty Name="MeridiemMaster1" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="DoctorSchedule" ToRole="MeridiemMaster" />
         </EntityType>
         <EntityType Name="Gbl_Master_Login">
           <Key>
@@ -933,7 +933,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Gbl_Master_User" Relationship="PatientPortalAPIModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_Login" ToRole="Gbl_Master_User" />
+          <NavigationProperty Name="Gbl_Master_User" Relationship="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_Login" ToRole="Gbl_Master_User" />
         </EntityType>
         <EntityType Name="Gbl_Master_User">
           <Key>
@@ -954,7 +954,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Gbl_Master_Login" Relationship="PatientPortalAPIModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Login" />
+          <NavigationProperty Name="Gbl_Master_Login" Relationship="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Login" />
         </EntityType>
         <EntityType Name="HospitalDetail">
           <Key>
@@ -974,7 +974,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="ReportName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalAPIModel.FK_LabReport_PatientInfo" FromRole="LabReport" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_LabReport_PatientInfo" FromRole="LabReport" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="MeridiemMaster">
           <Key>
@@ -982,8 +982,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </Key>
           <Property Name="MeridiemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MeridiemValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalAPIModel.FK_DoctorScheduleDay_MeridiemMaster" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
-          <NavigationProperty Name="DoctorSchedules1" Relationship="PatientPortalAPIModel.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
+          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
+          <NavigationProperty Name="DoctorSchedules1" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
         </EntityType>
         <EntityType Name="PatientBillReport">
           <Key>
@@ -998,7 +998,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PatientId" Type="Int32" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalAPIModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientBillReport" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientBillReport" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
@@ -1031,18 +1031,18 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="ValidUpto" Type="DateTime" Precision="3" />
           <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalAPIModel.FK_AppointmentInfo_PatientInfo" FromRole="PatientInfo" ToRole="AppointmentInfo" />
-          <NavigationProperty Name="City" Relationship="PatientPortalAPIModel.FK_PatientInfo_City" FromRole="PatientInfo" ToRole="City" />
-          <NavigationProperty Name="Department" Relationship="PatientPortalAPIModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
-          <NavigationProperty Name="LabReports" Relationship="PatientPortalAPIModel.FK_LabReport_PatientInfo" FromRole="PatientInfo" ToRole="LabReport" />
-          <NavigationProperty Name="PatientBillReports" Relationship="PatientPortalAPIModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientInfo" ToRole="PatientBillReport" />
-          <NavigationProperty Name="PatientLabReports" Relationship="PatientPortalAPIModel.FK__PatientLa__Patie__3B40CD36" FromRole="PatientInfo" ToRole="PatientLabReport" />
-          <NavigationProperty Name="PatientInfo1" Relationship="PatientPortalAPIModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo" ToRole="PatientInfo1" />
-          <NavigationProperty Name="PatientInfo2" Relationship="PatientPortalAPIModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo1" ToRole="PatientInfo" />
-          <NavigationProperty Name="State" Relationship="PatientPortalAPIModel.FK_PatientInfo_State" FromRole="PatientInfo" ToRole="State" />
-          <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalAPIModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
-          <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalAPIModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
-          <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalAPIModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
+          <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalModel.FK_AppointmentInfo_PatientInfo" FromRole="PatientInfo" ToRole="AppointmentInfo" />
+          <NavigationProperty Name="City" Relationship="PatientPortalModel.FK_PatientInfo_City" FromRole="PatientInfo" ToRole="City" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
+          <NavigationProperty Name="LabReports" Relationship="PatientPortalModel.FK_LabReport_PatientInfo" FromRole="PatientInfo" ToRole="LabReport" />
+          <NavigationProperty Name="PatientBillReports" Relationship="PatientPortalModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientInfo" ToRole="PatientBillReport" />
+          <NavigationProperty Name="PatientLabReports" Relationship="PatientPortalModel.FK__PatientLa__Patie__3B40CD36" FromRole="PatientInfo" ToRole="PatientLabReport" />
+          <NavigationProperty Name="PatientInfo1" Relationship="PatientPortalModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo" ToRole="PatientInfo1" />
+          <NavigationProperty Name="PatientInfo2" Relationship="PatientPortalModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo1" ToRole="PatientInfo" />
+          <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="PatientInfo" ToRole="State" />
+          <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
+          <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
+          <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
         </EntityType>
         <EntityType Name="PatientLabReport">
           <Key>
@@ -1057,7 +1057,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PatientId" Type="Int32" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalAPIModel.FK__PatientLa__Patie__3B40CD36" FromRole="PatientLabReport" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK__PatientLa__Patie__3B40CD36" FromRole="PatientLabReport" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -1068,7 +1068,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="Locked" Type="Boolean" />
           <Property Name="LoginAttemptDate" Type="DateTime" Precision="3" />
           <Property Name="PatientId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalAPIModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientLoginEntry" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientLoginEntry" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="PatientLoginHistory">
           <Key>
@@ -1078,7 +1078,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="PatientId" Type="Int32" />
           <Property Name="LoginDate" Type="DateTime" Precision="3" />
           <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalAPIModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientLoginHistory" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientLoginHistory" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="PatientTransaction">
           <Key>
@@ -1092,7 +1092,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TransactionDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalAPIModel.FK_PatientTransaction_PatientInfo" FromRole="PatientTransaction" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientTransaction" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -1100,8 +1100,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </Key>
           <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StateName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Cities" Relationship="PatientPortalAPIModel.FK_City_State" FromRole="State" ToRole="City" />
-          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalAPIModel.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
+          <NavigationProperty Name="Cities" Relationship="PatientPortalModel.FK_City_State" FromRole="State" ToRole="City" />
+          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="PateintLeadger">
           <Key>
@@ -1161,8 +1161,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           <Property Name="entrytype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
         </EntityType>
         <Association Name="FK_AppointmentInfo_Doctor">
-          <End Type="PatientPortalAPIModel.Doctor" Role="Doctor" Multiplicity="1" />
-          <End Type="PatientPortalAPIModel.AppointmentInfo" Role="AppointmentInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
+          <End Type="PatientPortalModel.AppointmentInfo" Role="AppointmentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
               <PropertyRef Name="DoctorID" />
@@ -1173,8 +1173,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AppointmentInfo_PatientInfo">
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
-          <End Type="PatientPortalAPIModel.AppointmentInfo" Role="AppointmentInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
+          <End Type="PatientPortalModel.AppointmentInfo" Role="AppointmentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1185,8 +1185,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_City_State">
-          <End Type="PatientPortalAPIModel.State" Role="State" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.City" Role="City" Multiplicity="*" />
+          <End Type="PatientPortalModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.City" Role="City" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="State">
               <PropertyRef Name="StateId" />
@@ -1197,8 +1197,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientInfo_City">
-          <End Type="PatientPortalAPIModel.City" Role="City" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="City">
               <PropertyRef Name="CityId" />
@@ -1209,8 +1209,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_DayMaster1">
-          <End Type="PatientPortalAPIModel.DayMaster" Role="DayMaster" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
+          <End Type="PatientPortalModel.DayMaster" Role="DayMaster" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DayMaster">
               <PropertyRef Name="DayId" />
@@ -1221,8 +1221,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Doctor_Doctor">
-          <End Type="PatientPortalAPIModel.Department" Role="Department" Multiplicity="1" />
-          <End Type="PatientPortalAPIModel.Doctor" Role="Doctor" Multiplicity="*" />
+          <End Type="PatientPortalModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmentID" />
@@ -1233,8 +1233,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientInfo_Department">
-          <End Type="PatientPortalAPIModel.Department" Role="Department" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmentID" />
@@ -1245,8 +1245,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorLeave_Doctor">
-          <End Type="PatientPortalAPIModel.Doctor" Role="Doctor" Multiplicity="1" />
-          <End Type="PatientPortalAPIModel.DoctorLeave" Role="DoctorLeave" Multiplicity="*" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
+          <End Type="PatientPortalModel.DoctorLeave" Role="DoctorLeave" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
               <PropertyRef Name="DoctorID" />
@@ -1257,8 +1257,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_DoctorSchedule">
-          <End Type="PatientPortalAPIModel.Doctor" Role="Doctor" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
               <PropertyRef Name="DoctorID" />
@@ -1269,8 +1269,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_MeridiemMaster">
-          <End Type="PatientPortalAPIModel.MeridiemMaster" Role="MeridiemMaster" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
+          <End Type="PatientPortalModel.MeridiemMaster" Role="MeridiemMaster" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MeridiemMaster">
               <PropertyRef Name="MeridiemID" />
@@ -1281,8 +1281,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_MeridiemMaster1">
-          <End Type="PatientPortalAPIModel.MeridiemMaster" Role="MeridiemMaster" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
+          <End Type="PatientPortalModel.MeridiemMaster" Role="MeridiemMaster" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MeridiemMaster">
               <PropertyRef Name="MeridiemID" />
@@ -1293,8 +1293,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Gbl_Master_Login_Gbl_Master_User">
-          <End Type="PatientPortalAPIModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
-          <End Type="PatientPortalAPIModel.Gbl_Master_Login" Role="Gbl_Master_Login" Multiplicity="*" />
+          <End Type="PatientPortalModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="PatientPortalModel.Gbl_Master_Login" Role="Gbl_Master_Login" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gbl_Master_User">
               <PropertyRef Name="UserId" />
@@ -1305,8 +1305,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LabReport_PatientInfo">
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.LabReport" Role="LabReport" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.LabReport" Role="LabReport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1317,8 +1317,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__PatientBi__Patie__3A4CA8FD">
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.PatientBillReport" Role="PatientBillReport" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientBillReport" Role="PatientBillReport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1329,8 +1329,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__PatientLa__Patie__3B40CD36">
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.PatientLabReport" Role="PatientLabReport" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientLabReport" Role="PatientLabReport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1341,8 +1341,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientInfo_PatientInfo">
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo1" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo1" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1353,8 +1353,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientInfo_State">
-          <End Type="PatientPortalAPIModel.State" Role="State" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="State">
               <PropertyRef Name="StateId" />
@@ -1365,8 +1365,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientLoginEntry_PatientInfo">
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
-          <End Type="PatientPortalAPIModel.PatientLoginEntry" Role="PatientLoginEntry" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
+          <End Type="PatientPortalModel.PatientLoginEntry" Role="PatientLoginEntry" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1377,8 +1377,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientLoginHistory_PatientInfo">
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.PatientLoginHistory" Role="PatientLoginHistory" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientLoginHistory" Role="PatientLoginHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1389,8 +1389,8 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientTransaction_PatientInfo">
-          <End Type="PatientPortalAPIModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
-          <End Type="PatientPortalAPIModel.PatientTransaction" Role="PatientTransaction" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientTransaction" Role="PatientTransaction" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1405,9 +1405,9 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PatientPortalAPIModelStoreContainer" CdmEntityContainer="PatientPortalAPIEntities">
+        <EntityContainerMapping StorageEntityContainer="PatientPortalModelStoreContainer" CdmEntityContainer="PatientPortalEntities">
           <EntitySetMapping Name="AppointmentInfoes">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.AppointmentInfo">
+            <EntityTypeMapping TypeName="PatientPortalModel.AppointmentInfo">
               <MappingFragment StoreEntitySet="AppointmentInfo">
                 <ScalarProperty Name="Reminder" ColumnName="Reminder" />
                 <ScalarProperty Name="CancelReason" ColumnName="CancelReason" />
@@ -1425,7 +1425,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AppointmentSettings">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.AppointmentSetting">
+            <EntityTypeMapping TypeName="PatientPortalModel.AppointmentSetting">
               <MappingFragment StoreEntitySet="AppointmentSetting">
                 <ScalarProperty Name="IsActiveAppointmentMessage" ColumnName="IsActiveAppointmentMessage" />
                 <ScalarProperty Name="AutoCancelMessage" ColumnName="AutoCancelMessage" />
@@ -1441,7 +1441,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cities">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.City">
+            <EntityTypeMapping TypeName="PatientPortalModel.City">
               <MappingFragment StoreEntitySet="City">
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
@@ -1450,7 +1450,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DayMasters">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.DayMaster">
+            <EntityTypeMapping TypeName="PatientPortalModel.DayMaster">
               <MappingFragment StoreEntitySet="DayMaster">
                 <ScalarProperty Name="DayName" ColumnName="DayName" />
                 <ScalarProperty Name="DayId" ColumnName="DayId" />
@@ -1458,7 +1458,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.Department">
+            <EntityTypeMapping TypeName="PatientPortalModel.Department">
               <MappingFragment StoreEntitySet="Department">
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -1466,7 +1466,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Doctors">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.Doctor">
+            <EntityTypeMapping TypeName="PatientPortalModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -1479,7 +1479,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DoctorLeaves">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.DoctorLeave">
+            <EntityTypeMapping TypeName="PatientPortalModel.DoctorLeave">
               <MappingFragment StoreEntitySet="DoctorLeave">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -1490,7 +1490,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DoctorSchedules">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.DoctorSchedule">
+            <EntityTypeMapping TypeName="PatientPortalModel.DoctorSchedule">
               <MappingFragment StoreEntitySet="DoctorSchedule">
                 <ScalarProperty Name="TimeToMeridiemID" ColumnName="TimeToMeridiemID" />
                 <ScalarProperty Name="TimeTo" ColumnName="TimeTo" />
@@ -1503,7 +1503,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gbl_Master_Login">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.Gbl_Master_Login">
+            <EntityTypeMapping TypeName="PatientPortalModel.Gbl_Master_Login">
               <MappingFragment StoreEntitySet="Gbl_Master_Login">
                 <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
@@ -1518,7 +1518,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gbl_Master_User">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.Gbl_Master_User">
+            <EntityTypeMapping TypeName="PatientPortalModel.Gbl_Master_User">
               <MappingFragment StoreEntitySet="Gbl_Master_User">
                 <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
@@ -1539,7 +1539,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HospitalDetails">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.HospitalDetail">
+            <EntityTypeMapping TypeName="PatientPortalModel.HospitalDetail">
               <MappingFragment StoreEntitySet="HospitalDetail">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="HospitalLogo" ColumnName="HospitalLogo" />
@@ -1549,7 +1549,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LabReports">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.LabReport">
+            <EntityTypeMapping TypeName="PatientPortalModel.LabReport">
               <MappingFragment StoreEntitySet="LabReport">
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
@@ -1560,7 +1560,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MeridiemMasters">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.MeridiemMaster">
+            <EntityTypeMapping TypeName="PatientPortalModel.MeridiemMaster">
               <MappingFragment StoreEntitySet="MeridiemMaster">
                 <ScalarProperty Name="MeridiemValue" ColumnName="MeridiemValue" />
                 <ScalarProperty Name="MeridiemID" ColumnName="MeridiemID" />
@@ -1568,7 +1568,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientBillReports">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.PatientBillReport">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientBillReport">
               <MappingFragment StoreEntitySet="PatientBillReport">
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
@@ -1583,7 +1583,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientInfoes">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.PatientInfo">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
               <MappingFragment StoreEntitySet="PatientInfo">
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
@@ -1616,7 +1616,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientLabReports">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.PatientLabReport">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientLabReport">
               <MappingFragment StoreEntitySet="PatientLabReport">
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
@@ -1631,7 +1631,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientLoginEntries">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.PatientLoginEntry">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientLoginEntry">
               <MappingFragment StoreEntitySet="PatientLoginEntry">
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="LoginAttemptDate" ColumnName="LoginAttemptDate" />
@@ -1642,7 +1642,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientLoginHistories">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.PatientLoginHistory">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientLoginHistory">
               <MappingFragment StoreEntitySet="PatientLoginHistory">
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
@@ -1652,7 +1652,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientTransactions">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.PatientTransaction">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientTransaction">
               <MappingFragment StoreEntitySet="PatientTransaction">
                 <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
@@ -1666,7 +1666,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="States">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.State">
+            <EntityTypeMapping TypeName="PatientPortalModel.State">
               <MappingFragment StoreEntitySet="State">
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
@@ -1674,7 +1674,7 @@ warning 6002: The table/view 'PatientPortalAPI.dbo.PateintLeadger' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PateintLeadgers">
-            <EntityTypeMapping TypeName="PatientPortalAPIModel.PateintLeadger">
+            <EntityTypeMapping TypeName="PatientPortalModel.PateintLeadger">
               <MappingFragment StoreEntitySet="PateintLeadger">
                 <ScalarProperty Name="entrytype" ColumnName="entrytype" />
                 <ScalarProperty Name="ipno" ColumnName="ipno" />

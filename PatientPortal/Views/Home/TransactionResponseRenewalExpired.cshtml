@@ -1,0 +1,242 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using PatientPortal.Global
+@using PatientPortal.Controllers;
+@using DataLayer;
+@using PatientPortal.Models;
+@using System.Configuration;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @hospitalName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+
+</head>
+<body>
+    <script type="text/javascript">
+        var jsonPatient = null;
+    </script>
+    @{
+        bool registerPage = false;
+        if (Convert.ToString(ViewData["registerAction"]) != "getotpscreen")
+        {
+            registerPage = true;
+        }
+    }
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%">
+                @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="float:right">
+                    @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main page-bg">
+        <div class="container mobile-padding-lr0 ">
+            <div class="col-md-8 col-md-offset-21 col-sm-12 no-padding-sm register-main">
+                <div class="col-md-12 RegisterPage-container">
+
+                    @if (Convert.ToBoolean(ViewData["FailTransaction"]) == true)
+                    {
+                        <form id="form" class="form-horizontal" action="PaymentTransaction" method="post" autocomplete="off">
+                            <div class="container body-content" style="padding-bottom: 20px;">
+                                <div id="loginContainer" class="dialog dialog-effect-in" style="width:550px;margin:0 auto;">
+                                    <div class="dialog-front">
+                                        <div class="dialog-content">
+                                            <fieldset>
+                                                <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                                    <font style="font-size:18px">Transaction Response Fail</font><br />
+                                                    <font style="font-size:13px">
+                                                        <b>Your Transaction is Fail</b><br />
+                                                        Please try again by clicking on Make Payment Button<br />
+                                                    </font>
+                                                </legend>
+                                                <div>
+                                                    <input type="submit" name="makepayment" class="btn btn-primary btn-blue btn-block btn-lg" value="Retry Payment" style="float:right;width:200px;">
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="container body-content" style="padding-bottom: 20px;">
+                            <div id="loginContainer" class="dialog dialog-effect-in" style="width:550px;margin: 0 auto;padding-top: 20px;">
+                                <div class="dialog-front">
+                                    <div class="dialog-content">
+                                        @if (ViewData["TransactionSuccessResult"] != null)
+                                        {
+                                            var result = (PatientTransaction)ViewData["TransactionSuccessResult"];
+                                            <form id="login_form" class="dialog-form">
+                                                <fieldset>
+                                                    <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                                        <font style="font-size:18px">Transaction Response</font><br />
+                                                        <font style="font-size:13px">
+                                                            <b>Your Transaction is successful</b><br />
+                                                            Your registration is Renew, now you can login to account.
+                                                        </font>
+                                                    </legend>
+
+                                                    <div class="form-group">
+                                                        <label for="registrationnumber" class="control-label">Registration Number:</label>
+                                                        <label id="registrationnumber" class="form-control" name="registrationnumber">@result.OrderId</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="amount" class="control-label">Transaction Amount:</label>
+                                                        <label id="amount" class="form-control" name="amount">@result.Amount</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="refenceno" class="control-label">Transaction Referance No:</label>
+                                                        <label id="refenceno" class="form-control" name="refenceno">@result.TransactionNumber</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="date" class="control-label">Transaction Date:</label>
+                                                        <label id="date" class="form-control" name="date">@result.TransactionDate</label>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <label class="control-label">There Was Some Error in transaction Processing.....Please Check The Data you have Entered</label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding-top:5px;padding-bottom:5px;padding-left:450px;">
+                                <input type="button" id="btnPrint" value="Print" class="btn btn-success" style="float:left;width:100px" />&nbsp;&nbsp;
+                                @*<div class="divider">
+                                        <input type="button" id="" value="Go to Login" class="btn btn-success" onclick="window.location='../';" style="float:left;width:100px" />
+                                    </div>*@
+                            </div>
+                        </div>
+                    }
+
+
+                    <script type="text/javascript">
+                        $(function () {
+                            $("#btnPrint").click(function () {
+                                var contents = $("#loginContainer").html();
+                                var frame1 = $('<iframe />');
+                                frame1[0].name = "frame1";
+                                frame1.css({ "position": "absolute", "top": "-1000000px" });
+                                $("body").append(frame1);
+                                var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+                                frameDoc.document.open();
+                                //Create a new HTML document.
+                                frameDoc.document.write('<html><head><title>Payment Reciept</title>');
+                                frameDoc.document.write('</head><body>');
+                                //Append the external CSS file.
+                                frameDoc.document.write('<link href="Login.css" rel="stylesheet" type="text/css" />');
+                                //Append the DIV contents.
+                                frameDoc.document.write(contents);
+                                frameDoc.document.write('</body></html>');
+                                frameDoc.document.close();
+                                setTimeout(function () {
+                                    window.frames["frame1"].focus();
+                                    window.frames["frame1"].print();
+                                    frame1.remove();
+                                }, 500);
+                            });
+                        });
+                    </script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/App/Login/Login.js"></script>
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+    <style>
+        #profileimage {
+            width: 120px;
+            height: 150px;
+            box-shadow: 3px 3px 3px #8080803b;
+            border-radius: 4px;
+            border: 1px solid #8080803d;
+        }
+
+        .form-group {
+            margin-bottom: 6px !important;
+            padding-right: 10px;
+        }
+
+            .form-group div {
+                font-size: 11px;
+                min-height: 15px;
+                height: auto;
+            }
+
+            .form-group label {
+                margin-bottom: 0px !important;
+                font-weight: 550 !important;
+            }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            cursor: pointer;
+            color: brown;
+            padding-top: 7px;
+        }
+
+        #filename {
+            color: brown;
+            font-size: smaller;
+        }
+    </style>
+</body>
+</html>
+

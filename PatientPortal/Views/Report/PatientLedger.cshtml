@@ -1,0 +1,64 @@
+﻿@using PatientPortal.Models.Patient
+@model List<PatientLedgerModel>
+@{
+    ViewBag.Title = "PatientLedger";
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+
+<form action="/Report/DownloadReportFile" method="post" id="_form">
+    <div class="" style="padding-top:20px;">
+        <div class="col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Patient Ledger <div style="margin-top:-7px;" class="pull-right"><input class="btn btn-info" type="button" value="Print" id="btnPrint" /> </div> </div>
+                <div class="panel-body">
+                    <input type="hidden" name="fileurl" id="_fileurl" value="" />
+                    <table class="table table-bordered table-hover table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>I.P. No.</th>
+                                <th>Type</th>
+                                <th>V. No</th>
+                                <th>Description</th>
+                                <th>Payment</th>
+                                <th>Receipt</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (PatientLedgerModel item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Date</td>
+                                    <td>@item.IPNo</td>
+                                    <td>@item.Type</td>
+                                    <td>@item.VNo</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.Payment</td>
+                                    <td>@item.Receipt</td>
+                                    <td>@item.Balance</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<script>
+    $(document).on('click', '#btnPrint', function () {
+        var pageTitle = 'Patient Ledger Report';
+                stylesheet = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
+                win = window.open('', 'Print', 'width=500,height=300');
+            win.document.write('<html><head><title>' + pageTitle + '</title>' +
+                '<link rel="stylesheet" href="' + stylesheet + '">' +
+                '</head><body style="font-size=11px;">' + $('.table')[0].outerHTML + '</body></html>');
+            win.document.close();
+            win.print();
+            //win.close();
+            return false;
+    });
+</script>
+
