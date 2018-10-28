@@ -21,3 +21,7 @@ packages/*
 /PatientPortal/LabReports
 /PatientPortal/Reports/Bill/2018/October/23487238974.pdf
 /PatientPortal/Reports/Bill/2018/November
+/.vs/PatientPortalAPI/v15/Server/sqlite3/storage.ide-wal
+/.vs/PatientPortalAPI/v15/Server/sqlite3/storage.ide-shm
+/.vs/PatientPortalAPI/v15/Server/sqlite3/storage.ide
+/.vs/PatientPortalAPI/v15/Server/sqlite3/db.lock
