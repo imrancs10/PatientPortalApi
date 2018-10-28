@@ -105,9 +105,6 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-    </Reference>
     <Reference Include="RequestAndResponse, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ExternalAssembly\RequestAndResponse.dll</HintPath>
@@ -270,63 +267,10 @@
     <Content Include="ExternalAssembly\RequestAndResponse.dll" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="img\179349.png" />
-    <Content Include="img\179350.png" />
-    <Content Include="img\179351.png" />
-    <Content Include="img\179352.png" />
-    <Content Include="img\ajax-loader.gif" />
-    <Content Include="img\arrow.png" />
-    <Content Include="img\avatar-female.png" />
-    <Content Include="img\avatar-male.jpg" />
-    <Content Include="img\b2.jpg" />
-    <Content Include="img\b3.jpg" />
-    <Content Include="img\b4.jpg" />
-    <Content Include="img\banner-bg.jpg" />
-    <Content Include="img\banner.jpg" />
-    <Content Include="img\click.gif" />
-    <Content Include="img\img.jpg" />
-    <Content Include="img\jpg_img.jpg" />
-    <Content Include="img\opd.jpg" />
-    <Content Include="img\opd.png" />
-    <Content Include="img\p01.jpg" />
-    <Content Include="img\p1.jpg" />
-    <Content Include="img\p2.jpg" />
-    <Content Include="img\pdf-icon.jpg" />
-    <Content Include="img\pp.jpg" />
-    <Content Include="img\pp11.jpg" />
-    <Content Include="img\ppp.png" />
-    <Content Include="img\slider01.jpg" />
-    <Content Include="img\slider02.jpg" />
-    <Content Include="img\slider03.jpg" />
-    <Content Include="img\slider04.jpg" />
-    <Content Include="img\slider05.jpg" />
-    <Content Include="img\slider06.jpg" />
-    <Content Include="img\slider1.jpg" />
-    <Content Include="img\slider2.jpg" />
-    <Content Include="img\slider3.jpg" />
-    <Content Include="img\triangle-down.svg" />
-    <Content Include="Json\countries.json" />
-    <Content Include="Json\states.json" />
-    <Content Include="Json\cities.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Masters\AppointmentSetting.cshtml" />
-    <Content Include="Views\Masters\LabReport.cshtml" />
-    <Content Include="Views\Patient\GetLabReport.cshtml" />
-    <Content Include="Views\Report\GetBillingReport.cshtml" />
-    <Content Include="Views\Report\ReportViewing.cshtml" />
-    <Content Include="Views\Admin\PatientBillReport.cshtml" />
-    <Content Include="Views\Shared\_PatientSearch.cshtml" />
-    <Content Include="Views\Admin\PatientLabReport.cshtml" />
-    <Content Include="Views\Home\TransactionPayReNewal.cshtml" />
-    <Content Include="Views\Home\MakePayment.cshtml" />
-    <Content Include="Views\Home\TransactionResponseRenewal.cshtml" />
-    <Content Include="Views\Report\PatientLedger.cshtml" />
-    <Content Include="Views\Home\TransactionPayReNewalExpired.cshtml" />
-    <Content Include="Views\Home\TransactionResponseRenewalExpired.cshtml" />
-    <Content Include="Views\Shared\ExceptionPage.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">
@@ -349,35 +293,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Home\Dashboard.cshtml" />
-    <Content Include="Views\Home\Appointment.cshtml" />
-    <Content Include="Views\Masters\AddDepartments.cshtml" />
-    <Content Include="Views\Masters\AddDoctors.cshtml" />
-    <Content Include="Views\Masters\AddSchedule.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Shared\_LayoutPatient.cshtml" />
-    <Content Include="Views\Home\AccessDenied.cshtml" />
-    <Content Include="Views\Appointment\GetAppointments.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\TransactionPay.cshtml" />
-    <Content Include="Views\Home\TransactionResponse.cshtml" />
-    <Content Include="Views\Home\CreatePassword.cshtml" />
-    <Content Include="Views\Masters\HospitalDetail.cshtml" />
-    <Content Include="Views\Appointment\PatientProfile.cshtml" />
-    <Content Include="Views\Home\MyProfile.cshtml" />
-    <Content Include="Views\Home\ForgetPassword.cshtml" />
-    <Content Include="Views\Home\ForgetUserID.cshtml" />
-    <Content Include="Views\Home\ChangePassword.cshtml" />
-    <Content Include="Views\Masters\AddDoctorLeave.cshtml" />
-    <Content Include="Views\Home\ResetPassword.cshtml" />
-    <Content Include="Views\Home\CRIntegrate.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.wsdl" />
     <None Include="Web References\HISWebReference\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -386,7 +301,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
