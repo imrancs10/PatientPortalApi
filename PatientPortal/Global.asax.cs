@@ -1,4 +1,5 @@
 ﻿using PatientPortal.Infrastructure.Authentication;
+using PatientPortal.Infrastructure.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,9 @@ namespace PatientPortal
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalFilters.Filters.Add(new CustomExceptionFilter());
+
+
         }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
@@ -40,6 +44,7 @@ namespace PatientPortal
                 newUser.MiddleName = serializeModel.MiddleName;
                 newUser.LastName = serializeModel.LastName;
                 newUser.Email = serializeModel.Email;
+                newUser.Mobile = serializeModel.Mobile;
 
                 HttpContext.Current.User = newUser;
             }

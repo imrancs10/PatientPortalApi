@@ -3,7 +3,10 @@
 @using PatientPortal.Infrastructure.Authentication;
 @using DataLayer;
 @using PatientPortal.Controllers;
+@using PatientPortal.Global;
 @{
+    /**/
+
     var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
     string imgsrc = "../img/p1.jpg";
@@ -11,6 +14,7 @@
     {
         var base64 = Convert.ToBase64String(hospital.HospitalLogo);
         imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+        WebSession.HospitalLogo = imgsrc;
     }
 
     var patientinfo = GetPatientInfo();
@@ -72,7 +76,28 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
+    <script>
+        $(function () {
+            //$('.dropdown-toggle').click(function () {
+            //    $('.hoe-header-profile').toggleClass('open');
+            //});
+            $('.hoe-sidebar-toggle').click(function () {
+                if ($('#hiddenToggle').val() == "No") {
+                    $('body').attr('hoe-navigation-type', 'vertical');
+                    $('#hoe-header').removeClass('hoe-minimized-lpanel')
+                    $('#hoeapp-container').removeClass('hoe-minimized-lpanel');
+                    $('#hiddenToggle').val("Yes");
+                }
+                else {
+                    $('body').attr('hoe-navigation-type', 'vertical-compact');
+                    $('#hoe-header').addClass('hoe-minimized-lpanel');
+                    $('#hoeapp-container').addClass('hoe-minimized-lpanel');
+                    $('#hiddenToggle').val("No");
+                }
+            });
+        });
+    </script>
+    <input type="hidden" id="hiddenToggle" value="Yes" />
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container1">
             <div class="navbar-header" style="width:100%;">
@@ -92,7 +117,7 @@
 
         <header id="hoe-header" hoe-lpanel-effect="shrink">
             <div class="hoe-left-header">
-                <a href="#"><i class="far fa-prescription"></i> <span>Patient Portal</span></a>
+                <a href="#" style="float:left;padding-left:10px;"><i class="fa fa-plus-square"></i> <span>Patient Portal</span></a>
                 <span class="hoe-sidebar-toggle"><a href="#"></a></span>
             </div>
 
@@ -105,8 +130,8 @@
                             <div class="row">
                                 <div class="col-md-11 hidden-xs" style="white-space:nowrap">
                                     <h4>
-                                        Your Registration will expired in @daysRemaning days,
-                                        @Html.ActionLink("click here to Renew", "MakePayment", "Home", new { area = "" }, new { })
+                                        Your Registration will expired in @daysRemaning days
+                                        @*@Html.ActionLink("click here to Renew", "MakePayment", "Home", new { area = "" }, new { })*@
                                     </h4>
                                 </div>
                                 @*<div class="col-md-1"><h4></h4></div>*@
@@ -156,8 +181,24 @@
                         </a>
                         <div class="media-body">
                             <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>
-                            <small>Patient</small> <br />
-                            <small style="color:#ffd800;">Admitted</small>&nbsp;&nbsp;&nbsp;<small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
+                            @*<small>Patient</small>*@
+                            @*<br />*@
+                            @{
+
+                                string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admitted" ? "red" : "green";
+                                <small style="color:@color">
+                                    @if (@Convert.ToString(patientOPDInfo.patStatus) == "Admitted")
+                                    {
+                                        <text>Admitted</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Not Admitted</text>
+                                    }
+                                </small>
+                            }
+
+                            <br /><small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
                         </div>
                     </div>
                 </div>
@@ -200,7 +241,6 @@
                         <a href="~/Appointment/GetAppointments">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Book Appointments</span>
-                            <span class="label sul">New</span>
                             <span class="selected"></span>
                         </a>
                     </li>
@@ -223,13 +263,13 @@
                                     <span class="selected"></span>
                                 </a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="/Report/PatientLedger">
                                     <span class="menu-text">Patient Ledger</span>
                                     <span class="selected"></span>
                                 </a>
                             </li>
-                            <!--<li>
+                            <li>
                                 <a href="/patient/GetLabReport">
                                     <span class="menu-text">View Report</span>
                                     <span class="selected"></span>
@@ -242,14 +282,6 @@
                                 </a>
                             </li>-->
                         </ul>
-                    </li>
-                    <li>
-                        <a class="isDisabled" href="javascript:void(0)">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="menu-text">Make Payment</span>
-                            <span class="label sul">New</span>
-                            <span class="selected"></span>
-                        </a>
                     </li>
                     <li class="hoe-has-menu">
                         <a href="javascript:void(0)">
@@ -274,14 +306,14 @@
                             <span class="selected"></span>
                         </a>
                     </li>
-                    @*<li>
-                            <a href="/patient/GetLabReport">
-                                <i class="fa fa-bar-chart"></i>
-                                <span class="menu-text">Reports</span>
-                                <span class="label sul">New</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>*@
+                    <li>
+                        <a class="isDisabled" href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Make Payment</span>
+                            <span class="label sul">New</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
                     <li>
                         <a class="isDisabled" href="javascript:void(0)">
                             <i class="fa fa-bar-chart"></i>

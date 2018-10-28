@@ -10,5 +10,6 @@ namespace PatientPortal.Models
         public string totOPD { get; set; }
         public string totIPD { get; set; }
         public string CurrBal { get; set; }
+        public string patStatus { get; set; }
     }
 }

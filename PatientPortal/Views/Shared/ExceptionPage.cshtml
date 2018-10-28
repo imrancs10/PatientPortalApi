@@ -1,0 +1,115 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using PatientPortal.Global
+@using PatientPortal.Controllers;
+@using DataLayer;
+@using PatientPortal.Models.Masters;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @hospitalName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Login/Login.js"></script>
+    <link rel="stylesheet" href="~/Scripts/App/index.css" />
+    <link rel="stylesheet" href="~/Scripts/App/jquery.slide.css" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+
+    <link href="~/Content/App/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/App/css/style.css" rel="stylesheet" />
+
+</head>
+<body class="img-responsive">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%;">
+                <div class="row">
+                    <div class="col-md-9 blink">@Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
+                    <div class="col-md-3 blink hidden-xs"><h4 style="color:#fff;">Emergency no:- +91-1234-567-890</h4></div>
+                </div>
+
+                @*<div style="float:right">
+                        @Html.ActionLink("Already Have CR Number", "CRIntegrate", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="col-md-8 col-md-offset-2 col-sm-12 no-padding-sm">*@
+    <div class="col-md-12 loginpage-container">
+        @*<h2>SomeException</h2>
+
+            <hgroup class="title">
+
+                <h1 class="error">Error.</h1>
+
+                <h2 class="error">Some thing when Wrong kindly check after few hours</h2>
+
+                <h2 class="error"><a href="~/Home/Index">Go to Login Page</a></h2>
+
+            </hgroup>*@
+
+        <div class="header">
+            <h1 style="color:#ffd800;padding:10px;">404 error page</h1>
+        </div>
+        <!---728x90--->
+
+        <div class="w3-main">
+            <div class="agile-info">
+                <h2>SomeException</h2>
+                <h3>Error</h3>
+                <p>Some thing when Wrong kindly check after few hours</p>
+                @Html.ActionLink("Go to Login Page", "Index", "Home", new { }, null)
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+
+
+</body>
+</html>

@@ -62,7 +62,8 @@ namespace PatientPortal.BAL.Reports
         public List<PatientLedgerModel> GetPatientLedger()
         {
             _db = new PatientPortalEntities();
-            var data = _db.PateintLeadgers.Where(x => x.Patientid == WebSession.PatientId && DbFunctions.TruncateTime(x.billdate)>= DbFunctions.TruncateTime(x.billdate.AddMonths(-WebSession.PatientLedgerPeriodInMonth))).ToList();
+            DateTime _period = DateTime.Now.AddMonths(-WebSession.PatientLedgerPeriodInMonth);
+            var data = _db.PateintLeadgers.Where(x => x.Patientid == WebSession.PatientId && DbFunctions.TruncateTime(x.billdate)>= DbFunctions.TruncateTime(_period)).ToList();
             List<PatientLedgerModel> ledgerList = new List<PatientLedgerModel>();
 
             if (data != null)

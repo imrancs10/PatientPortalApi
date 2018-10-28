@@ -29,10 +29,10 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult DayWiseDoctorScheduleList(int deptId, string day,DateTime? date)
+        public JsonResult DayWiseDoctorScheduleList(int deptId, string day, DateTime? date)
         {
             AppointDetails _details = new AppointDetails();
-            return Json(_details.DayWiseDoctorScheduleList(deptId, day,date), JsonRequestBehavior.AllowGet);
+            return Json(_details.DayWiseDoctorScheduleList(deptId, day, date), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -52,10 +52,11 @@ namespace PatientPortal.Controllers
             {
                 model.PatientId = pId;
                 //PatientInfo data = (PatientInfo)Session["PatientData"];
-                var user = User;               
+                var user = User;
                 Enums.CrudStatus result = _details.SaveAppointment(model);
-                if(result==Enums.CrudStatus.Saved)
+                if (result == Enums.CrudStatus.Saved)
                 {
+                    //Send Email
                     Message msg = new Message()
                     {
                         MessageTo = user.Email,
@@ -65,6 +66,20 @@ namespace PatientPortal.Controllers
                     };
                     ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                     sendMessageStrategy.SendMessages();
+                    
+                    //Send SMS
+                    msg.Body = "Hello " + string.Format("{0} {1}", user.FirstName, user.LastName) + "\nAs you requested an appointment with " + doctorname + "is  booked on schedule time " + model.AppointmentDateFrom.ToString("dd-MMM-yyyy hh:mm") + " at " + deptname + " Department\n Regards:\n Patient Portal(RMLHIMS)";
+                    msg.MessageTo = user.Mobile;
+                    msg.MessageType = MessageType.Appointment;
+                    sendMessageStrategy = new SendMessageStrategyForSMS(msg);
+                    sendMessageStrategy.SendMessages();
+                    //Message smsConfig = new Message()
+                    //{
+                    //    Body = "Hello " + string.Format("{0} {1}", user.FirstName, user.LastName) + "\nAs you requested an appointment with " + doctorname + "is  booked on schedule time " + model.AppointmentDateFrom.ToString("dd-MMM-yyyy hh:mm") + " at " + deptname + " Department\n Regards:\n Patient Portal(RMLHIMS)",
+                    //    MessageTo = user.Mobile
+                    //};
+                    //Infrastructure.SMSService sMSService = new SMSService();
+                    //sMSService.Send(smsConfig);
                 }
                 return Json(CrudResponse(result), JsonRequestBehavior.AllowGet);
             }
@@ -75,7 +90,7 @@ namespace PatientPortal.Controllers
         }
 
         [AcceptVerbs(new string[] { "Get", "Post" })]
-        public JsonResult GetPatientAppointmentList(int year=0,int month=0)
+        public JsonResult GetPatientAppointmentList(int year = 0, int month = 0)
         {
             AppointDetails _details = new AppointDetails();
             int _patientId = 0;
@@ -83,7 +98,7 @@ namespace PatientPortal.Controllers
             Dictionary<int, string> result = new Dictionary<int, string>();
             if (int.TryParse(_sessionPatienId, out _patientId))
             {
-                return Json(_details.PatientAppointmentList(_patientId,year,month), JsonRequestBehavior.AllowGet);
+                return Json(_details.PatientAppointmentList(_patientId, year, month), JsonRequestBehavior.AllowGet);
             }
             else
             {

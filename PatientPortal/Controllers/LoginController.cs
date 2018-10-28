@@ -28,7 +28,7 @@ namespace PatientPortal.Controllers
             _response = LoginResponse(message);
             if (message == Enums.LoginMessage.Authenticated)
             {
-                setUserClaim();
+                //setUserClaim();
                 return RedirectToAction("AddDepartments", "Masters");
             }
             else

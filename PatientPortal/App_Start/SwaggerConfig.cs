@@ -3,7 +3,6 @@ using WebActivatorEx;
 using PatientPortal;
 using Swashbuckle.Application;
 using System.IO;
-using PatientPortal.Infrastructure.Utility;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -23,7 +22,7 @@ namespace PatientPortal
                 .EnableSwagger(c =>
                     {
                         c.SingleApiVersion("v1", "PatientPortal");
-                        c.OperationFilter(() => new FromHeaderAttributeOperationFilter());
+
                         c.IncludeXmlComments(GetXmlCommentsPath());
 
                         c.ApiKey("Token")

@@ -97,5 +97,11 @@ namespace PatientPortal.Global
         {
             get { return HttpContext.Current.Session["PatientLedgerPeriodInMonth"] == null ? Convert.ToInt32(Utility.GetAppSettingKey("PatientLedgerPeriodInMonth")) : Convert.ToInt32(HttpContext.Current.Session["PatientLedgerPeriodInMonth"].ToString()); }
         }
+
+        public static string HospitalLogo
+        {
+            get { return HttpContext.Current.Session["HospitalLogo"] == null ? string.Empty : HttpContext.Current.Session["HospitalLogo"].ToString(); }
+            set { HttpContext.Current.Session["HospitalLogo"] = value; }
+        }
     }
 }

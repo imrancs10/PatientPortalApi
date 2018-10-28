@@ -33,30 +33,30 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
         {
             string str = "<?xml version=\"1.0\" standalone=\"yes\"?>" +
                         "<NewDataSet>" +
-                          "<PatientInfo >" +
-                               "< PatientId>" + insertModel.PatientId + "</PatientId>" +
-                                "< RegistrationNumber>" + insertModel.RegistrationNumber + "</RegistrationNumber>" +
-                                "< MobileNumber>" + insertModel.MobileNumber + "</MobileNumber>" +
-                                "< Password>" + insertModel.Password + "</Password>" +
-                                "< Email>" + insertModel.Email + "</Email>" +
-                                "< Title>" + insertModel.Title + "</Title>" +
-                                "< FirstName>" + insertModel.FirstName + "</FirstName>" +
-                                "< MiddleName>" + insertModel.MiddleName + "</MiddleName>" +
-                                "< LastName>" + insertModel.LastName + "</LastName>" +
-                                "< DOB>" + insertModel.DOB + "</DOB>" +
-                                "< Gender>" + insertModel.Gender + "</Gender>" +
-                                "< MaritalStatus>" + insertModel.MaritalStatus + "</MaritalStatus>" +
-                                "< Address>" + insertModel.Address + "</Address>" +
-                                "< City>" + insertModel.City + "</City>    " +
-                                "< PinCode>" + insertModel.PinCode + "</PinCode>" +
-                                "< Religion>" + insertModel.Religion + "</Religion>" +
-                                "< DepartmentId>" + insertModel.DepartmentId + "</DepartmentId>  " +
-                                "< State>" + insertModel.State + "</State>	" +
-                                "< FatherOrHusbandName>" + insertModel.FatherOrHusbandName + "</FatherOrHusbandName>	" +
-                                "< Amount>" + insertModel.Amount + "</Amount>" +
-                                "< PatientTransactionId>" + insertModel.PatientTransactionId + "</PatientTransactionId>" +
-                                "< CreateDate>" + insertModel.CreateDate + "</CreateDate>	" +
-                                "< ValidUpto>" + insertModel.ValidUpto + "</ValidUpto>" +
+                          "<PatientInfo>" +
+                               "<PatientId>" + insertModel.PatientId + "</PatientId>" +
+                                "<RegistrationNumber>" + insertModel.RegistrationNumber + "</RegistrationNumber>" +
+                                "<MobileNumber>" + insertModel.MobileNumber + "</MobileNumber>" +
+                                "<Password>" + insertModel.Password + "</Password>" +
+                                "<Email>" + insertModel.Email + "</Email>" +
+                                "<Title>" + insertModel.Title + "</Title>" +
+                                "<FirstName>" + insertModel.FirstName + "</FirstName>" +
+                                "<MiddleName>" + insertModel.MiddleName + "</MiddleName>" +
+                                "<LastName>" + insertModel.LastName + "</LastName>" +
+                                "<DOB>" + insertModel.DOB + "</DOB>" +
+                                "<Gender>" + insertModel.Gender + "</Gender>" +
+                                "<MaritalStatus>" + insertModel.MaritalStatus + "</MaritalStatus>" +
+                                "<Address>" + insertModel.Address + "</Address>" +
+                                "<City>" + insertModel.City + "</City>    " +
+                                "<PinCode>" + insertModel.PinCode + "</PinCode>" +
+                                "<Religion>" + insertModel.Religion + "</Religion>" +
+                                "<DepartmentId>" + insertModel.DepartmentId + "</DepartmentId>  " +
+                                "<State>" + insertModel.State + "</State>	" +
+                                "<FatherOrHusbandName>" + insertModel.FatherOrHusbandName + "</FatherOrHusbandName>	" +
+                                "<Amount>" + insertModel.Amount + "</Amount>" +
+                                "<PatientTransactionId>" + insertModel.PatientTransactionId + "</PatientTransactionId>" +
+                                "<CreateDate>" + insertModel.CreateDate + "</CreateDate>	" +
+                                "<ValidUpto>" + insertModel.ValidUpto + "</ValidUpto>" +
                            "</PatientInfo >" +
                         "</NewDataSet>";
 

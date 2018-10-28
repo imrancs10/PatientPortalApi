@@ -15,7 +15,7 @@ namespace PatientPortal.BAL.Masters
     public class DoctorDetails
     {
         PatientPortalEntities _db = null;
-        public Enums.CrudStatus SaveDoctor(string doctorName, int deptId,string designation,string degree)
+        public Enums.CrudStatus SaveDoctor(string doctorName, int deptId, string designation, string degree)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -82,8 +82,8 @@ namespace PatientPortal.BAL.Masters
                              DepartmentId = dept.DepartmentID,
                              DoctorId = doc.DoctorID,
                              DepartmentName = dept.DepartmentName,
-                             Degree=string.IsNullOrEmpty(doc.Degree)?string.Empty: doc.Degree,
-                             Designation= string.IsNullOrEmpty(doc.Designation) ? string.Empty : doc.Designation
+                             Degree = string.IsNullOrEmpty(doc.Degree) ? string.Empty : doc.Degree,
+                             Designation = string.IsNullOrEmpty(doc.Designation) ? string.Empty : doc.Designation
                          }).ToList();
             return _list != null ? _list : new List<DoctorModel>();
         }
@@ -138,11 +138,11 @@ namespace PatientPortal.BAL.Masters
                         {
                             foreach (AppointmentInfo appointment in appointments)
                             {
-                              Task mail=SendEmail(appointment, leaveDate);
+                                Task mail = SendEmail(appointment, leaveDate);
                                 appointment.CancelDate = DateTime.Now;
                                 appointment.IsCancelled = true;
                                 appointment.ModifiedBy = appointment.PatientId;
-                                appointment.CancelReason = WebSession.AutoCancelMessage==string.Empty?"Auto cancel-Doctor on leave": WebSession.AutoCancelMessage;
+                                appointment.CancelReason = WebSession.AutoCancelMessage == string.Empty ? "Auto cancel-Doctor on leave" : WebSession.AutoCancelMessage;
                                 _db.Entry(appointment).State = EntityState.Modified;
                                 _db.SaveChanges();
                             }
@@ -159,10 +159,11 @@ namespace PatientPortal.BAL.Masters
             }
         }
 
-        private async Task SendEmail(AppointmentInfo patient,DateTime leaveDate)
+        private async Task SendEmail(AppointmentInfo patient, DateTime leaveDate)
         {
             await Task.Run(() =>
             {
+                //Send Email
                 Message msg = new Message()
                 {
                     MessageTo = patient.PatientInfo.Email,
@@ -171,6 +172,13 @@ namespace PatientPortal.BAL.Masters
                     Body = EmailHelper.GetDoctorAbsentEmail(patient.PatientInfo.FirstName, patient.PatientInfo.MiddleName, patient.PatientInfo.LastName, patient.Doctor.DoctorName, leaveDate, patient.Doctor.Department.DepartmentName)
                 };
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+
+                //Send SMS
+                msg.Body = "Hi " + string.Format("{0} {1}", patient.PatientInfo.FirstName, patient.PatientInfo.LastName) + "\nThis just to inform you. Doctor " + patient.Doctor.DoctorName + " is not available on " + leaveDate + "so your below appointment is cancelled.\n Regards:\n Patient Portal(RMLHIMS)";
+                msg.MessageTo = patient.PatientInfo.MobileNumber;
+                msg.MessageType = MessageType.Appointment;
+                sendMessageStrategy = new SendMessageStrategyForSMS(msg);
                 sendMessageStrategy.SendMessages();
             });
         }
