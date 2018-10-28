@@ -266,36 +266,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\App\Common.css" />
-    <Content Include="Content\App\css\font-awesome.css" />
-    <Content Include="Content\App\css\style.css" />
-    <Content Include="Content\App\Login\Login.css" />
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\boxstyle.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\Menu.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\dashboard.css" />
-    <Content Include="Content\extra.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\header.css" />
-    <Content Include="Content\hoe-horizontal-navigation.css" />
-    <Content Include="Content\hoe-overlay-effect.css" />
-    <Content Include="Content\hoe-push-effect.css" />
-    <Content Include="Content\hoe-rightsidebar.css" />
-    <Content Include="Content\hoe-shrink-effect.css" />
-    <Content Include="Content\hoe-theme-color.css" />
-    <Content Include="Content\hoe.css" />
-    <Content Include="Content\jquery-ui.css" />
     <Content Include="ExternalAssembly\com.awl.MerchantToolKit.dll" />
     <Content Include="ExternalAssembly\RequestAndResponse.dll" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="img\179349.png" />
     <Content Include="img\179350.png" />
     <Content Include="img\179351.png" />
@@ -331,91 +305,13 @@
     <Content Include="img\slider2.jpg" />
     <Content Include="img\slider3.jpg" />
     <Content Include="img\triangle-down.svg" />
-    <Content Include="Scripts\App\Appointment\Appoint.js" />
-    <Content Include="Scripts\App\Appointment\PatientProfile.js" />
-    <Content Include="Scripts\App\Global\App.js" />
-    <Content Include="Scripts\App\Global\Utility.js" />
-    <Content Include="Scripts\App\index.css" />
-    <Content Include="Scripts\App\jquery.slide.css" />
-    <Content Include="Scripts\App\Login\Login.js" />
-    <Content Include="Scripts\App\Masters\appSetting.js" />
-    <Content Include="Scripts\App\Masters\Department.js" />
-    <Content Include="Scripts\App\Masters\DoctorLeave.js" />
-    <Content Include="Scripts\App\Masters\LabReport.js" />
-    <Content Include="Scripts\App\Masters\Doctors.js" />
-    <Content Include="Scripts\App\Masters\Schedule.js" />
-    <Content Include="Scripts\App\Patient\CRProfile.js" />
-    <Content Include="Scripts\App\Patient\Profile.js" />
-    <Content Include="Scripts\App\Report\BillingReport.js" />
-    <Content Include="Scripts\App\Report\LabReport.js" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Json\countries.json" />
     <Content Include="Json\states.json" />
     <Content Include="Json\cities.json" />
-    <Content Include="LabReports\1011388682018\test.pdf" />
-    <Content Include="LabReports\3020356682018\BillDesk - All Your Payments. Single Location.pdf" />
-    <Content Include="LabReports\5871699082018\test.pdf" />
-    <Content Include="LabReports\3\BillDesk - All Your Payments. Single Location.pdf" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\dist\jquery.slide.js" />
-    <Content Include="Scripts\dist\jquery.slide.min.js" />
-    <Content Include="Scripts\jquery-ui.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.bootstrap.wizard.js" />
-    <Content Include="Scripts\jquery.color.js" />
-    <Content Include="Scripts\jquery.easypiechart.js" />
-    <Content Include="Scripts\jquery.mask.js" />
-    <Content Include="Scripts\jquery.mixitup.js" />
-    <Content Include="Scripts\jquery.nestable.js" />
-    <Content Include="Scripts\jquery.selectBoxit.js" />
-    <Content Include="Scripts\jquery.slide.js" />
-    <Content Include="Scripts\jquery.slide.min.js" />
-    <Content Include="Scripts\jquery.sparkline.js" />
-    <Content Include="Scripts\jquery.tagsinput.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\popper-utils.js" />
-    <Content Include="Scripts\popper-utils.min.js" />
-    <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\umd\popper-utils.js" />
-    <Content Include="Scripts\umd\popper-utils.min.js" />
-    <Content Include="Scripts\umd\popper.js" />
-    <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Views\Masters\AppointmentSetting.cshtml" />
     <Content Include="Views\Masters\LabReport.cshtml" />
     <Content Include="Views\Patient\GetLabReport.cshtml" />
@@ -428,15 +324,6 @@
     <Content Include="Views\Home\MakePayment.cshtml" />
     <Content Include="Views\Home\TransactionResponseRenewal.cshtml" />
     <Content Include="Views\Report\PatientLedger.cshtml" />
-    <Content Include="Scripts\umd\popper.min.js.map" />
-    <Content Include="Scripts\umd\popper.js.map" />
-    <Content Include="Scripts\umd\popper-utils.min.js.map" />
-    <Content Include="Scripts\umd\popper-utils.js.map" />
-    <Content Include="Scripts\README.md" />
-    <Content Include="Scripts\popper.min.js.map" />
-    <Content Include="Scripts\popper.js.map" />
-    <Content Include="Scripts\popper-utils.min.js.map" />
-    <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\TransactionPayReNewalExpired.cshtml" />
     <Content Include="Views\Home\TransactionResponseRenewalExpired.cshtml" />
     <Content Include="Views\Shared\ExceptionPage.cshtml" />
@@ -499,8 +386,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Reports\Bill\" />
-    <Folder Include="Reports\Lab\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
@@ -561,9 +446,6 @@
       <Project>{4617cf49-5716-4ea4-9a0b-88622fdb3873}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
