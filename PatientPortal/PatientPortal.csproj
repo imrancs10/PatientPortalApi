@@ -178,9 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIController\LoginAPIController.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BAL\Appointments\AppointDetails.cs" />
