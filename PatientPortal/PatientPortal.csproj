@@ -222,7 +222,6 @@
     <Compile Include="Infrastructure\Authentication\CustomPrincipal.cs" />
     <Compile Include="Infrastructure\Authentication\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Infrastructure\Authentication\ICustomPrincipal.cs" />
-    <Compile Include="Infrastructure\Utility\BaseViewPage.cs" />
     <Compile Include="Infrastructure\Utility\CustomExceptionFilter.cs" />
     <Compile Include="Infrastructure\Utility\EmailHelper.cs" />
     <Compile Include="Infrastructure\Utility\Serializer.cs" />
@@ -243,7 +242,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="Infrastructure\Utility\MultipleButtonAttribute.cs" />
     <Compile Include="Web References\HISWebReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
