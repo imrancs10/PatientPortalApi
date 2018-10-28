@@ -13,10 +13,10 @@ namespace DataLayer
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PatientPortalEntities : DbContext
+    public partial class PatientPortalApiEntities : DbContext
     {
-        public PatientPortalEntities()
-            : base("name=PatientPortalEntities")
+        public PatientPortalApiEntities()
+            : base("name=PatientPortalApiEntities")
         {
         }
     
