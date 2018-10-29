@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swashbuckle.Application;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,6 +11,13 @@ namespace PatientPortalApi
         public static void Register(HttpConfiguration config)
         {
             config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+            name: "Swagger UI",
+            routeTemplate: "",
+            defaults: null,
+            constraints: null,
+            handler: new RedirectHandler(SwaggerDocsConfig.DefaultRootUrlResolver, "swagger/ui/index"));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
