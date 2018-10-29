@@ -30,26 +30,26 @@ namespace PatientPortalApi.BAL.Patient
                 resultDic.Add("status", CrudStatus.Updated);
                 resultDic.Add("data", result);
 
-                WebSession.PatientRegNo = result.RegistrationNumber;
-                WebSession.PatientCRNo = result.CRNumber;
-                WebSession.PatientId = result.PatientId;
+                //WebSession.PatientRegNo = result.RegistrationNumber;
+                //WebSession.PatientCRNo = result.CRNumber;
+                //WebSession.PatientId = result.PatientId;
 
                 var loginEntry = (from obj in result.PatientLoginEntries.AsEnumerable()
                                   where obj.Locked == true
                                     && obj.LoginAttemptDate.Value.Date == DateTime.Now.Date
                                     && obj.PatientId == result.PatientId
                                   select obj);
-                var appSetting = _db.AppointmentSettings.Where(x => x.IsActive).FirstOrDefault();
-                if (appSetting != null)
-                {
-                    WebSession.AppointmentCancelPeriod = appSetting.AppointmentCancelPeriod;
-                    WebSession.AppointmentLimitPerUser = appSetting.AppointmentLimitPerUser;
-                    WebSession.AppointmentMessage = appSetting.AppointmentMessage;
-                    WebSession.AppointmentSlot = appSetting.AppointmentSlot;
-                    WebSession.CalenderPeriod = appSetting.CalenderPeriod;
-                    WebSession.AutoCancelMessage = appSetting.AutoCancelMessage;
-                    WebSession.IsActiveAppointmentMessage = appSetting.IsActiveAppointmentMessage;
-                }
+                //var appSetting = _db.AppointmentSettings.Where(x => x.IsActive).FirstOrDefault();
+                //if (appSetting != null)
+                //{
+                //    WebSession.AppointmentCancelPeriod = appSetting.AppointmentCancelPeriod;
+                //    WebSession.AppointmentLimitPerUser = appSetting.AppointmentLimitPerUser;
+                //    WebSession.AppointmentMessage = appSetting.AppointmentMessage;
+                //    WebSession.AppointmentSlot = appSetting.AppointmentSlot;
+                //    WebSession.CalenderPeriod = appSetting.CalenderPeriod;
+                //    WebSession.AutoCancelMessage = appSetting.AutoCancelMessage;
+                //    WebSession.IsActiveAppointmentMessage = appSetting.IsActiveAppointmentMessage;
+                //}
 
                 if (loginEntry.Count() == 0)
                 {

@@ -12,6 +12,8 @@ namespace PatientPortalApi
         {
             config.MapHttpAttributeRoutes();
 
+            config.MessageHandlers.Add(new TokenValidationHandler());
+
             config.Routes.MapHttpRoute(
             name: "Swagger UI",
             routeTemplate: "",
