@@ -44,29 +44,36 @@ namespace PatientPortalApi.APIController
                 var msg = (CrudStatus)result["status"];
                 if (msg == CrudStatus.RegistrationExpired)
                 {
-                    //Session["PatientInfoRenewal"] = patientInfo;
-                    //SetAlertMessage("Registration Expired, Kindly renew it.", "Login");
                     return Ok(ErrorCode.RegistrationExpired);
-                    //string daysRemaning = Convert.ToString((patientInfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
-                    //if (Convert.ToInt32(daysRemaning) < 0)
-                    //{
-                    //    //expired registration
-                    //    TempData["Expired"] = true;
-                    //    return RedirectToAction("TransactionPayReNewalExpired");
-                    //}
-                    //else
-                    //{
-                    //    TempData["Expired"] = false;
-                    //    return RedirectToAction("TransactionPayReNewal");
                 }
                 if (patientInfo != null)
                 {
-                    //Session["PatientId"] = patientInfo.PatientId;
-                    //setUserClaim(patientInfo);
-                    //SaveLoginHistory(patientInfo.PatientId);
-                    //return RedirectToAction("Dashboard");
-
                     //return token
+                    if (result != null && patientInfo != null)
+                    {
+                        UserClaims claims = new UserClaims()
+                        {
+                            CRNumber = patientInfo.CRNumber,
+                            PatientId = patientInfo.PatientId,
+                            RegistrationNumber = patientInfo.RegistrationNumber,
+                            ValidUpTo = patientInfo.ValidUpto.Value
+                        };
+                        string token = (new JWTTokenService()).CreateToken(claims);
+                        //return the token
+                        JwtResponse jwtResponse = new JwtResponse()
+                        {
+                            Name = patientInfo.FirstName,
+                            JwtToken = token
+                        };
+                        return Ok<JwtResponse>(jwtResponse);
+                    }
+                    else
+                    {
+                        // if credentials are not valid send unauthorized status code in response
+                        responseMsg.StatusCode = HttpStatusCode.NotFound;
+                        response = ResponseMessage(responseMsg);
+                        return response;
+                    }
                 }
                 else
                 {
@@ -86,42 +93,18 @@ namespace PatientPortalApi.APIController
                         if (loginAttempt.LoginAttempt == 4)
                         {
                             //SetAlertMessage("You have reached the maximum attempt, your account is locked for a day.", "Login");
-                            return Ok(ErrorCode.RegistrationExpired);
+                            return BadRequest(ErrorCode.AccountLocked.ToString());
                         }
                         else
                         {
-                            return Ok(ErrorCode.AccountFailAttempt.ToString().Replace("#1004", (4 - loginAttempt.LoginAttempt).ToString()));
+                            return BadRequest(ErrorCode.AccountFailAttempt.ToString().Replace("#1004", (4 - loginAttempt.LoginAttempt).ToString()));
                         }
                     }
-                    //var patientInfo = ((PatientInfo)result["data"]);
-                    //if (result != null && patientInfo != null)
-                    //{
-                    //    UserClaims claims = new UserClaims()
-                    //    {
-                    //        CRNumber = patientInfo.CRNumber,
-                    //        PatientId = patientInfo.PatientId,
-                    //        RegistrationNumber = patientInfo.RegistrationNumber,
-                    //        ValidUpTo = patientInfo.ValidUpto.Value
-                    //    };
-                    //    string token = (new JWTTokenService()).CreateToken(claims);
-                    //    //return the token
-                    //    JwtResponse jwtResponse = new JwtResponse()
-                    //    {
-                    //        Name = patientInfo.FirstName,
-                    //        JwtToken = token
-                    //    };
-                    //    return Ok<JwtResponse>(jwtResponse);
-                    //}
-                    //else
-                    //{
-                    //    // if credentials are not valid send unauthorized status code in response
-                    //    //loginResponse.responseMsg.StatusCode = HttpStatusCode.Unauthorized;
-                    //    responseMsg.StatusCode = HttpStatusCode.NotFound;
-                    //    response = ResponseMessage(responseMsg);
-                    //    return response;
-                    //}
                 }
-                return BadRequest();
             }
+
+            return BadRequest();
         }
     }
+
+}
