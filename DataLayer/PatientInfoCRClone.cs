@@ -12,18 +12,8 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class PatientInfo
+    public partial class PatientInfoCRClone
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PatientInfo()
-        {
-            this.AppointmentInfoes = new HashSet<AppointmentInfo>();
-            this.LabReports = new HashSet<LabReport>();
-            this.PatientLoginEntries = new HashSet<PatientLoginEntry>();
-            this.PatientLoginHistories = new HashSet<PatientLoginHistory>();
-            this.PatientTransactions = new HashSet<PatientTransaction>();
-        }
-    
         public int PatientId { get; set; }
         public string RegistrationNumber { get; set; }
         public string MobileNumber { get; set; }
@@ -51,25 +41,13 @@ namespace DataLayer
         public Nullable<System.DateTime> ValidUpto { get; set; }
         public string AadharNumber { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string RenewalStatusHIS { get; set; }
-        public string RegistrationStatusHIS { get; set; }
         public Nullable<decimal> pid { get; set; }
         public string Location { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }
         public virtual City City { get; set; }
         public virtual Department Department { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabReport> LabReports { get; set; }
-        public virtual PatientInfo PatientInfo1 { get; set; }
-        public virtual PatientInfo PatientInfo2 { get; set; }
+        public virtual PatientInfoCRClone PatientInfoCRClone1 { get; set; }
+        public virtual PatientInfoCRClone PatientInfoCRClone2 { get; set; }
         public virtual State State { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PatientLoginEntry> PatientLoginEntries { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PatientLoginHistory> PatientLoginHistories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PatientTransaction> PatientTransactions { get; set; }
     }
 }

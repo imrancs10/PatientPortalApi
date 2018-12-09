@@ -22,11 +22,11 @@ namespace PatientPortalApi.APIController
         /// </summary>
         /// <returns>List of Patientinfo</returns>
         [System.Web.Http.Authorize]
-        public List<PatientInfo> GetPatientInfo()
+        public PatientInfo GetPatientInfo()
         {
             UserInfo userInfo = new UserInfo(User);
-            List<PatientInfo> list = new List<PatientInfo>() { new PatientInfo() { PatientId = 1 } };
-            return list;
+            PatientDetails detail = new PatientDetails();
+            return detail.GetPatientDetailById(userInfo.PatientId);
         }
 
         [HttpPost]

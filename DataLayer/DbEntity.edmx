@@ -58,6 +58,7 @@
           </Key>
           <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="DepartmentName" Type="varchar" MaxLength="200" />
+          <Property Name="DepartmentUrl" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -146,6 +147,37 @@
           <Property Name="FileName" Type="varchar" MaxLength="500" />
           <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="LabreportPdf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Ipd" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Labref" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="labid" Type="int" />
+          <Property Name="Billid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="vno" Type="varchar" MaxLength="30" />
+          <Property Name="enterdon" Type="datetime" />
+          <Property Name="Url" Type="varchar" MaxLength="500" />
+          <Property Name="Location" Type="varchar" MaxLength="5" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="ReportDate" Type="datetime" />
+          <Property Name="LabName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModificationDate" Type="datetime" />
+          <Property Name="BillNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="RefNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="DoctorId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MasterLookup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="MeridiemMaster">
           <Key>
             <PropertyRef Name="MeridiemID" />
@@ -153,19 +185,16 @@
           <Property Name="MeridiemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MeridiemValue" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PateintLeadger">
           <Key>
-            <PropertyRef Name="Billid" />
-            <PropertyRef Name="Patientid" />
-            
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Billid" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="godcode" Type="varchar" MaxLength="3" />
           <Property Name="opdid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="counterid" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="Patientid" Type="int" Nullable="false" />
+          <Property Name="PId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="regtranid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="inpatientid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="vtype" Type="char" MaxLength="2" />
@@ -213,20 +242,6 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <Property Name="ipno" Type="varchar" MaxLength="20" />
           <Property Name="entrytype" Type="char" MaxLength="2" />
         </EntityType>
-        <EntityType Name="PatientBillReport">
-          <Key>
-            <PropertyRef Name="BillId" />
-          </Key>
-          <Property Name="BillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BillNo" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="BillDate" Type="datetime" Nullable="false" />
-          <Property Name="BillType" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="BillAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
-          <Property Name="ReportUrl" Type="nvarchar" MaxLength="500" />
-          <Property Name="PatientId" Type="int" />
-        </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
             <PropertyRef Name="PatientId" />
@@ -258,20 +273,44 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <Property Name="ValidUpto" Type="datetime" />
           <Property Name="AadharNumber" Type="varchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="RenewalStatusHIS" Type="varchar" MaxLength="500" />
+          <Property Name="RegistrationStatusHIS" Type="varchar" MaxLength="500" />
+          <Property Name="pid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location" Type="varchar" MaxLength="5" />
         </EntityType>
-        <EntityType Name="PatientLabReport">
+        <EntityType Name="PatientInfoCRClone">
           <Key>
-            <PropertyRef Name="ReferanceId" />
+            <PropertyRef Name="PatientId" />
           </Key>
-          <Property Name="ReferanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RefNo" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="BillNo" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LabName" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ReportDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
-          <Property Name="ReportUrl" Type="nvarchar" MaxLength="500" />
-          <Property Name="PatientId" Type="int" />
+          <Property Name="PatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="14" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="MaritalStatus" Type="varchar" MaxLength="100" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="PinCode" Type="int" />
+          <Property Name="Religion" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="OTP" Type="varchar" MaxLength="50" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
+          <Property Name="ResetCode" Type="varchar" MaxLength="100" />
+          <Property Name="CRNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ValidUpto" Type="datetime" />
+          <Property Name="AadharNumber" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="pid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -304,6 +343,7 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <Property Name="ResponseCode" Type="varchar" MaxLength="50" />
           <Property Name="StatusCode" Type="varchar" MaxLength="50" />
           <Property Name="TransactionDate" Type="datetime" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -312,30 +352,6 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="500" />
         </EntityType>
-        <Association Name="FK__PatientBi__Patie__3A4CA8FD">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
-          <End Role="PatientBillReport" Type="Self.PatientBillReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientInfo">
-              <PropertyRef Name="PatientId" />
-            </Principal>
-            <Dependent Role="PatientBillReport">
-              <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__PatientLa__Patie__3B40CD36">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
-          <End Role="PatientLabReport" Type="Self.PatientLabReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientInfo">
-              <PropertyRef Name="PatientId" />
-            </Principal>
-            <Dependent Role="PatientLabReport">
-              <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AppointmentInfo_Doctor">
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
           <End Role="AppointmentInfo" Type="Self.AppointmentInfo" Multiplicity="*" />
@@ -468,6 +484,18 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LabreportPdf_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="LabreportPdf" Type="Self.LabreportPdf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="LabreportPdf">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PatientInfo_City">
           <End Role="City" Type="Self.City" Multiplicity="0..1" />
           <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
@@ -512,6 +540,54 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
               <PropertyRef Name="StateId" />
             </Principal>
             <Dependent Role="PatientInfo">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="PatientInfoCRClone" Type="Self.PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="PatientInfoCRClone" Type="Self.PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_PatientInfoCRClone">
+          <End Role="PatientInfoCRClone" Type="Self.PatientInfoCRClone" Multiplicity="1" />
+          <End Role="PatientInfoCRClone1" Type="Self.PatientInfoCRClone" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfoCRClone">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone1">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="PatientInfoCRClone" Type="Self.PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
               <PropertyRef Name="StateId" />
             </Dependent>
           </ReferentialConstraint>
@@ -565,77 +641,16 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <EntitySet Name="Gbl_Master_User" EntityType="Self.Gbl_Master_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalDetail" EntityType="Self.HospitalDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LabReport" EntityType="Self.LabReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LabreportPdf" EntityType="Self.LabreportPdf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterLookup" EntityType="Self.MasterLookup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeridiemMaster" EntityType="Self.MeridiemMaster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PatientBillReport" EntityType="Self.PatientBillReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PateintLeadger" EntityType="Self.PateintLeadger" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PatientLabReport" EntityType="Self.PatientLabReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientInfoCRClone" EntityType="Self.PatientInfoCRClone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginEntry" EntityType="Self.PatientLoginEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginHistory" EntityType="Self.PatientLoginHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientTransaction" EntityType="Self.PatientTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PateintLeadger" EntityType="Self.PateintLeadger" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [PateintLeadger].[Billid] AS [Billid], 
-    [PateintLeadger].[godcode] AS [godcode], 
-    [PateintLeadger].[opdid] AS [opdid], 
-    [PateintLeadger].[counterid] AS [counterid], 
-    [PateintLeadger].[Patientid] AS [Patientid], 
-    [PateintLeadger].[regtranid] AS [regtranid], 
-    [PateintLeadger].[inpatientid] AS [inpatientid], 
-    [PateintLeadger].[vtype] AS [vtype], 
-    [PateintLeadger].[saletype] AS [saletype], 
-    [PateintLeadger].[vdate] AS [vdate], 
-    [PateintLeadger].[vno] AS [vno], 
-    [PateintLeadger].[accode] AS [accode], 
-    [PateintLeadger].[remarks] AS [remarks], 
-    [PateintLeadger].[userid] AS [userid], 
-    [PateintLeadger].[doctorid] AS [doctorid], 
-    [PateintLeadger].[receiptno] AS [receiptno], 
-    [PateintLeadger].[subtotal] AS [subtotal], 
-    [PateintLeadger].[netamt] AS [netamt], 
-    [PateintLeadger].[timeoftran] AS [timeoftran], 
-    [PateintLeadger].[cancelled] AS [cancelled], 
-    [PateintLeadger].[tailid] AS [tailid], 
-    [PateintLeadger].[salemode] AS [salemode], 
-    [PateintLeadger].[formno] AS [formno], 
-    [PateintLeadger].[challanno] AS [challanno], 
-    [PateintLeadger].[challandate] AS [challandate], 
-    [PateintLeadger].[billno] AS [billno], 
-    [PateintLeadger].[billdate] AS [billdate], 
-    [PateintLeadger].[orders] AS [orders], 
-    [PateintLeadger].[currency] AS [currency], 
-    [PateintLeadger].[convrate] AS [convrate], 
-    [PateintLeadger].[transcode] AS [transcode], 
-    [PateintLeadger].[modeofdespatch] AS [modeofdespatch], 
-    [PateintLeadger].[vehicleno] AS [vehicleno], 
-    [PateintLeadger].[grno] AS [grno], 
-    [PateintLeadger].[grdate] AS [grdate], 
-    [PateintLeadger].[gramount] AS [gramount], 
-    [PateintLeadger].[approved] AS [approved], 
-    [PateintLeadger].[approvedby] AS [approvedby], 
-    [PateintLeadger].[purtype] AS [purtype], 
-    [PateintLeadger].[tbillid] AS [tbillid], 
-    [PateintLeadger].[cashcode] AS [cashcode], 
-    [PateintLeadger].[contraloc] AS [contraloc], 
-    [PateintLeadger].[purpricelist] AS [purpricelist], 
-    [PateintLeadger].[cancelleduserid] AS [cancelleduserid], 
-    [PateintLeadger].[cancelledtime] AS [cancelledtime], 
-    [PateintLeadger].[grnidlist] AS [grnidlist], 
-    [PateintLeadger].[autoposted] AS [autoposted], 
-    [PateintLeadger].[schemeid] AS [schemeid], 
-    [PateintLeadger].[pcode] AS [pcode], 
-    [PateintLeadger].[ipno] AS [ipno], 
-    [PateintLeadger].[entrytype] AS [entrytype]
-    FROM [dbo].[PateintLeadger] AS [PateintLeadger]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__PatientBi__Patie__3A4CA8FD" Association="Self.FK__PatientBi__Patie__3A4CA8FD">
-            <End Role="PatientInfo" EntitySet="PatientInfo" />
-            <End Role="PatientBillReport" EntitySet="PatientBillReport" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PatientLa__Patie__3B40CD36" Association="Self.FK__PatientLa__Patie__3B40CD36">
-            <End Role="PatientInfo" EntitySet="PatientInfo" />
-            <End Role="PatientLabReport" EntitySet="PatientLabReport" />
-          </AssociationSet>
           <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="Self.FK_AppointmentInfo_Doctor">
             <End Role="Doctor" EntitySet="Doctor" />
             <End Role="AppointmentInfo" EntitySet="AppointmentInfo" />
@@ -680,6 +695,10 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
             <End Role="PatientInfo" EntitySet="PatientInfo" />
             <End Role="LabReport" EntitySet="LabReport" />
           </AssociationSet>
+          <AssociationSet Name="FK_LabreportPdf_Doctor" Association="Self.FK_LabreportPdf_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="LabreportPdf" EntitySet="LabreportPdf" />
+          </AssociationSet>
           <AssociationSet Name="FK_PatientInfo_City" Association="Self.FK_PatientInfo_City">
             <End Role="City" EntitySet="City" />
             <End Role="PatientInfo" EntitySet="PatientInfo" />
@@ -695,6 +714,22 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <AssociationSet Name="FK_PatientInfo_State" Association="Self.FK_PatientInfo_State">
             <End Role="State" EntitySet="State" />
             <End Role="PatientInfo" EntitySet="PatientInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_City" Association="Self.FK_PatientInfoCRClone_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_Department" Association="Self.FK_PatientInfoCRClone_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_PatientInfoCRClone" Association="Self.FK_PatientInfoCRClone_PatientInfoCRClone">
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
+            <End Role="PatientInfoCRClone1" EntitySet="PatientInfoCRClone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_State" Association="Self.FK_PatientInfoCRClone_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
           </AssociationSet>
           <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="Self.FK_PatientLoginEntry_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfo" />
@@ -726,15 +761,16 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <EntitySet Name="Gbl_Master_User" EntityType="PatientPortalApiModel.Gbl_Master_User" />
           <EntitySet Name="HospitalDetails" EntityType="PatientPortalApiModel.HospitalDetail" />
           <EntitySet Name="LabReports" EntityType="PatientPortalApiModel.LabReport" />
+          <EntitySet Name="LabreportPdfs" EntityType="PatientPortalApiModel.LabreportPdf" />
+          <EntitySet Name="MasterLookups" EntityType="PatientPortalApiModel.MasterLookup" />
           <EntitySet Name="MeridiemMasters" EntityType="PatientPortalApiModel.MeridiemMaster" />
-          <EntitySet Name="PatientBillReports" EntityType="PatientPortalApiModel.PatientBillReport" />
+          <EntitySet Name="PateintLeadgers" EntityType="PatientPortalApiModel.PateintLeadger" />
           <EntitySet Name="PatientInfoes" EntityType="PatientPortalApiModel.PatientInfo" />
-          <EntitySet Name="PatientLabReports" EntityType="PatientPortalApiModel.PatientLabReport" />
+          <EntitySet Name="PatientInfoCRClones" EntityType="PatientPortalApiModel.PatientInfoCRClone" />
           <EntitySet Name="PatientLoginEntries" EntityType="PatientPortalApiModel.PatientLoginEntry" />
           <EntitySet Name="PatientLoginHistories" EntityType="PatientPortalApiModel.PatientLoginHistory" />
           <EntitySet Name="PatientTransactions" EntityType="PatientPortalApiModel.PatientTransaction" />
           <EntitySet Name="States" EntityType="PatientPortalApiModel.State" />
-          <EntitySet Name="PateintLeadgers" EntityType="PatientPortalApiModel.PateintLeadger" />
           <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="PatientPortalApiModel.FK_AppointmentInfo_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="AppointmentInfo" EntitySet="AppointmentInfoes" />
@@ -751,6 +787,10 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
             <End Role="City" EntitySet="Cities" />
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
           </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_City" Association="PatientPortalApiModel.FK_PatientInfoCRClone_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
+          </AssociationSet>
           <AssociationSet Name="FK_DoctorScheduleDay_DayMaster1" Association="PatientPortalApiModel.FK_DoctorScheduleDay_DayMaster1">
             <End Role="DayMaster" EntitySet="DayMasters" />
             <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
@@ -763,6 +803,10 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
             <End Role="Department" EntitySet="Departments" />
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
           </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_Department" Association="PatientPortalApiModel.FK_PatientInfoCRClone_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
+          </AssociationSet>
           <AssociationSet Name="FK_DoctorLeave_Doctor" Association="PatientPortalApiModel.FK_DoctorLeave_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="DoctorLeave" EntitySet="DoctorLeaves" />
@@ -770,6 +814,10 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <AssociationSet Name="FK_DoctorScheduleDay_DoctorSchedule" Association="PatientPortalApiModel.FK_DoctorScheduleDay_DoctorSchedule">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LabreportPdf_Doctor" Association="PatientPortalApiModel.FK_LabreportPdf_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="LabreportPdf" EntitySet="LabreportPdfs" />
           </AssociationSet>
           <AssociationSet Name="FK_DoctorScheduleDay_MeridiemMaster" Association="PatientPortalApiModel.FK_DoctorScheduleDay_MeridiemMaster">
             <End Role="MeridiemMaster" EntitySet="MeridiemMasters" />
@@ -786,14 +834,6 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <AssociationSet Name="FK_LabReport_PatientInfo" Association="PatientPortalApiModel.FK_LabReport_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="LabReport" EntitySet="LabReports" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PatientBi__Patie__3A4CA8FD" Association="PatientPortalApiModel.FK__PatientBi__Patie__3A4CA8FD">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="PatientBillReport" EntitySet="PatientBillReports" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PatientLa__Patie__3B40CD36" Association="PatientPortalApiModel.FK__PatientLa__Patie__3B40CD36">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="PatientLabReport" EntitySet="PatientLabReports" />
           </AssociationSet>
           <AssociationSet Name="FK_PatientInfo_PatientInfo" Association="PatientPortalApiModel.FK_PatientInfo_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
@@ -814,6 +854,14 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <AssociationSet Name="FK_PatientTransaction_PatientInfo" Association="PatientPortalApiModel.FK_PatientTransaction_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientTransaction" EntitySet="PatientTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_PatientInfoCRClone" Association="PatientPortalApiModel.FK_PatientInfoCRClone_PatientInfoCRClone">
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
+            <End Role="PatientInfoCRClone1" EntitySet="PatientInfoCRClones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_State" Association="PatientPortalApiModel.FK_PatientInfoCRClone_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
@@ -859,6 +907,7 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <Property Name="StateId" Type="Int32" />
           <NavigationProperty Name="State" Relationship="PatientPortalApiModel.FK_City_State" FromRole="City" ToRole="State" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalApiModel.FK_PatientInfo_City" FromRole="City" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_City" FromRole="City" ToRole="PatientInfoCRClone" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -874,8 +923,10 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           </Key>
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Doctors" Relationship="PatientPortalApiModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalApiModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_Department" FromRole="Department" ToRole="PatientInfoCRClone" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -892,6 +943,7 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <NavigationProperty Name="Department" Relationship="PatientPortalApiModel.FK_Doctor_Doctor" FromRole="Doctor" ToRole="Department" />
           <NavigationProperty Name="DoctorLeaves" Relationship="PatientPortalApiModel.FK_DoctorLeave_Doctor" FromRole="Doctor" ToRole="DoctorLeave" />
           <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalApiModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
+          <NavigationProperty Name="LabreportPdfs" Relationship="PatientPortalApiModel.FK_LabreportPdf_Doctor" FromRole="Doctor" ToRole="LabreportPdf" />
         </EntityType>
         <EntityType Name="DoctorLeave">
           <Key>
@@ -976,6 +1028,38 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="PatientInfo" Relationship="PatientPortalApiModel.FK_LabReport_PatientInfo" FromRole="LabReport" ToRole="PatientInfo" />
         </EntityType>
+        <EntityType Name="LabreportPdf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Ipd" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Labref" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="labid" Type="Int32" />
+          <Property Name="Billid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="vno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="enterdon" Type="DateTime" Precision="3" />
+          <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="ReportDate" Type="DateTime" Precision="3" />
+          <Property Name="LabName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
+          <Property Name="BillNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RefNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="PatientPortalApiModel.FK_LabreportPdf_Doctor" FromRole="LabreportPdf" ToRole="Doctor" />
+        </EntityType>
+        <EntityType Name="MasterLookup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="MeridiemMaster">
           <Key>
             <PropertyRef Name="MeridiemID" />
@@ -985,20 +1069,62 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalApiModel.FK_DoctorScheduleDay_MeridiemMaster" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
           <NavigationProperty Name="DoctorSchedules1" Relationship="PatientPortalApiModel.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
         </EntityType>
-        <EntityType Name="PatientBillReport">
+        <EntityType Name="PateintLeadger">
           <Key>
-            <PropertyRef Name="BillId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="BillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BillNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BillDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="BillType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BillAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PatientId" Type="Int32" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalApiModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientBillReport" ToRole="PatientInfo" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Billid" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="godcode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="opdid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="counterid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="regtranid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="inpatientid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="vtype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="saletype" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="vdate" Type="DateTime" Precision="3" />
+          <Property Name="vno" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="accode" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="doctorid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="receiptno" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="subtotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="netamt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="timeoftran" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="cancelled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="tailid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="salemode" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="formno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="challanno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="challandate" Type="DateTime" Precision="3" />
+          <Property Name="billno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="orders" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="currency" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="convrate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="transcode" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="modeofdespatch" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="vehicleno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="grno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="grdate" Type="DateTime" Precision="3" />
+          <Property Name="gramount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="approved" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="approvedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="purtype" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="tbillid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="cashcode" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="contraloc" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="purpricelist" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="cancelleduserid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cancelledtime" Type="DateTime" Precision="3" />
+          <Property Name="grnidlist" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="autoposted" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="schemeid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="pcode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ipno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="entrytype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
@@ -1031,12 +1157,14 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <Property Name="ValidUpto" Type="DateTime" Precision="3" />
           <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="RenewalStatusHIS" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RegistrationStatusHIS" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="pid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalApiModel.FK_AppointmentInfo_PatientInfo" FromRole="PatientInfo" ToRole="AppointmentInfo" />
           <NavigationProperty Name="City" Relationship="PatientPortalApiModel.FK_PatientInfo_City" FromRole="PatientInfo" ToRole="City" />
           <NavigationProperty Name="Department" Relationship="PatientPortalApiModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
           <NavigationProperty Name="LabReports" Relationship="PatientPortalApiModel.FK_LabReport_PatientInfo" FromRole="PatientInfo" ToRole="LabReport" />
-          <NavigationProperty Name="PatientBillReports" Relationship="PatientPortalApiModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientInfo" ToRole="PatientBillReport" />
-          <NavigationProperty Name="PatientLabReports" Relationship="PatientPortalApiModel.FK__PatientLa__Patie__3B40CD36" FromRole="PatientInfo" ToRole="PatientLabReport" />
           <NavigationProperty Name="PatientInfo1" Relationship="PatientPortalApiModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo" ToRole="PatientInfo1" />
           <NavigationProperty Name="PatientInfo2" Relationship="PatientPortalApiModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo1" ToRole="PatientInfo" />
           <NavigationProperty Name="State" Relationship="PatientPortalApiModel.FK_PatientInfo_State" FromRole="PatientInfo" ToRole="State" />
@@ -1044,20 +1172,44 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalApiModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalApiModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
         </EntityType>
-        <EntityType Name="PatientLabReport">
+        <EntityType Name="PatientInfoCRClone">
           <Key>
-            <PropertyRef Name="ReferanceId" />
+            <PropertyRef Name="PatientId" />
           </Key>
-          <Property Name="ReferanceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RefNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BillNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LabName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ReportDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PatientId" Type="Int32" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalApiModel.FK__PatientLa__Patie__3B40CD36" FromRole="PatientLabReport" ToRole="PatientInfo" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PinCode" Type="Int32" />
+          <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="OTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FatherOrHusbandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValidUpto" Type="DateTime" Precision="3" />
+          <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="pid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="City" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_City" FromRole="PatientInfoCRClone" ToRole="City" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_Department" FromRole="PatientInfoCRClone" ToRole="Department" />
+          <NavigationProperty Name="PatientInfoCRClone1" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_PatientInfoCRClone" FromRole="PatientInfoCRClone" ToRole="PatientInfoCRClone1" />
+          <NavigationProperty Name="PatientInfoCRClone2" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_PatientInfoCRClone" FromRole="PatientInfoCRClone1" ToRole="PatientInfoCRClone" />
+          <NavigationProperty Name="State" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_State" FromRole="PatientInfoCRClone" ToRole="State" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -1092,6 +1244,7 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PatientInfo" Relationship="PatientPortalApiModel.FK_PatientTransaction_PatientInfo" FromRole="PatientTransaction" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="State">
@@ -1102,63 +1255,7 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <Property Name="StateName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cities" Relationship="PatientPortalApiModel.FK_City_State" FromRole="State" ToRole="City" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalApiModel.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
-        </EntityType>
-        <EntityType Name="PateintLeadger">
-          <Key>
-            <PropertyRef Name="Billid" />
-            <PropertyRef Name="Patientid" />
-          </Key>
-          <Property Name="Billid" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="godcode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="opdid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="counterid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Patientid" Type="Int32" Nullable="false" />
-          <Property Name="regtranid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="inpatientid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="vtype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="saletype" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="vdate" Type="DateTime" Precision="3" />
-          <Property Name="vno" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="accode" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="userid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="doctorid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="receiptno" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="subtotal" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="netamt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="timeoftran" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="cancelled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="tailid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="salemode" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="formno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="challanno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="challandate" Type="DateTime" Precision="3" />
-          <Property Name="billno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="billdate" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="orders" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="currency" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="convrate" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="transcode" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="modeofdespatch" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="vehicleno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="grno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="grdate" Type="DateTime" Precision="3" />
-          <Property Name="gramount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="approved" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="approvedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="purtype" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="tbillid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="cashcode" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="contraloc" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="purpricelist" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="cancelleduserid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="cancelledtime" Type="DateTime" Precision="3" />
-          <Property Name="grnidlist" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="autoposted" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="schemeid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="pcode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="ipno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="entrytype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_State" FromRole="State" ToRole="PatientInfoCRClone" />
         </EntityType>
         <Association Name="FK_AppointmentInfo_Doctor">
           <End Type="PatientPortalApiModel.Doctor" Role="Doctor" Multiplicity="1" />
@@ -1208,6 +1305,18 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientInfoCRClone_City">
+          <End Type="PatientPortalApiModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="PatientPortalApiModel.PatientInfoCRClone" Role="PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DoctorScheduleDay_DayMaster1">
           <End Type="PatientPortalApiModel.DayMaster" Role="DayMaster" Multiplicity="0..1" />
           <End Type="PatientPortalApiModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
@@ -1244,6 +1353,18 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientInfoCRClone_Department">
+          <End Type="PatientPortalApiModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="PatientPortalApiModel.PatientInfoCRClone" Role="PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DoctorLeave_Doctor">
           <End Type="PatientPortalApiModel.Doctor" Role="Doctor" Multiplicity="1" />
           <End Type="PatientPortalApiModel.DoctorLeave" Role="DoctorLeave" Multiplicity="*" />
@@ -1265,6 +1386,18 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
             </Principal>
             <Dependent Role="DoctorSchedule">
               <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LabreportPdf_Doctor">
+          <End Type="PatientPortalApiModel.Doctor" Role="Doctor" Multiplicity="1" />
+          <End Type="PatientPortalApiModel.LabreportPdf" Role="LabreportPdf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="LabreportPdf">
+              <PropertyRef Name="DoctorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1312,30 +1445,6 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
               <PropertyRef Name="PatientId" />
             </Principal>
             <Dependent Role="LabReport">
-              <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__PatientBi__Patie__3A4CA8FD">
-          <End Type="PatientPortalApiModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
-          <End Type="PatientPortalApiModel.PatientBillReport" Role="PatientBillReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientInfo">
-              <PropertyRef Name="PatientId" />
-            </Principal>
-            <Dependent Role="PatientBillReport">
-              <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__PatientLa__Patie__3B40CD36">
-          <End Type="PatientPortalApiModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
-          <End Type="PatientPortalApiModel.PatientLabReport" Role="PatientLabReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientInfo">
-              <PropertyRef Name="PatientId" />
-            </Principal>
-            <Dependent Role="PatientLabReport">
               <PropertyRef Name="PatientId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1400,6 +1509,30 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientInfoCRClone_PatientInfoCRClone">
+          <End Type="PatientPortalApiModel.PatientInfoCRClone" Role="PatientInfoCRClone" Multiplicity="1" />
+          <End Type="PatientPortalApiModel.PatientInfoCRClone" Role="PatientInfoCRClone1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfoCRClone">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone1">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_State">
+          <End Type="PatientPortalApiModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PatientPortalApiModel.PatientInfoCRClone" Role="PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1460,6 +1593,7 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="PatientPortalApiModel.Department">
               <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentUrl" ColumnName="DepartmentUrl" />
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
               </MappingFragment>
@@ -1559,117 +1693,44 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LabreportPdfs">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.LabreportPdf">
+              <MappingFragment StoreEntitySet="LabreportPdf">
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LabName" ColumnName="LabName" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="enterdon" ColumnName="enterdon" />
+                <ScalarProperty Name="vno" ColumnName="vno" />
+                <ScalarProperty Name="Billid" ColumnName="Billid" />
+                <ScalarProperty Name="labid" ColumnName="labid" />
+                <ScalarProperty Name="Labref" ColumnName="Labref" />
+                <ScalarProperty Name="Ipd" ColumnName="Ipd" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterLookups">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.MasterLookup">
+              <MappingFragment StoreEntitySet="MasterLookup">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MeridiemMasters">
             <EntityTypeMapping TypeName="PatientPortalApiModel.MeridiemMaster">
               <MappingFragment StoreEntitySet="MeridiemMaster">
                 <ScalarProperty Name="MeridiemValue" ColumnName="MeridiemValue" />
                 <ScalarProperty Name="MeridiemID" ColumnName="MeridiemID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PatientBillReports">
-            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientBillReport">
-              <MappingFragment StoreEntitySet="PatientBillReport">
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
-                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="BillAmount" ColumnName="BillAmount" />
-                <ScalarProperty Name="BillType" ColumnName="BillType" />
-                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
-                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
-                <ScalarProperty Name="BillId" ColumnName="BillId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PatientInfoes">
-            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientInfo">
-              <MappingFragment StoreEntitySet="PatientInfo">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
-                <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
-                <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />
-                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
-                <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
-                <ScalarProperty Name="OTP" ColumnName="OTP" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="Religion" ColumnName="Religion" />
-                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PatientLabReports">
-            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientLabReport">
-              <MappingFragment StoreEntitySet="PatientLabReport">
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
-                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
-                <ScalarProperty Name="LabName" ColumnName="LabName" />
-                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
-                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
-                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PatientLoginEntries">
-            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientLoginEntry">
-              <MappingFragment StoreEntitySet="PatientLoginEntry">
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="LoginAttemptDate" ColumnName="LoginAttemptDate" />
-                <ScalarProperty Name="Locked" ColumnName="Locked" />
-                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PatientLoginHistories">
-            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientLoginHistory">
-              <MappingFragment StoreEntitySet="PatientLoginHistory">
-                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
-                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PatientTransactions">
-            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientTransaction">
-              <MappingFragment StoreEntitySet="PatientTransaction">
-                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
-                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
-                <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="PatientTransactionId" ColumnName="PatientTransactionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="States">
-            <EntityTypeMapping TypeName="PatientPortalApiModel.State">
-              <MappingFragment StoreEntitySet="State">
-                <ScalarProperty Name="StateName" ColumnName="StateName" />
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1722,11 +1783,128 @@ warning 6002: The table/view 'PatientPortalApi.dbo.PateintLeadger' does not have
                 <ScalarProperty Name="vtype" ColumnName="vtype" />
                 <ScalarProperty Name="inpatientid" ColumnName="inpatientid" />
                 <ScalarProperty Name="regtranid" ColumnName="regtranid" />
-                <ScalarProperty Name="Patientid" ColumnName="Patientid" />
+                <ScalarProperty Name="PId" ColumnName="PId" />
                 <ScalarProperty Name="counterid" ColumnName="counterid" />
                 <ScalarProperty Name="opdid" ColumnName="opdid" />
                 <ScalarProperty Name="godcode" ColumnName="godcode" />
                 <ScalarProperty Name="Billid" ColumnName="Billid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientInfoes">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientInfo">
+              <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="RegistrationStatusHIS" ColumnName="RegistrationStatusHIS" />
+                <ScalarProperty Name="RenewalStatusHIS" ColumnName="RenewalStatusHIS" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
+                <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
+                <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />
+                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
+                <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientInfoCRClones">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientInfoCRClone">
+              <MappingFragment StoreEntitySet="PatientInfoCRClone">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
+                <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
+                <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />
+                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
+                <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientLoginEntries">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientLoginEntry">
+              <MappingFragment StoreEntitySet="PatientLoginEntry">
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="LoginAttemptDate" ColumnName="LoginAttemptDate" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientLoginHistories">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientLoginHistory">
+              <MappingFragment StoreEntitySet="PatientLoginHistory">
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientTransactions">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientTransaction">
+              <MappingFragment StoreEntitySet="PatientTransaction">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PatientTransactionId" ColumnName="PatientTransactionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

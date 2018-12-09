@@ -18,6 +18,7 @@ namespace DataLayer
         public City()
         {
             this.PatientInfoes = new HashSet<PatientInfo>();
+            this.PatientInfoCRClones = new HashSet<PatientInfoCRClone>();
         }
     
         public int CityId { get; set; }
@@ -27,5 +28,7 @@ namespace DataLayer
         public virtual State State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PatientInfo> PatientInfoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientInfoCRClone> PatientInfoCRClones { get; set; }
     }
 }

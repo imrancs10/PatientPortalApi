@@ -22,6 +22,7 @@ namespace DataLayer
         public string ResponseCode { get; set; }
         public string StatusCode { get; set; }
         public Nullable<System.DateTime> TransactionDate { get; set; }
+        public string Type { get; set; }
     
         public virtual PatientInfo PatientInfo { get; set; }
     }

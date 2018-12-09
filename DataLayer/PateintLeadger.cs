@@ -14,11 +14,12 @@ namespace DataLayer
     
     public partial class PateintLeadger
     {
+        public int Id { get; set; }
         public decimal Billid { get; set; }
         public string godcode { get; set; }
         public Nullable<decimal> opdid { get; set; }
         public Nullable<decimal> counterid { get; set; }
-        public int Patientid { get; set; }
+        public decimal PId { get; set; }
         public Nullable<decimal> regtranid { get; set; }
         public Nullable<decimal> inpatientid { get; set; }
         public string vtype { get; set; }

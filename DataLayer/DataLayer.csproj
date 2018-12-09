@@ -101,19 +101,22 @@
     <Compile Include="LabReport.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="LabreportPdf.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterLookup.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="MeridiemMaster.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="PateintLeadger.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="PatientBillReport.cs">
-      <DependentUpon>DbEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="PatientInfo.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="PatientLabReport.cs">
+    <Compile Include="PatientInfoCRClone.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="PatientLoginEntry.cs">

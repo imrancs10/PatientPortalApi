@@ -13,25 +13,25 @@ namespace PatientPortalApi.BAL.Reports
     {
         PatientPortalApiEntities _db = null;
 
-        public List<PatientBillReport> GetBillReportData()
+        public List<PateintLeadger> GetBillReportData()
         {
             _db = new PatientPortalApiEntities();
-            return _db.PatientBillReports.ToList();
+            return _db.PateintLeadgers.ToList();
         }
 
         public Enums.CrudStatus SetBillReportData(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount)
         {
             _db = new PatientPortalApiEntities();
-            PatientBillReport _report = new PatientBillReport();
-            _report.BillAmount = BillAmount;
-            _report.BillDate = BillDate;
-            _report.BillNo = BillNo;
-            _report.BillType = BillType;
-            _report.ReportUrl = ReportUrl;
-            _report.CreatedDate = DateTime.Now;
-            _report.ModificationDate = DateTime.Now;
-            _report.PatientId = PatientId;
-            _db.PatientBillReports.Add(_report);
+            PateintLeadger _report = new PateintLeadger();
+            //_report.BillAmount = BillAmount;
+            //_report.BillDate = BillDate;
+            //_report.BillNo = BillNo;
+            //_report.BillType = BillType;
+            //_report.ReportUrl = ReportUrl;
+            //_report.CreatedDate = DateTime.Now;
+            //_report.ModificationDate = DateTime.Now;
+            //_report.PatientId = PatientId;
+            //_db.PatientBillReports.Add(_report);
             int _result = _db.SaveChanges();
             return _result > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
         }
@@ -39,31 +39,31 @@ namespace PatientPortalApi.BAL.Reports
         public Enums.CrudStatus SetLabReportData(int PatientId, string BillNo, string RefNo, string ReportUrl, string LabName, DateTime ReportDate)
         {
             _db = new PatientPortalApiEntities();
-            PatientLabReport _report = new PatientLabReport();
-            _report.ReportDate = ReportDate;
-            _report.RefNo = RefNo;
-            _report.BillNo = BillNo;
-            _report.LabName = LabName;
-            _report.CreatedDate = DateTime.Now;
-            _report.ReportUrl = ReportUrl;
-            _report.ModificationDate = DateTime.Now;
-            _report.PatientId = PatientId;
-            _db.PatientLabReports.Add(_report);
+            PateintLeadger _report = new PateintLeadger();
+            //_report.ReportDate = ReportDate;
+            //_report.RefNo = RefNo;
+            //_report.BillNo = BillNo;
+            //_report.LabName = LabName;
+            //_report.CreatedDate = DateTime.Now;
+            //_report.ReportUrl = ReportUrl;
+            //_report.ModificationDate = DateTime.Now;
+            //_report.PatientId = PatientId;
+            _db.PateintLeadgers.Add(_report);
             int _result = _db.SaveChanges();
             return _result > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
         }
 
-        public List<PatientLabReport> GetLabReportData()
+        public List<PateintLeadger> GetLabReportData()
         {
             _db = new PatientPortalApiEntities();
-            return _db.PatientLabReports.ToList();
+            return _db.PateintLeadgers.ToList();
         }
 
         public List<PatientLedgerModel> GetPatientLedger()
         {
             _db = new PatientPortalApiEntities();
             DateTime _period = DateTime.Now.AddMonths(-WebSession.PatientLedgerPeriodInMonth);
-            var data = _db.PateintLeadgers.Where(x => x.Patientid == WebSession.PatientId && DbFunctions.TruncateTime(x.billdate)>= DbFunctions.TruncateTime(_period)).ToList();
+            var data = _db.PateintLeadgers.Where(x => x.PId == WebSession.PatientId && DbFunctions.TruncateTime(x.billdate)>= DbFunctions.TruncateTime(_period)).ToList();
             List<PatientLedgerModel> ledgerList = new List<PatientLedgerModel>();
 
             if (data != null)
