@@ -188,7 +188,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Global\CustomJsonMediaTypeFormatter.cs" />
     <Compile Include="Global\Enums.cs" />
     <Compile Include="Global\HttpStatusCodeAttribute.cs" />
     <Compile Include="Global\Resource.Designer.cs">
