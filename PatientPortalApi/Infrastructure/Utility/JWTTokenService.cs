@@ -44,8 +44,8 @@ namespace PatientPortal.Infrastructure.Utility
             //var tokenString = tokenHandler.WriteToken(token);
             //return tokenString;
             var token = new JwtSecurityToken(
-                audience: "http://localhost:64252",
-                issuer: "http://localhost:64252",
+                audience: "PatientPortalApi",
+                issuer: "PatientPortalApi",
                 claims: GetClaims(userClaims),
                 expires: expires,
                 signingCredentials: signingCredentials);

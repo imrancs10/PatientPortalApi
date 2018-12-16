@@ -49,8 +49,8 @@ namespace PatientPortalApi
                 JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                 TokenValidationParameters validationParameters = new TokenValidationParameters()
                 {
-                    ValidAudience = "http://localhost:64252",
-                    ValidIssuer = "http://localhost:64252",
+                    ValidAudience = "PatientPortalApi",
+                    ValidIssuer = "PatientPortalApi",
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     LifetimeValidator = this.LifetimeValidator,
