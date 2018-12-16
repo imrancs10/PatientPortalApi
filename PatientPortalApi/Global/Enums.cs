@@ -9,27 +9,6 @@ namespace PatientPortalApi.Global
 {
     public static class Enums
     {
-        public enum ErrorCode
-        {
-            [HttpStatusCode(HttpStatusCode.OK)]
-            [Description("No Error")]
-            None,
-            [HttpStatusCode(HttpStatusCode.Unauthorized)]
-            [Description("Registration Expired, Kindly renew it.")]
-            RegistrationExpired = 1001,
-
-            [HttpStatusCode(HttpStatusCode.BadRequest)]
-            [Description("User is invalid.")]
-            InvalidUser = 1002,
-
-            [HttpStatusCode(HttpStatusCode.BadRequest)]
-            [Description("You have reached the maximum attempt, your account is locked for a day.")]
-            AccountLocked = 1003,
-
-            [HttpStatusCode(HttpStatusCode.BadRequest)]
-            [Description("Wrong Password, only #1004 Attempt left, else your account will be locked for a day.")]
-            AccountFailAttempt = 1004,
-        }
         public enum LoginMessage
         {
             Authenticated = 1,

@@ -188,13 +188,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Global\CustomJsonMediaTypeFormatter.cs" />
+    <Compile Include="Global\EnumHelper.cs" />
     <Compile Include="Global\Enums.cs" />
+    <Compile Include="Global\ErrorCode.cs" />
+    <Compile Include="Global\ErrorCodeDetail.cs" />
     <Compile Include="Global\HttpStatusCodeAttribute.cs" />
     <Compile Include="Global\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Global\Response.cs" />
+    <Compile Include="Global\ResponseCodeCollection.cs" />
     <Compile Include="Global\UserData.cs" />
     <Compile Include="Global\Utility.cs" />
     <Compile Include="Infrastructure\Adapter\Notification\ISendMessageStrategy.cs" />
