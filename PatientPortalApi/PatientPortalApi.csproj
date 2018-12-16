@@ -163,7 +163,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIController\AppointmentAPIController.cs" />
+    <Compile Include="APIController\HospitalAPIController.cs" />
     <Compile Include="APIController\LoginAPIController.cs" />
+    <Compile Include="APIController\MasterAPIController.cs" />
+    <Compile Include="APIController\PatientAPIController.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />

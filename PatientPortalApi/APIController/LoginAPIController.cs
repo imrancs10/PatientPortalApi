@@ -1,21 +1,17 @@
 ﻿using DataLayer;
 using PatientPortal.Infrastructure.Utility;
+using PatientPortalApi.BAL.Masters;
 using PatientPortalApi.BAL.Patient;
 using PatientPortalApi.Global;
+using PatientPortalApi.Infrastructure;
+using PatientPortalApi.Infrastructure.Utility;
 using PatientPortalApi.Models;
 using PatientPortalApi.Models.User;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Mvc;
 using static PatientPortalApi.Global.Enums;
-using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
-using RouteAttribute = System.Web.Http.RouteAttribute;
-using RoutePrefixAttribute = System.Web.Http.RoutePrefixAttribute;
 
 namespace PatientPortalApi.APIController
 {
@@ -26,7 +22,7 @@ namespace PatientPortalApi.APIController
         /// Get Patient List
         /// </summary>
         /// <returns>List of Patientinfo</returns>
-        [System.Web.Http.Authorize]
+        [Authorize]
         [Route("Testpatient")]
         public PatientInfo GetPatientInfo()
         {
@@ -124,6 +120,104 @@ namespace PatientPortalApi.APIController
             }
 
             return BadRequest();
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public IHttpActionResult Register(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string MaritalStatus, string title, string aadharNumber)
+        {
+            string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            if (mobilenumber.Trim().Length != 10)
+            {
+                return BadRequest(ErrorCode.InCorrectMobileNumber.ToString());
+            }
+            else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
+            {
+                return BadRequest(ErrorCode.InCorrectMobileNumber.ToString());
+            }
+            else
+            {
+                PatientDetails details = new PatientDetails();
+                var patientInfo = details.GetPatientDetailByMobileNumberANDEmail(mobilenumber.Trim(), email.Trim());
+                if (patientInfo != null)
+                {
+                    return BadRequest(ErrorCode.MobileOrEmailExists.ToString());
+                }
+                string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
+                PatientInfoModel pateintModel = getPatientInfoModelForSession(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null, MaritalStatus, title, aadharNumber);
+                if (pateintModel != null)
+                {
+                    SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode, mobilenumber);
+                    pateintModel.OTP = verificationCode;
+                    return Ok(pateintModel);
+                }
+                else
+                {
+                    return BadRequest(ErrorCode.UserAlreadyExists.ToString());
+                }
+            }
+        }
+
+        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode, string mobilenumber)
+        {
+            await Task.Run(() =>
+            {
+                //Send Email
+                Message msg = new Message()
+                {
+                    MessageTo = email,
+                    MessageNameTo = firstname + " " + middlename + (string.IsNullOrWhiteSpace(middlename) ? "" : " ") + lastname,
+                    OTP = verificationCode,
+                    Subject = "Verify Mobile Number",
+                    Body = EmailHelper.GetDeviceVerificationEmail(firstname, middlename, lastname, verificationCode)
+                };
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+
+                //Send SMS
+                msg.Body = "Hello " + string.Format("{0} {1}", firstname, lastname) + "\nAs you requested, here is a OTP " + verificationCode + " you can use it to verify your mobile number.\n Regards:\n Patient Portal(RMLHIMS)";
+                msg.MessageTo = mobilenumber;
+                msg.MessageType = MessageType.OTP;
+                sendMessageStrategy = new SendMessageStrategyForSMS(msg);
+                sendMessageStrategy.SendMessages();
+            });
+        }
+
+        private static PatientInfoModel getPatientInfoModelForSession(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string MaritalStatus, string title, string aadharNumber)
+        {
+            DepartmentDetails detail = new DepartmentDetails();
+            var dept = detail.GetDeparmentById(Convert.ToInt32(department));
+            int pinResult = 0;
+            PatientInfoModel model = new PatientInfoModel
+            {
+                AadharNumber = aadharNumber,
+                Address = address,
+                CityId = city,
+                Country = country,
+                Department = dept != null ? dept.DepartmentName : string.Empty,
+                DOB = Convert.ToDateTime(DOB),
+                Email = email,
+                FirstName = firstname,
+                Gender = Gender,
+                LastName = lastname,
+                MiddleName = middlename,
+                MobileNumber = mobilenumber,
+                PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0,
+                Religion = religion,
+                StateId = state,
+                FatherOrHusbandName = FatherHusbandName,
+                DepartmentId = Convert.ToInt32(department),
+                MaritalStatus = MaritalStatus,
+                Title = title
+            };
+            return model;
+        }
+
+        [Route("logout")]
+        [Authorize]
+        public IHttpActionResult Logout()
+        {
+            return Ok();
         }
     }
 
