@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -13,57 +14,32 @@ namespace PatientPortalApi.BAL.Reports
     {
         PatientPortalApiEntities _db = null;
 
-        public List<PateintLeadger> GetBillReportData()
+        public List<PateintLeadger> GetBillReportData(int userId)
         {
-            _db = new PatientPortalApiEntities();
-            return _db.PateintLeadgers.ToList();
+            _db = new PatientPortalEntities();
+            var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == userId).FirstOrDefault();
+            return _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid).ToList();
         }
 
-        public Enums.CrudStatus SetBillReportData(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount)
+        public List<LabreportPdf> GetLabReportData(int userId)
         {
-            _db = new PatientPortalApiEntities();
-            PateintLeadger _report = new PateintLeadger();
-            //_report.BillAmount = BillAmount;
-            //_report.BillDate = BillDate;
-            //_report.BillNo = BillNo;
-            //_report.BillType = BillType;
-            //_report.ReportUrl = ReportUrl;
-            //_report.CreatedDate = DateTime.Now;
-            //_report.ModificationDate = DateTime.Now;
-            //_report.PatientId = PatientId;
-            //_db.PatientBillReports.Add(_report);
-            int _result = _db.SaveChanges();
-            return _result > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
+            _db = new PatientPortalEntities();
+            var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == userId).FirstOrDefault();
+            return _db.LabreportPdfs.Where(x => x.pid == patientInfo.pid).ToList();
         }
 
-        public Enums.CrudStatus SetLabReportData(int PatientId, string BillNo, string RefNo, string ReportUrl, string LabName, DateTime ReportDate)
+        public List<PatientLedgerModel> GetPatientLedger(int userId, DateTime? fromDate = null, DateTime? toDate = null)
         {
-            _db = new PatientPortalApiEntities();
-            PateintLeadger _report = new PateintLeadger();
-            //_report.ReportDate = ReportDate;
-            //_report.RefNo = RefNo;
-            //_report.BillNo = BillNo;
-            //_report.LabName = LabName;
-            //_report.CreatedDate = DateTime.Now;
-            //_report.ReportUrl = ReportUrl;
-            //_report.ModificationDate = DateTime.Now;
-            //_report.PatientId = PatientId;
-            _db.PateintLeadgers.Add(_report);
-            int _result = _db.SaveChanges();
-            return _result > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
-        }
-
-        public List<PateintLeadger> GetLabReportData()
-        {
-            _db = new PatientPortalApiEntities();
-            return _db.PateintLeadgers.ToList();
-        }
-
-        public List<PatientLedgerModel> GetPatientLedger()
-        {
-            _db = new PatientPortalApiEntities();
-            DateTime _period = DateTime.Now.AddMonths(-WebSession.PatientLedgerPeriodInMonth);
-            var data = _db.PateintLeadgers.Where(x => x.PId == WebSession.PatientId && DbFunctions.TruncateTime(x.billdate)>= DbFunctions.TruncateTime(_period)).ToList();
+            _db = new PatientPortalEntities();
+            DateTime _period = DateTime.Now.AddMonths(-Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
+            var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == userId).FirstOrDefault();
+            List<PateintLeadger> data = new List<PateintLeadger>();
+            if (fromDate == null && toDate == null)
+                data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(_period)).ToList();
+            else
+            {
+                data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(fromDate) && DbFunctions.TruncateTime(x.billdate) <= DbFunctions.TruncateTime(toDate)).ToList();
+            }
             List<PatientLedgerModel> ledgerList = new List<PatientLedgerModel>();
 
             if (data != null)
@@ -73,16 +49,43 @@ namespace PatientPortalApi.BAL.Reports
                     PatientLedgerModel newLedger = new PatientLedgerModel();
                     newLedger.Balance = currentLedger.subtotal.ToString();
                     newLedger.Date = currentLedger.billdate == null ? DateTime.Now : Convert.ToDateTime(currentLedger.billdate);
-                    newLedger.Description = currentLedger.remarks;
+                    newLedger.Description = getBillType(currentLedger.vtype);
                     newLedger.IPNo = currentLedger.ipno;
-                    newLedger.Payment = currentLedger.gramount.ToString();
-                    newLedger.Receipt = currentLedger.netamt.ToString();
+                    newLedger.Payment = currentLedger.netamt.ToString();
+                    newLedger.Receipt = currentLedger.receiptno;
                     newLedger.Type = currentLedger.vtype;
                     newLedger.VNo = currentLedger.vno;
                     ledgerList.Add(newLedger);
                 }
             }
             return ledgerList;
+        }
+
+        private string getBillType(string billtype)
+        {
+            string desc = string.Empty;
+            switch (billtype)
+            {
+                case "SV":
+                    desc = "Procedure/Diagnostic Billing";
+                    break;
+                case "PH":
+                    desc = "Pharmacy Billing-Refund";
+                    break;
+                case "GP":
+                    desc = "Patient Payment";
+                    break;
+                case "GR":
+                    desc = "Receipt from Patient";
+                    break;
+                case "PHR":
+                    desc = "Pharmacy Return";
+                    break;
+                case "SR":
+                    desc = "Sales Return";
+                    break;
+            }
+            return desc;
         }
     }
 }

@@ -167,6 +167,7 @@
     <Compile Include="APIController\HospitalAPIController.cs" />
     <Compile Include="APIController\LoginAPIController.cs" />
     <Compile Include="APIController\MasterAPIController.cs" />
+    <Compile Include="APIController\ReportAPIController.cs" />
     <Compile Include="APIController\PatientAPIController.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
@@ -180,15 +181,8 @@
     <Compile Include="BAL\Masters\DoctorDetails.cs" />
     <Compile Include="BAL\Masters\ScheduleDetails.cs" />
     <Compile Include="BAL\Patient\PatientDetails.cs" />
+    <Compile Include="BAL\Reports\PatientPortalEntities.cs" />
     <Compile Include="BAL\Reports\ReportDetails.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AppointmentController.cs" />
-    <Compile Include="Controllers\CommonController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\MastersController.cs" />
-    <Compile Include="Controllers\PatientController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -302,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
