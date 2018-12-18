@@ -9,6 +9,23 @@ namespace PatientPortalApi.Global
 {
     public static class Enums
     {
+
+        public enum MasterLookupEnum
+        {
+            HelpLineNo,
+            OPDNo,
+            AdministrativeBlockPhNo,
+            FaxNo,
+            Website,
+            EMail,
+            MailingAddress
+        }
+        public enum TransactionType
+        {
+            Register = 0,
+            Renewal = 1,
+            PayBill = 2
+        }
         public enum LoginMessage
         {
             Authenticated = 1,

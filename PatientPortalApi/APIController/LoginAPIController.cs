@@ -4,10 +4,15 @@ using PatientPortalApi.BAL.Masters;
 using PatientPortalApi.BAL.Patient;
 using PatientPortalApi.Global;
 using PatientPortalApi.Infrastructure;
+using PatientPortalApi.Infrastructure.Adapter.WebService;
 using PatientPortalApi.Infrastructure.Utility;
 using PatientPortalApi.Models;
+using PatientPortalApi.Models.Patient;
 using PatientPortalApi.Models.User;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -123,17 +128,21 @@ namespace PatientPortalApi.APIController
         }
 
         [HttpPost]
-        [Route("register")]
-        public IHttpActionResult Register(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string MaritalStatus, string title, string aadharNumber)
+        [Route("CheckRegisterValidation")]
+        public IHttpActionResult CheckRegistration(string mobilenumber, string email)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (mobilenumber.Trim().Length != 10)
             {
-                return BadRequest(ErrorCode.InCorrectMobileNumber.ToString());
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.InCorrectMobileNumber];
+                Response<PatientInfo> response = new Response<PatientInfo>(errorDetail, null);
+                return Ok(response);
             }
             else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
             {
-                return BadRequest(ErrorCode.InCorrectMobileNumber.ToString());
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.InCorrectEmailId];
+                Response<PatientInfo> response = new Response<PatientInfo>(errorDetail, null);
+                return Ok(response);
             }
             else
             {
@@ -141,46 +150,143 @@ namespace PatientPortalApi.APIController
                 var patientInfo = details.GetPatientDetailByMobileNumberANDEmail(mobilenumber.Trim(), email.Trim());
                 if (patientInfo != null)
                 {
-                    return BadRequest(ErrorCode.MobileOrEmailExists.ToString());
-                }
-                string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
-                PatientInfoModel pateintModel = getPatientInfoModelForSession(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null, MaritalStatus, title, aadharNumber);
-                if (pateintModel != null)
-                {
-                    SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode, mobilenumber);
-                    pateintModel.OTP = verificationCode;
-                    return Ok(pateintModel);
-                }
-                else
-                {
-                    return BadRequest(ErrorCode.UserAlreadyExists.ToString());
+                    ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.MobileOrEmailExists];
+                    Response<PatientInfo> response = new Response<PatientInfo>(errorDetail, null);
+                    return Ok(response);
                 }
             }
+            return Ok();
         }
 
-        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode, string mobilenumber)
+        [HttpPost]
+        [Route("saveregistration")]
+        public IHttpActionResult Register(PatientRegisterModel model)
         {
-            await Task.Run(() =>
+            string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
+            Dictionary<string, object> result = SavePatientInfo(model.MaritalStatus, model.title, model.firstname, model.middlename, model.lastname, model.DOB.ToString(), model.Gender, model.mobilenumber, model.email, model.address, model.city, model.country, model.pincode.ToString(), model.religion, model.department.ToString(), "", model.state, model.FatherHusbandName, 0, null, model.aadharNumber);
+            if (result["status"].ToString() == CrudStatus.Saved.ToString())
             {
-                //Send Email
-                Message msg = new Message()
+                int patientId = ((PatientInfo)result["data"]).PatientId;
+                string serialNumber = VerificationCodeGeneration.GetSerialNumber();
+                PatientDetails _details = new PatientDetails();
+                PatientInfo info = new PatientInfo()
                 {
-                    MessageTo = email,
-                    MessageNameTo = firstname + " " + middlename + (string.IsNullOrWhiteSpace(middlename) ? "" : " ") + lastname,
-                    OTP = verificationCode,
-                    Subject = "Verify Mobile Number",
-                    Body = EmailHelper.GetDeviceVerificationEmail(firstname, middlename, lastname, verificationCode)
+                    RegistrationNumber = serialNumber,
+                    PatientId = patientId
                 };
-                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
-                sendMessageStrategy.SendMessages();
+                info = _details.UpdatePatientDetail(info);
+                PatientTransaction transaction = new PatientTransaction()
+                {
+                    PatientId = patientId,
+                    Amount = Convert.ToInt32(model.Amount),
+                    OrderId = model.OrderId,
+                    ResponseCode = model.ResponseCode,
+                    StatusCode = model.StatusCode,
+                    TransactionDate = Convert.ToDateTime(model.TransactionDate),
+                    TransactionNumber = model.TransactionNumber,
+                    Type = TransactionType.Register.ToString()
+                };
+                var transactionData = _details.SavePatientTransaction(transaction);
+                info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
+                SendMailTransactionResponse(serialNumber, ((PatientInfo)result["data"]));
+                transaction.OrderId = serialNumber;
+                //send patient data to HIS portal
+                HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
+                insertModel.Type = Convert.ToInt32(TransactionType.Register);
+                WebServiceIntegration service = new WebServiceIntegration();
+                string serviceResult = service.GetPatientInfoinsert(insertModel);
 
-                //Send SMS
-                msg.Body = "Hello " + string.Format("{0} {1}", firstname, lastname) + "\nAs you requested, here is a OTP " + verificationCode + " you can use it to verify your mobile number.\n Regards:\n Patient Portal(RMLHIMS)";
-                msg.MessageTo = mobilenumber;
-                msg.MessageType = MessageType.OTP;
-                sendMessageStrategy = new SendMessageStrategyForSMS(msg);
-                sendMessageStrategy.SendMessages();
-            });
+                if (serviceResult.Contains("-"))
+                {
+                    var pidLocation = serviceResult.Split('-');
+                    if (pidLocation.Length == 2)
+                    {
+                        int pId = Convert.ToInt32(pidLocation[0]);
+                        string location = Convert.ToString(pidLocation[1]);
+                        PatientInfo infoPatient = new PatientInfo()
+                        {
+                            pid = pId,
+                            Location = location,
+                            PatientId = patientId
+                        };
+                        info = _details.UpdatePatientDetail(infoPatient);
+                    }
+                }
+
+                //save status to DB
+                PatientInfo user = new PatientInfo()
+                {
+                    PatientId = patientId,
+                    RegistrationStatusHIS = serviceResult.Contains("-") ? "S" : serviceResult,
+
+
+                };
+                _details.UpdatePatientHISSyncStatus(info);
+            }
+            else
+            {
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.DataAlreadyExist];
+                Response<PatientInfo> response = new Response<PatientInfo>(errorDetail, null);
+                return Ok(response);
+            }
+
+            return Ok();
+        }
+
+
+        private static Dictionary<string, object> SavePatientInfo(string MaritalStatus, string Title, string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string aadharNumber, bool IsClone = false, string pid = null, string location = null)
+        {
+            PatientDetails _details = new PatientDetails();
+            int pinResult = 0;
+            dynamic info;
+            if (IsClone == false)
+                info = new PatientInfo();
+            else
+                info = new PatientInfoCRClone();
+
+            info.AadharNumber = aadharNumber;
+            info.FirstName = firstname;
+            info.MiddleName = middlename;
+            info.LastName = lastname;
+            if (!string.IsNullOrEmpty(DOB))
+                info.DOB = Convert.ToDateTime(DOB);
+            info.Gender = Gender;
+            info.MobileNumber = mobilenumber;
+            info.Email = email;
+            info.Address = address;
+            info.Country = country;
+            info.PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0;
+            info.Religion = religion;
+            info.OTP = verificationCode;
+            info.FatherOrHusbandName = FatherHusbandName;
+            info.MaritalStatus = MaritalStatus;
+            info.Title = Title;
+            info.pid = Convert.ToDecimal(pid);
+            info.Location = location;
+
+            if (!string.IsNullOrEmpty(city))
+                info.CityId = Convert.ToInt32(city);
+            else
+                info.CityId = null;
+            if (!string.IsNullOrEmpty(state))
+                info.StateId = Convert.ToInt32(state);
+            else
+                info.StateId = null;
+            if (!string.IsNullOrEmpty(department))
+                info.DepartmentId = Convert.ToInt32(department);
+            else
+                info.DepartmentId = null;
+
+            if (patientId > 0)
+                info.PatientId = patientId;
+            if (image != null && image.Length > 0)
+                info.Photo = image;
+            Dictionary<string, object> result;
+            if (IsClone == false)
+                result = _details.CreateOrUpdatePatientDetail(info);
+            else
+                result = _details.CreateOrUpdatePatientDetailClone(info);
+            return result;
         }
 
         private static PatientInfoModel getPatientInfoModelForSession(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string MaritalStatus, string title, string aadharNumber)
@@ -211,6 +317,61 @@ namespace PatientPortalApi.APIController
                 Title = title
             };
             return model;
+        }
+
+        private async Task SendMailTransactionResponse(string serialNumber, PatientInfo info, bool isclone = false)
+        {
+            await Task.Run(() =>
+            {
+                string passwordCreateURL = "Home/CreatePassword?id=" + CryptoEngine.Encrypt(serialNumber);
+                string baseUrl = Convert.ToString(ConfigurationManager.AppSettings["PatientPortaWebsiteUrl"]);
+
+                Message msg = new Message()
+                {
+                    MessageTo = info.Email,
+                    MessageNameTo = info.FirstName + " " + info.MiddleName + (string.IsNullOrWhiteSpace(info.MiddleName) ? "" : " ") + info.LastName,
+                    Subject = "Registration Created",
+                    Body = EmailHelper.GetRegistrationSuccessEmail(info.FirstName, info.MiddleName, info.LastName, serialNumber, baseUrl + passwordCreateURL)
+                };
+
+                if (isclone)
+                    msg.Body = EmailHelper.GetRegistrationCRSuccessEmail(info.FirstName, info.MiddleName, info.LastName, serialNumber, baseUrl + passwordCreateURL);
+
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+            });
+        }
+
+        public static HISPatientInfoInsertModel setregistrationModelForHISPortal(PatientInfo info)
+        {
+            return new HISPatientInfoInsertModel()
+            {
+                Address = info.Address,
+                City = info.City != null ? info.City.CityName : string.Empty,
+                CRNumber = info.CRNumber,
+                DepartmentId = info.DepartmentId != null ? Convert.ToString(info.DepartmentId.Value) : null,
+                DOB = info.DOB != null ? info.DOB.Value.ToString("yyyy-MM-dd") : string.Empty,
+                Email = info.Email,
+                FatherOrHusbandName = info.FatherOrHusbandName,
+                FirstName = info.FirstName,
+                Gender = info.Gender,
+                LastName = info.LastName,
+                MaritalStatus = info.MaritalStatus,
+                MiddleName = info.MiddleName,
+                MobileNumber = info.MobileNumber,
+                Password = info.Password,
+                PatientId = info.PatientId,
+                PinCode = Convert.ToString(info.PinCode),
+                RegistrationNumber = info.RegistrationNumber,
+                Religion = info.Religion,
+                State = info.State != null ? info.State.StateName : string.Empty,
+                Title = info.Title,
+                ValidUpto = Convert.ToString(info.ValidUpto.Value.ToString("yyyy-MM-dd")),
+                CreateDate = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionDate.Value.ToString("yyyy-MM-dd")),
+                Amount = Convert.ToString(info.PatientTransactions.FirstOrDefault().Amount),
+                PatientTransactionId = Convert.ToString(info.PatientTransactions.FirstOrDefault().PatientTransactionId),
+                TransactionNumber = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionNumber)
+            };
         }
 
         [Route("logout")]

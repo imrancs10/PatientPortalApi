@@ -30,7 +30,8 @@ namespace PatientPortalApi.Models
         public string Title { get; set; }
         public string Amount { get; set; }
         public string PatientTransactionId { get; set; }
+        public string TransactionNumber { get; set; }
         public string CreateDate { get; set; }
-
+        public int Type { get; set; }
     }
 }

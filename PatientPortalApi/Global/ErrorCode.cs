@@ -44,6 +44,12 @@ namespace PatientPortalApi.Global
         [Description("User is already register.")]
         UserAlreadyExists = 1008,
 
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Data is already register.")]
+        DataAlreadyExist = 1008,
+
+        
+
 
 
     }

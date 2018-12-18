@@ -97,7 +97,19 @@ namespace PatientPortalApi.BAL.Patient
             _db = new PatientPortalApiEntities();
             return _db.PatientInfoes.Where(x => x.MobileNumber.Equals(mobileNo) || x.Email.Equals(emailId)).FirstOrDefault();
         }
-
+        public PatientInfo UpdatePatientHISSyncStatus(PatientInfo info)
+        {
+            _db = new PatientPortalApiEntities();
+            var _patientRow = _db.PatientInfoes.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+            if (_patientRow != null)
+            {
+                _patientRow.RenewalStatusHIS = !string.IsNullOrEmpty(info.RenewalStatusHIS) ? info.RenewalStatusHIS : _patientRow.RenewalStatusHIS;
+                _patientRow.RegistrationStatusHIS = !string.IsNullOrEmpty(info.RegistrationStatusHIS) ? info.RegistrationStatusHIS : _patientRow.RegistrationStatusHIS;
+                _db.Entry(_patientRow).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return _patientRow;
+        }
 
         public PatientInfo GetPatientDetailById(int Id)
         {
@@ -162,27 +174,28 @@ namespace PatientPortalApi.BAL.Patient
                 var _patientRow = _db.PatientInfoes.Include(x => x.Department).Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
                 if (_patientRow != null)
                 {
-                    _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
-                    _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; ;
-                    _patientRow.Address = info.Address;
-                    _patientRow.City = info.City;
-                    _patientRow.Country = info.Country;
-                    _patientRow.DepartmentId = info.DepartmentId;
-                    _patientRow.DOB = info.DOB;
                     _patientRow.Email = info.Email;
-                    _patientRow.FirstName = info.FirstName;
-                    _patientRow.Gender = info.Gender;
-                    _patientRow.LastName = info.LastName;
-                    _patientRow.MiddleName = info.MiddleName;
-                    _patientRow.MobileNumber = info.MobileNumber;
-                    _patientRow.PinCode = info.PinCode;
-                    _patientRow.Religion = info.Religion;
-                    _patientRow.State = info.State;
-                    _patientRow.FatherOrHusbandName = info.FatherOrHusbandName;
                     _patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
-                    _patientRow.MaritalStatus = info.MaritalStatus;
-                    _patientRow.Title = info.Title;
-                    _patientRow.AadharNumber = info.AadharNumber;
+                    //_patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
+                    //_patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; ;
+                    //_patientRow.Address = info.Address;
+                    //_patientRow.City = info.City;
+                    //_patientRow.Country = info.Country;
+                    //_patientRow.DepartmentId = info.DepartmentId;
+                    //_patientRow.DOB = info.DOB;
+                    //_patientRow.FirstName = info.FirstName;
+                    //_patientRow.Gender = info.Gender;
+                    //_patientRow.LastName = info.LastName;
+                    //_patientRow.MiddleName = info.MiddleName;
+                    //_patientRow.MobileNumber = info.MobileNumber;
+                    //_patientRow.PinCode = info.PinCode;
+                    //_patientRow.Religion = info.Religion;
+                    //_patientRow.State = info.State;
+                    //_patientRow.FatherOrHusbandName = info.FatherOrHusbandName;
+                    //_patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
+                    //_patientRow.MaritalStatus = info.MaritalStatus;
+                    //_patientRow.Title = info.Title;
+                    //_patientRow.AadharNumber = info.AadharNumber;
                     _db.Entry(_patientRow).State = EntityState.Modified;
                     _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());
@@ -198,7 +211,7 @@ namespace PatientPortalApi.BAL.Patient
             }
             else
             {
-                var _deptRow = _db.PatientInfoes.Include(x => x.Department).Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
+                var _deptRow = _db.PatientInfoes.Include(x => x.Department).Where(x => (!string.IsNullOrEmpty(x.MobileNumber) && x.MobileNumber.Equals(info.MobileNumber)) || x.Email.Equals(info.Email)).FirstOrDefault();
                 if (_deptRow == null)
                 {
                     info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
@@ -217,6 +230,31 @@ namespace PatientPortalApi.BAL.Patient
                     return result;
                 }
             }
+        }
+
+        public Dictionary<string, object> CreateOrUpdatePatientDetailClone(PatientInfoCRClone info)
+        {
+            _db = new PatientPortalEntities();
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            int _effectRow = 0;
+            bool foundEmail = false;
+            var _deptRow = _db.PatientInfoCRClones.Where(x => (x.Email != null && x.Email != "" && x.Email.Equals(info.Email))).FirstOrDefault();
+            if (_deptRow != null)
+            {
+                foundEmail = true;
+            }
+            info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
+            info.CreatedDate = DateTime.Now;
+            _db.Entry(info).State = EntityState.Added;
+            _effectRow = _db.SaveChanges();
+            result.Add("status", CrudStatus.Saved.ToString());
+            info.Department = _db.PatientInfoCRClones.Include(x => x.Department).FirstOrDefault().Department;
+            result.Add("data", info);
+            if (foundEmail == true)
+            {
+                result.Add("status", CrudStatus.DataAlreadyExist.ToString());
+            }
+            return result;
         }
 
         public Dictionary<string, object> SavePatientTransaction(PatientTransaction info)
