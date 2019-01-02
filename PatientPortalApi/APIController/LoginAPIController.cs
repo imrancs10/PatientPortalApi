@@ -128,17 +128,17 @@ namespace PatientPortalApi.APIController
         }
 
         [HttpPost]
-        [Route("CheckRegisterValidation")]
-        public IHttpActionResult CheckRegistration(string mobilenumber, string email)
+        [Route("sendemailforotp")]
+        public IHttpActionResult SendEmailForOTP([FromBody]PatientRegisterModel model)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
-            if (mobilenumber.Trim().Length != 10)
+            if (model.mobilenumber.Trim().Length != 10)
             {
                 ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.InCorrectMobileNumber];
                 Response<PatientInfo> response = new Response<PatientInfo>(errorDetail, null);
                 return Ok(response);
             }
-            else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
+            else if (!Regex.IsMatch(model.email, emailRegEx, RegexOptions.IgnoreCase))
             {
                 ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.InCorrectEmailId];
                 Response<PatientInfo> response = new Response<PatientInfo>(errorDetail, null);
@@ -147,20 +147,25 @@ namespace PatientPortalApi.APIController
             else
             {
                 PatientDetails details = new PatientDetails();
-                var patientInfo = details.GetPatientDetailByMobileNumberANDEmail(mobilenumber.Trim(), email.Trim());
+                var patientInfo = details.GetPatientDetailByMobileNumberANDEmail(model.mobilenumber.Trim(), model.email.Trim());
                 if (patientInfo != null)
                 {
                     ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.MobileOrEmailExists];
                     Response<PatientInfo> response = new Response<PatientInfo>(errorDetail, null);
                     return Ok(response);
                 }
+                else
+                {
+                    string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
+                    SendMailFordeviceVerification(model.firstname, model.middlename, model.lastname, model.email, verificationCode, model.mobilenumber);
+                    return Ok(verificationCode);
+                }
             }
-            return Ok();
         }
 
         [HttpPost]
         [Route("saveregistration")]
-        public IHttpActionResult Register(PatientRegisterModel model)
+        public IHttpActionResult Register([FromBody]PatientRegisterModel model)
         {
             string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
             Dictionary<string, object> result = SavePatientInfo(model.MaritalStatus, model.title, model.firstname, model.middlename, model.lastname, model.DOB.ToString(), model.Gender, model.mobilenumber, model.email, model.address, model.city, model.country, model.pincode.ToString(), model.religion, model.department.ToString(), "", model.state, model.FatherHusbandName, 0, null, model.aadharNumber);
@@ -373,7 +378,30 @@ namespace PatientPortalApi.APIController
                 TransactionNumber = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionNumber)
             };
         }
+        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode, string mobilenumber)
+        {
+            await Task.Run(() =>
+            {
+                //Send Email
+                Message msg = new Message()
+                {
+                    MessageTo = email,
+                    MessageNameTo = firstname + " " + middlename + (string.IsNullOrWhiteSpace(middlename) ? "" : " ") + lastname,
+                    OTP = verificationCode,
+                    Subject = "Verify Mobile Number",
+                    Body = EmailHelper.GetDeviceVerificationEmail(firstname, middlename, lastname, verificationCode)
+                };
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
 
+                //Send SMS
+                msg.Body = "Hello " + string.Format("{0} {1}", firstname, lastname) + "\nAs you requested, here is a OTP " + verificationCode + " you can use it to verify your mobile number before 15 minutes.\n Regards:\n Patient Portal(RMLHIMS)";
+                msg.MessageTo = mobilenumber;
+                msg.MessageType = MessageType.OTP;
+                sendMessageStrategy = new SendMessageStrategyForSMS(msg);
+                sendMessageStrategy.SendMessages();
+            });
+        }
         [Route("logout")]
         [Authorize]
         public IHttpActionResult Logout()
