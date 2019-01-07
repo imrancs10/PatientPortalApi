@@ -58,13 +58,39 @@ namespace PatientPortalApi.BAL.Appointments
                          }).GroupBy(x => x.DoctorName).ToList();
             return _list;
         }
-        public IEnumerable<object> DateWiseDoctorAppointmentList(DateTime date)
+        public IEnumerable<object> DayAndDoctorWiseDoctorScheduleList(int doctorId, string dayId, DateTime? date)
+        {
+            _db = new PatientPortalApiEntities();
+            var _docList = _db.DoctorLeaves.Where(x => date != null && x.LeaveDate == date).Select(x => x.DoctorId).ToList();
+            var _list = (from docSchedule in _db.DoctorSchedules
+
+                         orderby docSchedule.DoctorID
+                         where docSchedule.DoctorID.Equals(doctorId) && docSchedule.DayID.Equals(dayId.ToLower())
+                         && !_docList.Contains(docSchedule.DoctorID.Value)
+                         select new
+                         {
+                             DayId = docSchedule.DayID,
+                             docSchedule.DayMaster.DayName,
+                             docSchedule.DoctorID,
+                             docSchedule.Doctor.DoctorName,
+                             docSchedule.Doctor.Department.DepartmentName,
+                             docSchedule.DoctorScheduleID,
+                             TimeFrom = docSchedule.TimeFrom + (docSchedule.TimeFromMeridiemID == 1 ? ":00 AM" : ":00 PM"),
+                             TimeTo = docSchedule.TimeTo + (docSchedule.TimeToMeridiemID == 1 ? ":00 AM" : ":00 PM"),
+                             docSchedule.TimeFromMeridiemID,
+                             docSchedule.TimeToMeridiemID
+                         }).GroupBy(x => x.DoctorName).ToList();
+            return _list;
+        }
+        public IEnumerable<object> DateWiseDoctorAppointmentList(DateTime date, int doctorId)
         {
             _db = new PatientPortalApiEntities();
             var _list = (from docAppointment in _db.AppointmentInfoes
 
                          orderby docAppointment.DoctorId
-                         where DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) <= date && DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) >= date.Date
+                         where DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) <= date
+                               && DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) >= date.Date
+                               && docAppointment.DoctorId == doctorId
                          select new
                          {
                              docAppointment.AppointmentDateFrom,

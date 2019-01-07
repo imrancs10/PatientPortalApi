@@ -72,6 +72,23 @@ namespace PatientPortalApi.APIController
                 return Ok(response);
             }
         }
+        [Route("get/doctors/{doctorId}/timeslot/{dayId}")]
+        [Authorize]
+        public IHttpActionResult GetDoctorTimeslots(int doctorId, int dayId)
+        {
+            DoctorDetails details = new DoctorDetails();
+            var list = details.GetDoctorTimeslots(doctorId, dayId);
+            if (list.Any())
+            {
+                return Ok(list);
+            }
+            else
+            {
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.NoDoctorScheduleFound];
+                Response<object> response = new Response<object>(errorDetail, null);
+                return Ok(response);
+            }
+        }
     }
 
 }

@@ -190,9 +190,20 @@ namespace PatientPortalApi.BAL.Masters
             docShecdules.ForEach(x =>
             {
                 if (!list.Any(y => y.DayName == x.DayMaster.DayName))
-                    list.Add(new DayMaster() { DayName = x.DayMaster.DayName });
+                    list.Add(new DayMaster() { DayName = x.DayMaster.DayName, DayId = x.DayMaster.DayId });
             });
-
+            return list;
+        }
+        public List<DayMaster> GetDoctorTimeslots(int doctorId, int dayId)
+        {
+            _db = new PatientPortalApiEntities();
+            var docShecdules = _db.DoctorSchedules.Where(x => x.DoctorID == doctorId).Include("DayMaster").ToList();
+            List<DayMaster> list = new List<DayMaster>();
+            docShecdules.ForEach(x =>
+            {
+                if (!list.Any(y => y.DayName == x.DayMaster.DayName))
+                    list.Add(new DayMaster() { DayName = x.DayMaster.DayName, DayId = x.DayMaster.DayId });
+            });
             return list;
         }
     }
