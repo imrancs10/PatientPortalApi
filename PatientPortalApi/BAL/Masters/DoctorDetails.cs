@@ -158,7 +158,6 @@ namespace PatientPortalApi.BAL.Masters
                     return Enums.CrudStatus.DataAlreadyExist;
             }
         }
-
         private async Task SendEmail(AppointmentInfo patient, DateTime leaveDate)
         {
             await Task.Run(() =>
@@ -181,6 +180,20 @@ namespace PatientPortalApi.BAL.Masters
                 sendMessageStrategy = new SendMessageStrategyForSMS(msg);
                 sendMessageStrategy.SendMessages();
             });
+        }
+
+        public List<DayMaster> GetDoctorShedulesByDoctor(int doctorId)
+        {
+            _db = new PatientPortalApiEntities();
+            var docShecdules = _db.DoctorSchedules.Where(x => x.DoctorID == doctorId).Include("DayMaster").ToList();
+            List<DayMaster> list = new List<DayMaster>();
+            docShecdules.ForEach(x =>
+            {
+                if (!list.Any(y => y.DayName == x.DayMaster.DayName))
+                    list.Add(new DayMaster() { DayName = x.DayMaster.DayName });
+            });
+
+            return list;
         }
     }
 }

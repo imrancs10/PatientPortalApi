@@ -1,8 +1,10 @@
 ﻿using PatientPortalApi.BAL.Appointments;
+using PatientPortalApi.BAL.Masters;
 using PatientPortalApi.Global;
 using PatientPortalApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using RouteAttribute = System.Web.Http.RouteAttribute;
 using RoutePrefixAttribute = System.Web.Http.RoutePrefixAttribute;
@@ -35,6 +37,40 @@ namespace PatientPortalApi.APIController
                 }
             }
             return BadRequest();
+        }
+        [Route("get/doctors/{deaprtmentId}")]
+        [Authorize]
+        public IHttpActionResult GetDoctorsByDepartment(int deaprtmentId)
+        {
+            DoctorDetails details = new DoctorDetails();
+            var list = details.DoctorList(deaprtmentId);
+            if (list.Any())
+            {
+                return Ok(list);
+            }
+            else
+            {
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.NoDoctorFound];
+                Response<object> response = new Response<object>(errorDetail, null);
+                return Ok(response);
+            }
+        }
+        [Route("get/doctorshedules/{doctorId}")]
+        [Authorize]
+        public IHttpActionResult GetDoctorShedulesByDoctor(int doctorId)
+        {
+            DoctorDetails details = new DoctorDetails();
+            var list = details.GetDoctorShedulesByDoctor(doctorId);
+            if (list.Any())
+            {
+                return Ok(list);
+            }
+            else
+            {
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.NoDoctorScheduleFound];
+                Response<object> response = new Response<object>(errorDetail, null);
+                return Ok(response);
+            }
         }
     }
 

@@ -234,7 +234,7 @@ namespace PatientPortalApi.BAL.Patient
 
         public Dictionary<string, object> CreateOrUpdatePatientDetailClone(PatientInfoCRClone info)
         {
-            _db = new PatientPortalEntities();
+            _db = new PatientPortalApiEntities();
             Dictionary<string, object> result = new Dictionary<string, object>();
             int _effectRow = 0;
             bool foundEmail = false;

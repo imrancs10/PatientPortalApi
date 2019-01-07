@@ -46,11 +46,15 @@ namespace PatientPortalApi.Global
 
         [HttpStatusCode(HttpStatusCode.BadRequest)]
         [Description("Data is already register.")]
-        DataAlreadyExist = 1008,
+        DataAlreadyExist = 1009,
 
-        
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("No Doctor Available for the given department.")]
+        NoDoctorFound = 1010,
 
-
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("No Doctor Schedule Available.")]
+        NoDoctorScheduleFound = 1011,
 
     }
 
