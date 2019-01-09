@@ -9,6 +9,7 @@ using PatientPortalApi.Models.Masters;
 using PatientPortalApi.Infrastructure;
 using PatientPortalApi.Infrastructure.Utility;
 using System.Threading.Tasks;
+using PatientPortalApi.Models;
 
 namespace PatientPortalApi.BAL.Masters
 {
@@ -194,16 +195,111 @@ namespace PatientPortalApi.BAL.Masters
             });
             return list;
         }
-        public List<DayMaster> GetDoctorTimeslots(int doctorId, int dayId)
+        public List<AppointmentModel> GetDoctorTimeslots(int doctorId, int dayId, DateTime? date)
         {
             _db = new PatientPortalApiEntities();
-            var docShecdules = _db.DoctorSchedules.Where(x => x.DoctorID == doctorId).Include("DayMaster").ToList();
-            List<DayMaster> list = new List<DayMaster>();
-            docShecdules.ForEach(x =>
+            List<AppointmentModel> list = new List<AppointmentModel>();
+            //doctor leave
+            var _docList = _db.DoctorLeaves.Where(x => date != null && x.LeaveDate == date && x.DoctorId == doctorId)
+                                                    .Select(x => x.DoctorId).ToList();
+            var _list = _db.DoctorSchedules.Include("Doctor")
+                                .Where(docSchedule => docSchedule.DoctorID == doctorId && docSchedule.DayID == dayId
+                                                        && !_docList.Contains(docSchedule.DoctorID.Value)).ToList()
+                         .Select(x => new DoctorAppointmentModel
+                         {
+                             DayId = x.DayID,
+                             DoctorName = x.Doctor.DoctorName,
+                             DoctorID = x.DoctorID,
+                             TimeFrom = x.TimeFrom + (x.TimeFromMeridiemID == 1 ? ":00 AM" : ":00 PM"),
+                             TimeTo = x.TimeTo + (x.TimeToMeridiemID == 1 ? ":00 AM" : ":00 PM"),
+                         }).FirstOrDefault();
+
+            //(from docSchedule in _db.DoctorSchedules
+            // orderby docSchedule.DoctorID
+            // where docSchedule.DoctorID.Equals(doctorId) && docSchedule.DayID.Equals(dayId)
+            // && !_docList.Contains(docSchedule.DoctorID.Value)
+            // select (x => new DoctorAppointmentModel()
+            // {
+            //     DayId = x.DayID,
+            //     DoctorName = x.Doctor.DoctorName,
+            //     DoctorID = x.DoctorID,
+            //     TimeFrom = x.TimeFrom + (x.TimeFromMeridiemID == 1 ? ":00 AM" : ":00 PM"),
+            //     TimeTo = x.TimeTo + (x.TimeToMeridiemID == 1 ? ":00 AM" : ":00 PM"),
+            // })).FirstOrDefault();
+
+            //appointment info
+            var _listAppointment = _db.AppointmentInfoes.Include("Doctor")
+                                .Where(docAppointment => docAppointment.DoctorId == doctorId &&
+                                            DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom)
+                                                            == DbFunctions.TruncateTime(date)).ToList()
+                .Select(x => new BookedAppointmentModel
+                {
+                    AppointmentDateFrom = x.AppointmentDateFrom,
+                    AppointmentDateTo = x.AppointmentDateTo,
+                    AppointmentId = x.AppointmentId,
+                    DoctorId = x.DoctorId,
+                    DoctorName = x.Doctor.DoctorName,
+                    PatientId = x.PatientId
+                }).ToList();
+
+            //(from docAppointment in _db.AppointmentInfoes
+            //                    orderby docAppointment.DoctorId
+            //                    where DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) <= date.Value.Date && DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) >= date.Value.Date
+            //                    select new BookedAppointmentModel
+            //                    {
+            //                        AppointmentDateFrom = docAppointment.AppointmentDateFrom,
+            //                        AppointmentDateTo = docAppointment.AppointmentDateTo,
+            //                        AppointmentId = docAppointment.AppointmentId,
+            //                        DoctorId = docAppointment.DoctorId,
+            //                        DoctorName = docAppointment.Doctor.DoctorName,
+            //                        PatientId = docAppointment.PatientId
+            //                    }).OrderBy(x => x.AppointmentDateFrom).ToList();
+
+            //timeslot
+            var appSetting = _db.AppointmentSettings.Where(x => x.IsActive).FirstOrDefault();
+            int AppointmentSlot = (appSetting != null) ? (appSetting.AppointmentSlot > 0) ? appSetting.AppointmentSlot : 30 : 30;
+            var timeslots = timeSplitter(_list.TimeFrom, _list.TimeTo, AppointmentSlot);
+            //var docShecdules = _db.DoctorSchedules.Where(x => x.DoctorID == doctorId && x.DayID == dayId).Include("DayMaster").ToList();
+            //docShecdules.ForEach(x =>
+            //{
+            //    //if (!list.Any(y => y.DayName == x.DayMaster.DayName))
+            //    list.Add(new AppointmentModel() { });
+            //});
+            return timeslots;
+        }
+
+        private List<AppointmentModel> timeSplitter(string minTime, string maxTime, int minSeed)
+        {
+            //minTime=10:00 AM, maxTime=5:00 PM, minSeed=30
+            List<AppointmentModel> list = new List<AppointmentModel>();
+            minSeed = minSeed > 60 ? 30 : (minSeed < 1 ? 30 : minSeed);
+            DateTime dt;
+            bool checktime = DateTime.TryParse(minTime, out dt);
+            if (checktime)
+                minTime = dt.ToString("HH:mm");
+            checktime = DateTime.TryParse(maxTime, out dt);
+            if (checktime)
+                maxTime = dt.ToString("HH:mm");
+            int startTime = Convert.ToInt32(minTime.Split(':')[0]);
+            int endTime = Convert.ToInt32(maxTime.Split(':')[0]);
+            int slots = ((endTime - startTime) * 60) / minSeed;
+            string toTime = string.Empty, fromTime = minTime.ToString();
+            for (int i = 0; i < slots; i++)
             {
-                if (!list.Any(y => y.DayName == x.DayMaster.DayName))
-                    list.Add(new DayMaster() { DayName = x.DayMaster.DayName, DayId = x.DayMaster.DayId });
-            });
+               checktime = DateTime.TryParse(fromTime, out dt);
+                if (checktime)
+                {
+                    fromTime = dt.ToString("HH:mm");
+                    toTime = dt.AddMinutes(minSeed).ToString("HH:mm");
+                }
+                list.Add(new AppointmentModel()
+                {
+                    FromTime = fromTime,
+                    //ToTime = Convert.ToString(startTime + minSeed)
+                    ToTime = toTime
+                });
+                fromTime = dt.AddMinutes(minSeed).ToString("HH:mm");
+            }
             return list;
         }
     }

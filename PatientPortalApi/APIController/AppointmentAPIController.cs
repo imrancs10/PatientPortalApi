@@ -72,12 +72,12 @@ namespace PatientPortalApi.APIController
                 return Ok(response);
             }
         }
-        [Route("get/doctors/{doctorId}/timeslot/{dayId}")]
+        [Route("get/doctors/{doctorId}/timeslot/{dayId}/{date}")]
         [Authorize]
-        public IHttpActionResult GetDoctorTimeslots(int doctorId, int dayId)
+        public IHttpActionResult GetDoctorTimeslots(int doctorId, int dayId, DateTime date)
         {
             DoctorDetails details = new DoctorDetails();
-            var list = details.GetDoctorTimeslots(doctorId, dayId);
+            var list = details.GetDoctorTimeslots(doctorId, dayId, date);
             if (list.Any())
             {
                 return Ok(list);
