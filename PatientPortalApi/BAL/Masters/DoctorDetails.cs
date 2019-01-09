@@ -214,21 +214,8 @@ namespace PatientPortalApi.BAL.Masters
                              TimeTo = x.TimeTo + (x.TimeToMeridiemID == 1 ? ":00 AM" : ":00 PM"),
                          }).FirstOrDefault();
 
-            //(from docSchedule in _db.DoctorSchedules
-            // orderby docSchedule.DoctorID
-            // where docSchedule.DoctorID.Equals(doctorId) && docSchedule.DayID.Equals(dayId)
-            // && !_docList.Contains(docSchedule.DoctorID.Value)
-            // select (x => new DoctorAppointmentModel()
-            // {
-            //     DayId = x.DayID,
-            //     DoctorName = x.Doctor.DoctorName,
-            //     DoctorID = x.DoctorID,
-            //     TimeFrom = x.TimeFrom + (x.TimeFromMeridiemID == 1 ? ":00 AM" : ":00 PM"),
-            //     TimeTo = x.TimeTo + (x.TimeToMeridiemID == 1 ? ":00 AM" : ":00 PM"),
-            // })).FirstOrDefault();
-
             //appointment info
-            var _listAppointment = _db.AppointmentInfoes.Include("Doctor")
+            var _listAppointments = _db.AppointmentInfoes.Include("Doctor")
                                 .Where(docAppointment => docAppointment.DoctorId == doctorId &&
                                             DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom)
                                                             == DbFunctions.TruncateTime(date)).ToList()
@@ -242,29 +229,17 @@ namespace PatientPortalApi.BAL.Masters
                     PatientId = x.PatientId
                 }).ToList();
 
-            //(from docAppointment in _db.AppointmentInfoes
-            //                    orderby docAppointment.DoctorId
-            //                    where DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) <= date.Value.Date && DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) >= date.Value.Date
-            //                    select new BookedAppointmentModel
-            //                    {
-            //                        AppointmentDateFrom = docAppointment.AppointmentDateFrom,
-            //                        AppointmentDateTo = docAppointment.AppointmentDateTo,
-            //                        AppointmentId = docAppointment.AppointmentId,
-            //                        DoctorId = docAppointment.DoctorId,
-            //                        DoctorName = docAppointment.Doctor.DoctorName,
-            //                        PatientId = docAppointment.PatientId
-            //                    }).OrderBy(x => x.AppointmentDateFrom).ToList();
-
             //timeslot
             var appSetting = _db.AppointmentSettings.Where(x => x.IsActive).FirstOrDefault();
             int AppointmentSlot = (appSetting != null) ? (appSetting.AppointmentSlot > 0) ? appSetting.AppointmentSlot : 30 : 30;
             var timeslots = timeSplitter(_list.TimeFrom, _list.TimeTo, AppointmentSlot);
-            //var docShecdules = _db.DoctorSchedules.Where(x => x.DoctorID == doctorId && x.DayID == dayId).Include("DayMaster").ToList();
-            //docShecdules.ForEach(x =>
-            //{
-            //    //if (!list.Any(y => y.DayName == x.DayMaster.DayName))
-            //    list.Add(new AppointmentModel() { });
-            //});
+
+            timeslots.ForEach(x =>
+            {
+                x.HasBooked = _listAppointments.Where(y => Convert.ToDateTime(y.AppointmentDateFrom).ToString("HH:mm") == x.FromTime
+                                                          && Convert.ToDateTime(y.AppointmentDateTo).ToString("HH:mm") == x.ToTime).Any();
+            });
+
             return timeslots;
         }
 
@@ -286,7 +261,7 @@ namespace PatientPortalApi.BAL.Masters
             string toTime = string.Empty, fromTime = minTime.ToString();
             for (int i = 0; i < slots; i++)
             {
-               checktime = DateTime.TryParse(fromTime, out dt);
+                checktime = DateTime.TryParse(fromTime, out dt);
                 if (checktime)
                 {
                     fromTime = dt.ToString("HH:mm");
