@@ -56,6 +56,10 @@ namespace PatientPortalApi.Global
         [Description("No Doctor Schedule Available.")]
         NoDoctorScheduleFound = 1011,
 
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Only Limited Appointment can be booked for a day.")]
+        OnlyLimitedAppointmentCanBooked = 1012,
+
     }
 
     public static class ErrorCodeExtensions

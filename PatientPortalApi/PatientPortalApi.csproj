@@ -221,6 +221,7 @@
     <Compile Include="Infrastructure\Utility\JWTTokenService.cs" />
     <Compile Include="Infrastructure\Utility\Serializer.cs" />
     <Compile Include="Infrastructure\Utility\VerificationCodeGeneration.cs" />
+    <Compile Include="Models\Appointment\AppointmentEntryModel.cs" />
     <Compile Include="Models\Appointment\BookedAppointmentModel.cs" />
     <Compile Include="Models\Appointment\DoctorAppointmentModel.cs" />
     <Compile Include="Models\Appointment\AppointmentModel.cs" />

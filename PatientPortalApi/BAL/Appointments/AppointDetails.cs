@@ -111,7 +111,9 @@ namespace PatientPortalApi.BAL.Appointments
                 _db = new PatientPortalApiEntities();
                 int _effectRow = 0;
                 int _deptRow = _db.AppointmentInfoes.Where(x => DbFunctions.TruncateTime(x.AppointmentDateFrom) == DbFunctions.TruncateTime(model.AppointmentDateFrom) && x.IsCancelled == false && x.PatientId.Equals(model.PatientId)).Count();
-                if (_deptRow < WebSession.AppointmentLimitPerUser)
+                var appSetting = _db.AppointmentSettings.Where(x => x.IsActive).FirstOrDefault();
+                int AppointmentLimitPerUser = (appSetting != null) ? (appSetting.AppointmentLimitPerUser > 0) ? appSetting.AppointmentLimitPerUser : 1 : 1;
+                if (_deptRow < AppointmentLimitPerUser)
                 {
                     AppointmentInfo _newAppointment = new AppointmentInfo();
                     _newAppointment.AppointmentDateFrom = model.AppointmentDateFrom;
@@ -174,14 +176,14 @@ namespace PatientPortalApi.BAL.Appointments
         public Dictionary<int, string> CancelAppointment(int _patientId, int _appId, string CancelReason = "")
         {
             int _priorCancelTime = 0;
-            if (WebSession.AppointmentCancelPeriod == 0)
-            {
-                int.TryParse(Utility.GetAppSettingKey("AppointmentCancelInAdvanceMinuts"), out _priorCancelTime);
-            }
-            else
-            {
-                _priorCancelTime = WebSession.AppointmentCancelPeriod;
-            }
+            //if (WebSession.AppointmentCancelPeriod == 0)
+            //{
+            //    int.TryParse(Utility.GetAppSettingKey("AppointmentCancelInAdvanceMinuts"), out _priorCancelTime);
+            //}
+            //else
+            //{
+            //    _priorCancelTime = WebSession.AppointmentCancelPeriod;
+            //}
             Dictionary<int, string> result = new Dictionary<int, string>();
             ;
             _db = new PatientPortalApiEntities();

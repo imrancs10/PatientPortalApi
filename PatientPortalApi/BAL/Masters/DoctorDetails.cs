@@ -143,7 +143,7 @@ namespace PatientPortalApi.BAL.Masters
                                 appointment.CancelDate = DateTime.Now;
                                 appointment.IsCancelled = true;
                                 appointment.ModifiedBy = appointment.PatientId;
-                                appointment.CancelReason = WebSession.AutoCancelMessage == string.Empty ? "Auto cancel-Doctor on leave" : WebSession.AutoCancelMessage;
+                                //appointment.CancelReason = WebSession.AutoCancelMessage == string.Empty ? "Auto cancel-Doctor on leave" : WebSession.AutoCancelMessage;
                                 _db.Entry(appointment).State = EntityState.Modified;
                                 _db.SaveChanges();
                             }

@@ -102,5 +102,12 @@ namespace PatientPortalApi.BAL.Commom
                 return string.Empty;
             }
         }
+
+        public AppointmentSetting GetAppointmentSetting()
+        {
+            _db = new PatientPortalApiEntities();
+            var appSetting = _db.AppointmentSettings.Where(x => x.IsActive).FirstOrDefault();
+            return appSetting;
+        }
     }
 }
