@@ -105,6 +105,8 @@ namespace PatientPortalApi.APIController
             UserInfo userInfo = new UserInfo(User);
             if (userInfo != null)
             {
+                bool parseDateFrom = DateTime.TryParse(model.AppointmentDateFrom, out DateTime dtFrom);
+                bool parseDateTo = DateTime.TryParse(model.AppointmentDateTo, out DateTime dtTo);
                 AppointDetails _details = new AppointDetails();
                 int _patientId = 0;
                 string _sessionPatienId = Convert.ToString(userInfo.PatientId);
@@ -113,8 +115,8 @@ namespace PatientPortalApi.APIController
                     AppointmentInfo info = new AppointmentInfo
                     {
                         PatientId = _patientId,
-                        AppointmentDateFrom = model.AppointmentDateFrom,
-                        AppointmentDateTo = model.AppointmentDateTo,
+                        AppointmentDateFrom = parseDateFrom ? dtFrom : DateTime.MinValue,
+                        AppointmentDateTo = parseDateTo ? dtTo : DateTime.MinValue,
                         DoctorId = model.DoctorId
                     };
                     Enums.CrudStatus result = _details.SaveAppointment(info);
@@ -152,8 +154,8 @@ namespace PatientPortalApi.APIController
                     MessageTo = user.Email,
                     MessageNameTo = user.FirstName + " " + user.MiddleName + (string.IsNullOrWhiteSpace(user.MiddleName) ? string.Empty : " ") + user.LastName,
                     Subject = "Appointment Booking Confirmation",
-                    Body = EmailHelper.GetAppointmentSuccessEmail(user.FirstName, user.MiddleName, user.LastName, doctorname, 
-                                                            model.AppointmentDateFrom, deptname, appSetting.IsActiveAppointmentMessage, 
+                    Body = EmailHelper.GetAppointmentSuccessEmail(user.FirstName, user.MiddleName, user.LastName, doctorname,
+                                                            model.AppointmentDateFrom, deptname, appSetting.IsActiveAppointmentMessage,
                                                             appSetting.AppointmentMessage)
                 };
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
