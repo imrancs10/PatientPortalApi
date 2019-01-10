@@ -165,6 +165,7 @@
   <ItemGroup>
     <Compile Include="APIController\AppointmentAPIController.cs" />
     <Compile Include="APIController\HospitalAPIController.cs" />
+    <Compile Include="APIController\LoginPinAPIController.cs" />
     <Compile Include="APIController\LoginAPIController.cs" />
     <Compile Include="APIController\MasterAPIController.cs" />
     <Compile Include="APIController\ReportAPIController.cs" />

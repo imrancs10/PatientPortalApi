@@ -55,6 +55,8 @@ namespace DataLayer
         public string RegistrationStatusHIS { get; set; }
         public Nullable<decimal> pid { get; set; }
         public string Location { get; set; }
+        public string LoginPin { get; set; }
+        public string DeviceIdentityfier { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }

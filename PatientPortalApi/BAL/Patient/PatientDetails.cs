@@ -69,6 +69,61 @@ namespace PatientPortalApi.BAL.Patient
             return resultDic;
         }
 
+        public Dictionary<string, object> GetPatientDetailByPinAndDeviceId(string loginPin, string deviceIdentifier)
+        {
+            _db = new PatientPortalApiEntities();
+            Dictionary<string, object> resultDic = new Dictionary<string, object>();
+            var result = _db.PatientInfoes.Include(x => x.Department)
+                                    .Include(x => x.PatientLoginEntries)
+                                    .Where(x => (x.LoginPin == loginPin)
+                                         && x.DeviceIdentityfier == deviceIdentifier
+                                         && DbFunctions.TruncateTime(x.ValidUpto) >= DbFunctions.TruncateTime(DateTime.Now))
+                                    .FirstOrDefault();
+            if (result != null)
+            {
+                resultDic.Add("status", CrudStatus.Updated);
+                resultDic.Add("data", result);
+
+                var loginEntry = (from obj in result.PatientLoginEntries.AsEnumerable()
+                                  where obj.Locked == true
+                                    && obj.LoginAttemptDate.Value.Date == DateTime.Now.Date
+                                    && obj.PatientId == result.PatientId
+                                  select obj);
+
+                if (loginEntry.Count() == 0)
+                {
+                    //Reset Failed login history
+                    var _loginRow = _db.PatientLoginEntries.Where(x => x.PatientId == result.PatientId)
+                                                  .FirstOrDefault();
+                    if (_loginRow != null)
+                    {
+                        _db.PatientLoginEntries.Remove(_loginRow);
+                        _db.SaveChanges();
+                    }
+                }
+            }
+            else
+            {
+                var data = _db.PatientInfoes.Include(x => x.Department)
+                                    .Include(x => x.PatientLoginEntries)
+                                    .Where(x => x.LoginPin == loginPin
+                                         && x.DeviceIdentityfier == deviceIdentifier)
+                                    .FirstOrDefault();
+                if (data != null)
+                {
+                    resultDic.Add("status", CrudStatus.RegistrationExpired);
+                    resultDic.Add("data", data);
+                }
+                else
+                {
+                    resultDic.Add("status", CrudStatus.DataNotFound);
+                    resultDic.Add("data", data);
+                }
+
+            }
+            return resultDic;
+        }
+
         public PatientInfo GetPatientDetailByRegistrationNumber(string UserId)
         {
             _db = new PatientPortalApiEntities();
@@ -129,6 +184,8 @@ namespace PatientPortalApi.BAL.Patient
                 _patientRow.ValidUpto = info.ValidUpto > DateTime.Now ? info.ValidUpto : _patientRow.ValidUpto;
                 _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
                 _patientRow.CRNumber = !string.IsNullOrEmpty(info.CRNumber) ? info.CRNumber : _patientRow.CRNumber;
+                _patientRow.LoginPin = !string.IsNullOrEmpty(info.LoginPin) ? info.LoginPin : _patientRow.LoginPin;
+                _patientRow.DeviceIdentityfier = !string.IsNullOrEmpty(info.DeviceIdentityfier) ? info.DeviceIdentityfier : _patientRow.DeviceIdentityfier;
                 _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber;
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();

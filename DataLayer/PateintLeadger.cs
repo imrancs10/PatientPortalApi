@@ -66,5 +66,6 @@ namespace DataLayer
         public string pcode { get; set; }
         public string ipno { get; set; }
         public string entrytype { get; set; }
+        public string Location { get; set; }
     }
 }
