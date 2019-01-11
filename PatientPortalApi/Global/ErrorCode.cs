@@ -60,6 +60,10 @@ namespace PatientPortalApi.Global
         [Description("Only Limited Appointment can be booked for a day.")]
         OnlyLimitedAppointmentCanBooked = 1012,
 
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Other User has already set same pin.")]
+        SamePinUse = 1013,
+
     }
 
     public static class ErrorCodeExtensions

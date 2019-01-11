@@ -176,17 +176,19 @@ namespace PatientPortalApi.BAL.Appointments
         public Dictionary<int, string> CancelAppointment(int _patientId, int _appId, string CancelReason = "")
         {
             int _priorCancelTime = 0;
-            //if (WebSession.AppointmentCancelPeriod == 0)
-            //{
-            //    int.TryParse(Utility.GetAppSettingKey("AppointmentCancelInAdvanceMinuts"), out _priorCancelTime);
-            //}
-            //else
-            //{
-            //    _priorCancelTime = WebSession.AppointmentCancelPeriod;
-            //}
+            _db = new PatientPortalApiEntities();
+            var appSetting = _db.AppointmentSettings.Where(x => x.IsActive).FirstOrDefault();
+            int AppointmentCancelPeriod = appSetting.AppointmentCancelPeriod;
+            if (AppointmentCancelPeriod == 0)
+            {
+                int.TryParse(Utility.GetAppSettingKey("AppointmentCancelInAdvanceMinuts"), out _priorCancelTime);
+            }
+            else
+            {
+                _priorCancelTime = AppointmentCancelPeriod;
+            }
             Dictionary<int, string> result = new Dictionary<int, string>();
             ;
-            _db = new PatientPortalApiEntities();
             var app = _db.AppointmentInfoes.Where(x => x.PatientId.Equals(_patientId) && x.AppointmentId.Equals(_appId)).FirstOrDefault();
             if (app != null)
             {

@@ -74,24 +74,26 @@ namespace PatientPortalApi.OPDWebReference {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPatientOPDDetails", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string GetPatientOPDDetails(string crno) {
+        public string GetPatientOPDDetails(string crno, string sptype) {
             object[] results = this.Invoke("GetPatientOPDDetails", new object[] {
-                        crno});
+                        crno,
+                        sptype});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void GetPatientOPDDetailsAsync(string crno) {
-            this.GetPatientOPDDetailsAsync(crno, null);
+        public void GetPatientOPDDetailsAsync(string crno, string sptype) {
+            this.GetPatientOPDDetailsAsync(crno, sptype, null);
         }
         
         /// <remarks/>
-        public void GetPatientOPDDetailsAsync(string crno, object userState) {
+        public void GetPatientOPDDetailsAsync(string crno, string sptype, object userState) {
             if ((this.GetPatientOPDDetailsOperationCompleted == null)) {
                 this.GetPatientOPDDetailsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPatientOPDDetailsOperationCompleted);
             }
             this.InvokeAsync("GetPatientOPDDetails", new object[] {
-                        crno}, this.GetPatientOPDDetailsOperationCompleted, userState);
+                        crno,
+                        sptype}, this.GetPatientOPDDetailsOperationCompleted, userState);
         }
         
         private void OnGetPatientOPDDetailsOperationCompleted(object arg) {

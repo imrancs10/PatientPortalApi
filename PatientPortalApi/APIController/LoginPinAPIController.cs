@@ -84,6 +84,14 @@ namespace PatientPortalApi.APIController
             if (userInfo != null)
             {
                 PatientDetails detail = new PatientDetails();
+
+                var pinExists = detail.GetPatientByPinAndDeviceId(loginPin, deviceIdentifier);
+                if (pinExists != null)
+                {
+                    ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.SamePinUse];
+                    Response<object> response = new Response<object>(errorDetail, null);
+                    return Ok(response);
+                }
                 PatientInfo info = new PatientInfo()
                 {
                     PatientId = userInfo.PatientId,

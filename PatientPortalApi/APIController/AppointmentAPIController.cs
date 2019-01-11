@@ -45,6 +45,31 @@ namespace PatientPortalApi.APIController
             }
             return BadRequest();
         }
+
+        [Route("cancelappointment")]
+        [Authorize]
+        public IHttpActionResult CancelAppointment(int appointmentId)
+        {
+            UserInfo userInfo = new UserInfo(User);
+            if (userInfo != null)
+            {
+                AppointDetails _details = new AppointDetails();
+                int _patientId = 0;
+                string _sessionPatienId = Convert.ToString(userInfo.PatientId);
+                Dictionary<int, string> result = new Dictionary<int, string>();
+                if (int.TryParse(_sessionPatienId, out _patientId))
+                {
+                    return Ok(_details.CancelAppointment(_patientId, appointmentId, ""));
+                }
+                else
+                {
+                    ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.InvalidUser];
+                    Response<object> response = new Response<object>(errorDetail, null);
+                    return Ok(response);
+                }
+            }
+            return BadRequest();
+        }
         [Route("get/doctors/{deaprtmentId}")]
         [Authorize]
         public IHttpActionResult GetDoctorsByDepartment(int deaprtmentId)
@@ -123,7 +148,7 @@ namespace PatientPortalApi.APIController
                     if (result == Enums.CrudStatus.Saved)
                     {
                         SendMailForAppointment(info, model.doctorname, model.deptname, _patientId);
-                        return Ok();
+                        return Ok(result);
                     }
                     else
                     {

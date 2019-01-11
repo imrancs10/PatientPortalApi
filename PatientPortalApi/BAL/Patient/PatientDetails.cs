@@ -447,5 +447,11 @@ namespace PatientPortalApi.BAL.Patient
             _db.Configuration.LazyLoadingEnabled = false;
             return _db.Cities.Where(x => x.CityName.Equals(cityName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
+        public PatientInfo GetPatientByPinAndDeviceId(string loginPin, string deviceIdentifier)
+        {
+            _db = new PatientPortalApiEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            return _db.PatientInfoes.Where(x => x.DeviceIdentityfier == deviceIdentifier && x.LoginPin == loginPin).FirstOrDefault();
+        }
     }
 }
