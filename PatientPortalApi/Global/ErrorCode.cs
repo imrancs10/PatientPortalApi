@@ -64,6 +64,9 @@ namespace PatientPortalApi.Global
         [Description("Other User has already set same pin.")]
         SamePinUse = 1013,
 
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Mobile number Or Email is not Correct.")]
+        MobileEmailInCorrect = 1014,
     }
 
     public static class ErrorCodeExtensions
