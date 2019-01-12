@@ -61,7 +61,7 @@ namespace PatientPortalApi.Global
         OnlyLimitedAppointmentCanBooked = 1012,
 
         [HttpStatusCode(HttpStatusCode.BadRequest)]
-        [Description("Other User has already set same pin.")]
+        [Description("this pin already used for this device, choose another.")]
         SamePinUse = 1013,
 
         [HttpStatusCode(HttpStatusCode.BadRequest)]
