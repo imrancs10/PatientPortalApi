@@ -99,7 +99,7 @@ namespace PatientPortalApi.APIController
                     DeviceIdentityfier = deviceIdentifier
                 };
                 var result = detail.UpdatePatientDetail(info);
-                return Ok();
+                return Ok("Login Pin has been Saved.");
             }
             else
             {
