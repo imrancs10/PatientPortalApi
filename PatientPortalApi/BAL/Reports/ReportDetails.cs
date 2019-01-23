@@ -41,20 +41,21 @@ namespace PatientPortalApi.BAL.Reports
                 data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(fromDate) && DbFunctions.TruncateTime(x.billdate) <= DbFunctions.TruncateTime(toDate)).ToList();
             }
             List<PatientLedgerModel> ledgerList = new List<PatientLedgerModel>();
-
             if (data != null)
             {
                 foreach (var currentLedger in data)
                 {
                     PatientLedgerModel newLedger = new PatientLedgerModel();
                     newLedger.Balance = currentLedger.subtotal.ToString();
-                    newLedger.Date = currentLedger.billdate == null ? DateTime.Now : Convert.ToDateTime(currentLedger.billdate);
+                    newLedger.Date = currentLedger.billdate == null ? DateTime.Now.ToString("dd/MM/yyyy") : Convert.ToDateTime(currentLedger.billdate).ToString("dd/MM/yyyy");
                     newLedger.Description = getBillType(currentLedger.vtype);
                     newLedger.IPNo = currentLedger.ipno;
-                    newLedger.Payment = currentLedger.netamt.ToString();
-                    newLedger.Receipt = currentLedger.receiptno;
+                    newLedger.Payment = Math.Round(currentLedger.netamt.Value, 2).ToString();
+                    newLedger.Receipt = Math.Round(currentLedger.netamt.Value, 2).ToString();
                     newLedger.Type = currentLedger.vtype;
                     newLedger.VNo = currentLedger.vno;
+                    newLedger.schemeid = Convert.ToString(currentLedger.schemeid);
+                    newLedger.SaleType = !string.IsNullOrEmpty(currentLedger.saletype) ? currentLedger.saletype.ToUpper() : string.Empty;
                     ledgerList.Add(newLedger);
                 }
             }
