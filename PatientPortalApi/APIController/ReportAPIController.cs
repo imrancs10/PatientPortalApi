@@ -55,7 +55,19 @@ namespace PatientPortalApi.APIController
         {
             UserInfo userInfo = new UserInfo(User);
             ReportDetails _details = new ReportDetails();
-            return Ok(_details.GetPatientLedger(userInfo.PatientId));
+            var ledgerData = _details.GetPatientLedger(userInfo.PatientId);
+            ledgerData.ForEach(x =>
+            {
+                if (x.Type == "GP" || x.Type == "PH" || x.Type == "SV" || x.Type == "SP")
+                {
+                    x.Receipt = "";
+                }
+                else
+                {
+                    x.Payment = "";
+                }
+            });
+            return Ok(ledgerData);
         }
     }
 
