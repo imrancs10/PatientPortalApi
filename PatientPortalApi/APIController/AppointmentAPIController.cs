@@ -45,6 +45,31 @@ namespace PatientPortalApi.APIController
             }
             return BadRequest();
         }
+
+        [Route("cancelappointment")]
+        [Authorize]
+        public IHttpActionResult CancelAppointment(int appointmentId)
+        {
+            UserInfo userInfo = new UserInfo(User);
+            if (userInfo != null)
+            {
+                AppointDetails _details = new AppointDetails();
+                int _patientId = 0;
+                string _sessionPatienId = Convert.ToString(userInfo.PatientId);
+                Dictionary<int, string> result = new Dictionary<int, string>();
+                if (int.TryParse(_sessionPatienId, out _patientId))
+                {
+                    return Ok(_details.CancelAppointment(_patientId, appointmentId, ""));
+                }
+                else
+                {
+                    ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.InvalidUser];
+                    Response<object> response = new Response<object>(errorDetail, null);
+                    return Ok(response);
+                }
+            }
+            return BadRequest();
+        }
         [Route("get/doctors/{deaprtmentId}")]
         [Authorize]
         public IHttpActionResult GetDoctorsByDepartment(int deaprtmentId)
@@ -105,6 +130,8 @@ namespace PatientPortalApi.APIController
             UserInfo userInfo = new UserInfo(User);
             if (userInfo != null)
             {
+                bool parseDateFrom = DateTime.TryParse(model.AppointmentDateFrom, out DateTime dtFrom);
+                bool parseDateTo = DateTime.TryParse(model.AppointmentDateTo, out DateTime dtTo);
                 AppointDetails _details = new AppointDetails();
                 int _patientId = 0;
                 string _sessionPatienId = Convert.ToString(userInfo.PatientId);
@@ -113,15 +140,15 @@ namespace PatientPortalApi.APIController
                     AppointmentInfo info = new AppointmentInfo
                     {
                         PatientId = _patientId,
-                        AppointmentDateFrom = model.AppointmentDateFrom,
-                        AppointmentDateTo = model.AppointmentDateTo,
+                        AppointmentDateFrom = parseDateFrom ? dtFrom : DateTime.MinValue,
+                        AppointmentDateTo = parseDateTo ? dtTo : DateTime.MinValue,
                         DoctorId = model.DoctorId
                     };
                     Enums.CrudStatus result = _details.SaveAppointment(info);
                     if (result == Enums.CrudStatus.Saved)
                     {
                         SendMailForAppointment(info, model.doctorname, model.deptname, _patientId);
-                        return Ok();
+                        return Ok(result);
                     }
                     else
                     {
@@ -152,8 +179,8 @@ namespace PatientPortalApi.APIController
                     MessageTo = user.Email,
                     MessageNameTo = user.FirstName + " " + user.MiddleName + (string.IsNullOrWhiteSpace(user.MiddleName) ? string.Empty : " ") + user.LastName,
                     Subject = "Appointment Booking Confirmation",
-                    Body = EmailHelper.GetAppointmentSuccessEmail(user.FirstName, user.MiddleName, user.LastName, doctorname, 
-                                                            model.AppointmentDateFrom, deptname, appSetting.IsActiveAppointmentMessage, 
+                    Body = EmailHelper.GetAppointmentSuccessEmail(user.FirstName, user.MiddleName, user.LastName, doctorname,
+                                                            model.AppointmentDateFrom, deptname, appSetting.IsActiveAppointmentMessage,
                                                             appSetting.AppointmentMessage)
                 };
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);

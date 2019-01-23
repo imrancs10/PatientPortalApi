@@ -60,6 +60,13 @@ namespace PatientPortalApi.Global
         [Description("Only Limited Appointment can be booked for a day.")]
         OnlyLimitedAppointmentCanBooked = 1012,
 
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("this pin already used for this device, choose another.")]
+        SamePinUse = 1013,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Mobile number Or Email is not Correct.")]
+        MobileEmailInCorrect = 1014,
     }
 
     public static class ErrorCodeExtensions

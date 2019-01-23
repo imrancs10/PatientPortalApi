@@ -1,7 +1,9 @@
 ﻿using PatientPortalApi.BAL.Masters;
 using PatientPortalApi.Infrastructure.Adapter.WebService;
 using PatientPortalApi.Models;
+using System;
 using System.Web.Http;
+using static PatientPortalApi.Global.Enums;
 using RouteAttribute = System.Web.Http.RouteAttribute;
 using RoutePrefixAttribute = System.Web.Http.RoutePrefixAttribute;
 
@@ -24,7 +26,7 @@ namespace PatientPortalApi.APIController
             if (userInfo != null)
             {
                 string crNumber = string.IsNullOrEmpty(userInfo.CRNumber) ? userInfo.RegistrationNumber : userInfo.CRNumber;
-                var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail(crNumber);
+                var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail(crNumber,(Convert.ToInt32(OPDTypeEnum.IPD)).ToString());
                 return Ok(opdDetail);
             }
             return BadRequest();

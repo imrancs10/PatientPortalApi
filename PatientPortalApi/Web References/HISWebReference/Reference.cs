@@ -74,24 +74,24 @@ namespace PatientPortalApi.HISWebReference {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getPatientDetails", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string getPatientDetails(string RegistrationNo) {
+        public string getPatientDetails(string strXMLData) {
             object[] results = this.Invoke("getPatientDetails", new object[] {
-                        RegistrationNo});
+                        strXMLData});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void getPatientDetailsAsync(string RegistrationNo) {
-            this.getPatientDetailsAsync(RegistrationNo, null);
+        public void getPatientDetailsAsync(string strXMLData) {
+            this.getPatientDetailsAsync(strXMLData, null);
         }
         
         /// <remarks/>
-        public void getPatientDetailsAsync(string RegistrationNo, object userState) {
+        public void getPatientDetailsAsync(string strXMLData, object userState) {
             if ((this.getPatientDetailsOperationCompleted == null)) {
                 this.getPatientDetailsOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetPatientDetailsOperationCompleted);
             }
             this.InvokeAsync("getPatientDetails", new object[] {
-                        RegistrationNo}, this.getPatientDetailsOperationCompleted, userState);
+                        strXMLData}, this.getPatientDetailsOperationCompleted, userState);
         }
         
         private void OngetPatientDetailsOperationCompleted(object arg) {

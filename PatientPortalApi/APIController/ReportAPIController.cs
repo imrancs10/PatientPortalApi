@@ -3,6 +3,8 @@ using PatientPortalApi.BAL.Patient;
 using PatientPortalApi.BAL.Reports;
 using PatientPortalApi.Models;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 
 namespace PatientPortalApi.APIController
@@ -36,7 +38,15 @@ namespace PatientPortalApi.APIController
         {
             UserInfo userInfo = new UserInfo(User);
             ReportDetails _details = new ReportDetails();
-            return Ok(_details.GetLabReportData(userInfo.PatientId));
+            var result = _details.GetLabReportData(userInfo.PatientId);
+            if (result != null && result.Any())
+            {
+                result.ForEach(x =>
+                {
+                    x.Url = ConfigurationManager.AppSettings["HISLabReportUrl"] + x.Url.Replace("~/LabRepPdf", "");
+                });
+            }
+            return Ok(result);
         }
 
         [Authorize]

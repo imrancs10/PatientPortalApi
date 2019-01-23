@@ -5,6 +5,7 @@ using PatientPortalApi.Models;
 using PatientPortalApi.PateintInfoService;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 namespace PatientPortalApi.Infrastructure.Adapter.WebService
 {
@@ -63,15 +64,39 @@ namespace PatientPortalApi.Infrastructure.Adapter.WebService
             return str;
         }
 
-        public PDModel GetPatientOPDDetail(string crNumber)
+        public PDModel GetPatientOPDDetail(string crNumber,string type)
         {
-            GetPatOpdDetails service = new GetPatOpdDetails();
-            var result = service.GetPatientOPDDetails(crNumber);
-            if (result.ToLower().Contains("no record"))
-                return null;
-            Serializer serilizer = new Serializer();
-            result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
-            return serilizer.Deserialize<PDModel>(result, "Table1");
+            try
+            {
+                GetPatOpdDetails service = new GetPatOpdDetails();
+                var result = service.GetPatientOPDDetails(crNumber, type);
+                if (result.ToLower().Contains("no record"))
+                    return null;
+                Serializer serilizer = new Serializer();
+                result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
+                return serilizer.Deserialize<PDModel>(result, "Table1");
+            }
+            catch (System.Exception ex)
+            {
+            }
+            return null;
+        }
+        public List<DischargeSummaryModel> GetDischargeSummaryDetail(string crNumber, string type)
+        {
+            try
+            {
+                GetPatOpdDetails service = new GetPatOpdDetails();
+                var result = service.GetPatientOPDDetails(crNumber, type);
+                if (result.ToLower().Contains("no record"))
+                    return null;
+                result = result.Replace("Table1", "dischargeSummaryModel");
+                List<DischargeSummaryModel> custList = Serializer.DeserializeDischargeSummary<List<DischargeSummaryModel>>(result);
+                return custList;
+            }
+            catch (System.Exception ex)
+            {
+            }
+            return null;
         }
     }
 }
