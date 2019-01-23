@@ -169,11 +169,12 @@ namespace PatientPortalApi.BAL.Appointments
                              docAppointment.DoctorId,
                              docAppointment.Doctor.DoctorName,
                              docAppointment.PatientId,
+                             CanCancel = DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) >= DbFunctions.TruncateTime(DateTime.Now) ? true : false,
                              PatientName = docAppointment.PatientInfo.FirstName + " " + docAppointment.PatientInfo.MiddleName + " " + docAppointment.PatientInfo.LastName
                          }).OrderBy(x => x.AppointmentDateFrom).ToList();
             return _list;
         }
-        public Dictionary<int, string> CancelAppointment(int _patientId, int _appId, string CancelReason = "")
+        public string CancelAppointment(int _patientId, int _appId, string CancelReason = "")
         {
             int _priorCancelTime = 0;
             _db = new PatientPortalApiEntities();
@@ -187,7 +188,7 @@ namespace PatientPortalApi.BAL.Appointments
             {
                 _priorCancelTime = AppointmentCancelPeriod;
             }
-            Dictionary<int, string> result = new Dictionary<int, string>();
+            string result = string.Empty;
             ;
             var app = _db.AppointmentInfoes.Where(x => x.PatientId.Equals(_patientId) && x.AppointmentId.Equals(_appId)).FirstOrDefault();
             if (app != null)
@@ -202,13 +203,13 @@ namespace PatientPortalApi.BAL.Appointments
                     _db.Entry(app).State = EntityState.Modified;
                     int _rowCount = _db.SaveChanges();
                     if (_rowCount > 0)
-                        result.Add((int)Enums.JsonResult.Success, "Appointment has been cancelled");
+                        result = Enums.JsonResult.Success.ToString();
                     else
-                        result.Add((int)Enums.JsonResult.Unsuccessful, "Appointment has not been cancelled");
+                        result = Enums.JsonResult.Unsuccessful.ToString();
                 }
                 else
                 {
-                    result.Add((int)Enums.JsonResult.Data_Expire, "You can't cancel the appointment " + _priorCancelTime + " minute(s) prior scheduled time");
+                    result = "You can't cancel the appointment " + _priorCancelTime + " minute(s) prior scheduled time";
                 }
             }
 

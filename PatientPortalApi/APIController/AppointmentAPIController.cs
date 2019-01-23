@@ -56,10 +56,24 @@ namespace PatientPortalApi.APIController
                 AppointDetails _details = new AppointDetails();
                 int _patientId = 0;
                 string _sessionPatienId = Convert.ToString(userInfo.PatientId);
-                Dictionary<int, string> result = new Dictionary<int, string>();
                 if (int.TryParse(_sessionPatienId, out _patientId))
                 {
-                    return Ok(_details.CancelAppointment(_patientId, appointmentId, ""));
+                   string  result = _details.CancelAppointment(_patientId, appointmentId, "");
+                    if (result == Enums.JsonResult.Success.ToString())
+                    {
+                        return Ok("Appointment has been cancelled");
+                    }
+                    else if (result == Enums.JsonResult.Unsuccessful.ToString())
+                    {
+                        ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.AppointmentNoCanceled];
+                        Response<object> response = new Response<object>(errorDetail, null);
+                        return Ok(response);
+                    }
+                    else
+                    {
+                        return Ok(result);
+                    }
+
                 }
                 else
                 {

@@ -67,6 +67,10 @@ namespace PatientPortalApi.Global
         [HttpStatusCode(HttpStatusCode.BadRequest)]
         [Description("Mobile number Or Email is not Correct.")]
         MobileEmailInCorrect = 1014,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Appointment has not been cancelled.")]
+        AppointmentNoCanceled = 1015,
     }
 
     public static class ErrorCodeExtensions
