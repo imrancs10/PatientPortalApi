@@ -4,6 +4,7 @@ using PatientPortalApi.Global;
 using PatientPortalApi.Infrastructure;
 using PatientPortalApi.Infrastructure.Utility;
 using PatientPortalApi.Models;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -40,7 +41,7 @@ namespace PatientPortalApi.APIController
                     Password = password
                 };
                 var result = detail.UpdatePatientDetail(info);
-                return Ok();
+                return Ok("Password Change succesfuly");
             }
             else
             {
@@ -50,6 +51,7 @@ namespace PatientPortalApi.APIController
             }
         }
         [Route("forgetuserid")]
+        [HttpPost]
         public IHttpActionResult ForgetUserId([FromBody]string emailormobile)
         {
             PatientDetails _detail = new PatientDetails();
@@ -57,7 +59,7 @@ namespace PatientPortalApi.APIController
             if (patient != null)
             {
                 SendMailForgetUserId(patient);
-                return Ok();
+                return Ok("Mail sent.");
             }
             else
             {
@@ -65,6 +67,95 @@ namespace PatientPortalApi.APIController
                 Response<object> response = new Response<object>(errorDetail, null);
                 return Ok(response);
             }
+        }
+        [Route("forgetpassword")]
+        [HttpPost]
+        public IHttpActionResult ForgetPassword(string registrationNumber,string mobileNumber)
+        {
+            PatientDetails _detail = new PatientDetails();
+            var patient = _detail.GetPatientDetailByRegistrationNumberAndMobileNumber(registrationNumber, mobileNumber);
+            if (patient != null)
+            {
+                string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
+                SendMailForgetPassword(patient.RegistrationNumber, patient, verificationCode);
+                return Ok(verificationCode);
+            }
+            else
+            {
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.RegistrationorMobileInCorrect];
+                Response<object> response = new Response<object>(errorDetail, null);
+                return Ok(response);
+            }
+        }
+        [Route("resetpassword")]
+        [HttpPost]
+        public IHttpActionResult ResetPassword(string registrationNumber,string password)
+        {
+            if (password.Trim().Length < 8)
+            {
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.Password8CharecterRequired];
+                Response<object> response = new Response<object>(errorDetail, null);
+                return Ok(response);
+            }
+            else if (!password.Trim().Any(ch => char.IsUpper(ch)))
+            {
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.PasswordUpperCharecterRequired];
+                Response<object> response = new Response<object>(errorDetail, null);
+                return Ok(response);
+            }
+            else if (!password.Trim().Any(ch => char.IsNumber(ch)))
+            {
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.PasswordNumericCharecterRequired];
+                Response<object> response = new Response<object>(errorDetail, null);
+                return Ok(response);
+            }
+            else if (!password.Trim().Any(ch => !char.IsLetterOrDigit(ch)))
+            {
+                ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.PasswordSpecialCharecterRequired];
+                Response<object> response = new Response<object>(errorDetail, null);
+                return Ok(response);
+            }
+            else
+            {
+                PatientDetails _details = new PatientDetails();
+                var result = _details.GetPatientDetailByRegistrationNumberOrCRNumber(registrationNumber);
+                if (result != null)
+                {
+                    result.Password = password.Trim();
+                    result.ResetCode = "";
+                    _details.UpdatePatientDetail(result);
+                    return Ok("Password change Succesfuly.");
+                }
+                else
+                {
+                    ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.InvalidUser];
+                    Response<object> response = new Response<object>(errorDetail, null);
+                    return Ok(response);
+                }
+            }
+        }
+        private async Task SendMailForgetPassword(string registernumber, PatientInfo patient, string verificationCode)
+        {
+            await Task.Run(() =>
+            {
+                Message msg = new Message()
+                {
+                    MessageTo = patient.Email,
+                    MessageNameTo = patient.FirstName + " " + patient.MiddleName + (string.IsNullOrWhiteSpace(patient.MiddleName) ? "" : " ") + patient.LastName,
+                    Subject = "Forget Password",
+                    Body = EmailHelper.GetForgetPasswordEmail(patient.FirstName, patient.MiddleName, patient.LastName, registernumber, verificationCode)
+                };
+
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+
+                //Send SMS
+                msg.Body = "Hello " + string.Format("{0} {1}", patient.FirstName, patient.LastName) + "\nAs you requested, here is a OTP " + verificationCode + " you can use it to verify your mobile number and reset your password before 15 minutes.\n Regards:\n Patient Portal(RMLHIMS)";
+                msg.MessageTo = patient.MobileNumber;
+                msg.MessageType = MessageType.OTP;
+                sendMessageStrategy = new SendMessageStrategyForSMS(msg);
+                sendMessageStrategy.SendMessages();
+            });
         }
         private async Task SendMailForgetUserId(PatientInfo patient)
         {

@@ -41,5 +41,7 @@ namespace PatientPortalApi.Models
         public string AadharNumber { get; set; }
         public string Title { get; set; }
         public string DoR { get; set; }
+        public string Pid { get; set; }
+        public string Location { get; set; }
     }
 }

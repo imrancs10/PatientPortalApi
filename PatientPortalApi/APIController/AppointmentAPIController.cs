@@ -5,6 +5,7 @@ using PatientPortalApi.BAL.Masters;
 using PatientPortalApi.BAL.Patient;
 using PatientPortalApi.Global;
 using PatientPortalApi.Infrastructure;
+using PatientPortalApi.Infrastructure.Adapter.WebService;
 using PatientPortalApi.Infrastructure.Utility;
 using PatientPortalApi.Models;
 using PatientPortalApi.Models.Patient;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using static PatientPortalApi.Global.Enums;
 using RouteAttribute = System.Web.Http.RouteAttribute;
 using RoutePrefixAttribute = System.Web.Http.RoutePrefixAttribute;
 
@@ -28,13 +30,35 @@ namespace PatientPortalApi.APIController
             UserInfo userInfo = new UserInfo(User);
             if (userInfo != null)
             {
+                //get data from web service
+                var reportFromService = (new WebServiceIntegration()).GetMyVisitDetail(
+                                                       !string.IsNullOrEmpty(userInfo.CRNumber) ? userInfo.CRNumber : userInfo.RegistrationNumber,
+                                                       (Convert.ToInt32(OPDTypeEnum.MyVisit)).ToString());
+
                 AppointDetails _details = new AppointDetails();
                 int _patientId = 0;
                 string _sessionPatienId = Convert.ToString(userInfo.PatientId);
                 Dictionary<int, string> result = new Dictionary<int, string>();
                 if (int.TryParse(_sessionPatienId, out _patientId))
                 {
-                    return Ok(_details.PatientAppointmentList(_patientId, 0, 0));
+                    var reports = _details.PatientAppointmentList(_patientId, 0, 0);
+                    if (reportFromService != null)
+                    {
+                        reportFromService.ForEach(x =>
+                        {
+                            reports.Add(new AppointmentsModel()
+                            {
+                                AppointmentDate = Convert.ToDateTime(x.datescheduled).ToString("dd/MM/yyyy"),
+                                DepartmentName = x.DepartName,
+                                DoctorName = x.DoctorName,
+                                fromtime = x.fromtime,
+                                totime = x.totime,
+                                Status = "Visited",
+                                CanCancel = false
+                            });
+                        });
+                    }
+                    return Ok(reports);
                 }
                 else
                 {

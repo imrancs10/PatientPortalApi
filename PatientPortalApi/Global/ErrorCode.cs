@@ -71,6 +71,51 @@ namespace PatientPortalApi.Global
         [HttpStatusCode(HttpStatusCode.BadRequest)]
         [Description("Appointment has not been cancelled.")]
         AppointmentNoCanceled = 1015,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Registration or Mobile number is not Correct.")]
+        RegistrationorMobileInCorrect = 1016,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("password must be at least 8 characters long.")]
+        Password8CharecterRequired = 1017,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("password must be at least 1 Upper Case characters.")]
+        PasswordUpperCharecterRequired = 1018,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("password must be at least 1 Numeric characters.")]
+        PasswordNumericCharecterRequired = 1019,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("password must be at least 1 Special characters.")]
+        PasswordSpecialCharecterRequired = 1020,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("CR Number is already exist in our database, choose another one.")]
+        CRNumberExists = 1021,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Email Id is already used for other account.")]
+        EmailIdExists = 1022,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("CR Number not found or expire, Kindly contact to hospital.")]
+        CRNumberNotFoundOrExpire = 1023,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Please Enter correct Email Address.")]
+        WrongEmailAddress = 1024,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Patient is already register with same Mobile Number or EmailId.")]
+        EmailOrMobileNoExists = 1025,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("User is not saved, might be of Email Id or Mobile No is already taken.")]
+        UserNotSaved = 1026,
+
     }
 
     public static class ErrorCodeExtensions

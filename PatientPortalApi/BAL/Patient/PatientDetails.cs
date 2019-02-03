@@ -147,6 +147,11 @@ namespace PatientPortalApi.BAL.Patient
             _db = new PatientPortalApiEntities();
             return _db.PatientInfoes.Where(x => x.MobileNumber == UserId.Trim() || x.Email == UserId.Trim()).FirstOrDefault();
         }
+        public PatientInfo GetPatientDetailByRegistrationNumberAndMobileNumber(string regNumber, string mobilenumber)
+        {
+            _db = new PatientPortalApiEntities();
+            return _db.PatientInfoes.Where(x => (x.RegistrationNumber == regNumber || x.CRNumber == regNumber) && x.MobileNumber == mobilenumber).FirstOrDefault();
+        }
         public PatientInfo GetPatientDetailByMobileNumberANDEmail(string mobileNo, string emailId)
         {
             _db = new PatientPortalApiEntities();
@@ -452,6 +457,35 @@ namespace PatientPortalApi.BAL.Patient
             _db = new PatientPortalApiEntities();
             _db.Configuration.LazyLoadingEnabled = false;
             return _db.PatientInfoes.Where(x => x.DeviceIdentityfier == deviceIdentifier && x.LoginPin == loginPin).FirstOrDefault();
+        }
+        public PatientInfoCRClone GetPatientCloneDetailByCRNumber(string crNumber)
+        {
+            _db = new PatientPortalApiEntities();
+            return _db.PatientInfoCRClones.Where(x => x.CRNumber == crNumber).FirstOrDefault();
+        }
+        public PatientInfoCRClone UpdatePatientDetailClone(PatientInfoCRClone info)
+        {
+            _db = new PatientPortalApiEntities();
+            var _patientRow = _db.PatientInfoCRClones.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+            if (_patientRow != null)
+            {
+                _patientRow.OTP = info.OTP;
+                _patientRow.ResetCode = info.ResetCode;
+                _patientRow.ValidUpto = info.ValidUpto > DateTime.Now ? info.ValidUpto : _patientRow.ValidUpto;
+                _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
+                _patientRow.CRNumber = !string.IsNullOrEmpty(info.CRNumber) ? info.CRNumber : _patientRow.CRNumber;
+                _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber;
+                _db.Entry(_patientRow).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return _patientRow;
+        }
+        public void DeletePatientInfoCRData(string crNumber)
+        {
+            _db = new PatientPortalApiEntities();
+            var deleteData = _db.PatientInfoCRClones.Where(x => x.CRNumber.Equals(crNumber)).FirstOrDefault();
+            _db.PatientInfoCRClones.Remove(deleteData);
+            _db.SaveChanges();
         }
     }
 }

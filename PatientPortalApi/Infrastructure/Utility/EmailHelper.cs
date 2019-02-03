@@ -91,11 +91,10 @@ namespace PatientPortalApi.Infrastructure.Utility
             return body;
         }
 
-        public static string GetForgetPasswordEmail(string firstname, string middlename, string lastname, string registrationnumber, string link)
+        public static string GetForgetPasswordEmail(string firstname, string middlename, string lastname, string registrationnumber, string verificationCode)
         {
             string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
-            body += "As you requested, you can use to create your Password by clicking on below URL.<br/>";
-            body += "<br/><b></b>" + link + "<br/><br/>";
+            body += "As you requested, here is a OTP is : <b>" + verificationCode + "</b> you can use to verify your mobile number and reset your password.<br/><br/>";
             body += "Thank You,<br/>";
             body += "Patient Portal Information System Customer Support";
             return body;

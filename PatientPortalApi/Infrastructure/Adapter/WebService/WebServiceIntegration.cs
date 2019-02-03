@@ -98,5 +98,22 @@ namespace PatientPortalApi.Infrastructure.Adapter.WebService
             }
             return null;
         }
+        public List<AppointmentsModel> GetMyVisitDetail(string crNumber, string type)
+        {
+            try
+            {
+                GetPatOpdDetails service = new GetPatOpdDetails();
+                var result = service.GetPatientOPDDetails(crNumber, type);
+                if (result.ToLower().Contains("no record"))
+                    return null;
+                result = result.Replace("Table1", "appointmentsModel");
+                List<AppointmentsModel> custList = Serializer.DeserializeDischargeSummary<List<AppointmentsModel>>(result);
+                return custList;
+            }
+            catch (System.Exception ex)
+            {
+            }
+            return null;
+        }
     }
 }

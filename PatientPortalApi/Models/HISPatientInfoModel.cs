@@ -28,6 +28,8 @@ namespace PatientPortalApi.Models
         public string DoR { get; set; }
         public string AadharNo { get; set; }
         public string ValidUpto { get; set; }
+        public string Pid { get; set; }
+        public string Location { get; set; }
 
     }
 }
