@@ -59,6 +59,8 @@
           <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="DepartmentName" Type="varchar" MaxLength="200" />
           <Property Name="DepartmentUrl" Type="varchar" MaxLength="500" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -69,6 +71,8 @@
           <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="Designation" Type="varchar" MaxLength="100" />
           <Property Name="Degree" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
@@ -927,6 +931,8 @@
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="DepartmentUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Doctors" Relationship="PatientPortalApiModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalApiModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
           <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_Department" FromRole="Department" ToRole="PatientInfoCRClone" />
@@ -940,6 +946,8 @@
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <Property Name="Designation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Degree" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalApiModel.FK_AppointmentInfo_Doctor" FromRole="Doctor" ToRole="AppointmentInfo" />
@@ -1165,6 +1173,8 @@
           <Property Name="RegistrationStatusHIS" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="pid" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LoginPin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceIdentityfier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalApiModel.FK_AppointmentInfo_PatientInfo" FromRole="PatientInfo" ToRole="AppointmentInfo" />
           <NavigationProperty Name="City" Relationship="PatientPortalApiModel.FK_PatientInfo_City" FromRole="PatientInfo" ToRole="City" />
           <NavigationProperty Name="Department" Relationship="PatientPortalApiModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
@@ -1175,8 +1185,6 @@
           <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalApiModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalApiModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalApiModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
-          <Property Name="LoginPin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DeviceIdentityfier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PatientInfoCRClone">
           <Key>
@@ -1599,6 +1607,8 @@
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="PatientPortalApiModel.Department">
               <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DepartmentUrl" ColumnName="DepartmentUrl" />
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -1610,6 +1620,8 @@
               <MappingFragment StoreEntitySet="Doctor">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Degree" ColumnName="Degree" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />

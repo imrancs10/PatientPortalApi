@@ -461,7 +461,7 @@ namespace PatientPortalApi.BAL.Patient
         public PatientInfoCRClone GetPatientCloneDetailByCRNumber(string crNumber)
         {
             _db = new PatientPortalApiEntities();
-            return _db.PatientInfoCRClones.Where(x => x.CRNumber == crNumber).FirstOrDefault();
+            return _db.PatientInfoCRClones.Include("City").Include("State").Where(x => x.CRNumber == crNumber).FirstOrDefault();
         }
         public PatientInfoCRClone UpdatePatientDetailClone(PatientInfoCRClone info)
         {

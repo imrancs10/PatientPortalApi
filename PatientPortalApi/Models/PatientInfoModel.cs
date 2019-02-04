@@ -43,5 +43,7 @@ namespace PatientPortalApi.Models
         public string DoR { get; set; }
         public string Pid { get; set; }
         public string Location { get; set; }
+        public string CityName { get; set; }
+        public string StateName { get; set; }
     }
 }

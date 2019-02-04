@@ -84,8 +84,18 @@ namespace PatientPortalApi.BAL.Masters
                              DoctorId = doc.DoctorID,
                              DepartmentName = dept.DepartmentName,
                              Degree = string.IsNullOrEmpty(doc.Degree) ? string.Empty : doc.Degree,
-                             Designation = string.IsNullOrEmpty(doc.Designation) ? string.Empty : doc.Designation
+                             Designation = string.IsNullOrEmpty(doc.Designation) ? string.Empty : doc.Designation,
+                             Description = doc.Description,
+                             Image = doc.Image
                          }).ToList();
+            _list.ForEach(x =>
+            {
+                if (x.Image != null)
+                {
+                    x.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(x.Image));
+                    x.Image = null;
+                }
+            });
             return _list != null ? _list : new List<DoctorModel>();
         }
         public IEnumerable<object> GetDoctorLeaveList(int doctorId)

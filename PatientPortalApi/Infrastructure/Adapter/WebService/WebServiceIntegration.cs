@@ -15,7 +15,7 @@ namespace PatientPortalApi.Infrastructure.Adapter.WebService
         {
             GetPatientDetails service = new GetPatientDetails();
             var result = service.getPatientDetails(crNumber);
-            if (result.ToLower().Contains("no record"))
+            if (result.ToLower().Contains("no record") || result.ToLower().Contains("n"))
                 return null;
             Serializer serilizer = new Serializer();
             result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
@@ -70,7 +70,7 @@ namespace PatientPortalApi.Infrastructure.Adapter.WebService
             {
                 GetPatOpdDetails service = new GetPatOpdDetails();
                 var result = service.GetPatientOPDDetails(crNumber, type);
-                if (result.ToLower().Contains("no record"))
+                if (result.ToLower().Contains("no record") || result.ToLower().Contains("N"))
                     return null;
                 Serializer serilizer = new Serializer();
                 result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");

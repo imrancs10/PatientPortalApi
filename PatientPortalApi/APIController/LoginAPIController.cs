@@ -550,6 +550,8 @@ namespace PatientPortalApi.APIController
                 ValidUpto = patient.ValidUpto != "N/A" ? Convert.ToDateTime(patient.ValidUpto) : Convert.ToDateTime(patient.DoR).AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"])),
                 Pid = patient.Pid != "N/A" ? patient.Pid : string.Empty,
                 Location = patient.Location != "N/A" ? patient.Location : string.Empty,
+                CityName = patient.City,
+                StateName = patient.State
             };
             return crData;
         }
@@ -558,6 +560,8 @@ namespace PatientPortalApi.APIController
             int pin = 0;
             var crData = new PatientInfoModel()
             {
+                CityName = patient.City.CityName,
+                StateName = patient.State.StateName,
                 FirstName = patient.FirstName,
                 MiddleName = patient.MiddleName,
                 LastName = patient.LastName,

@@ -67,8 +67,19 @@ namespace PatientPortalApi.BAL.Masters
                          select new DepartmentModel
                          {
                              DeparmentName = dept.DepartmentName,
-                             DepartmentId = dept.DepartmentID
+                             DepartmentId = dept.DepartmentID,
+                             DepartmentUrl = dept.DepartmentUrl,
+                             Description = dept.Description,
+                             Image = dept.Image 
                          }).ToList();
+            _list.ForEach(x =>
+            {
+                if (x.Image != null)
+                {
+                    x.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(x.Image));
+                    x.Image = null;
+                }
+            });
             return _list != null ? _list : new List<DepartmentModel>();
         }
 
