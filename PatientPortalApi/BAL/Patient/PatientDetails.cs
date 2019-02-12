@@ -175,7 +175,7 @@ namespace PatientPortalApi.BAL.Patient
         {
             _db = new PatientPortalApiEntities();
 
-            return _db.PatientInfoes.Include(x => x.Department).Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
+            return _db.PatientInfoes.Include("Department").Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
         }
 
         public PatientInfo UpdatePatientDetail(PatientInfo info)
