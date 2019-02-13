@@ -116,6 +116,9 @@ namespace PatientPortalApi.Global
         [Description("User is not saved, might be of Email Id or Mobile No is already taken.")]
         UserNotSaved = 1026,
 
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Old Password is wrong.")]
+        OldPasswordWrong = 1027,
     }
 
     public static class ErrorCodeExtensions

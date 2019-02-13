@@ -29,19 +29,31 @@ namespace PatientPortalApi.APIController
         }
         [Authorize]
         [Route("changepassword")]
-        public IHttpActionResult ChangePassword(string password)
+        public IHttpActionResult ChangePassword(string oldPassword,string password)
         {
             UserInfo userInfo = new UserInfo(User);
             if (userInfo != null)
             {
                 PatientDetails detail = new PatientDetails();
-                PatientInfo info = new PatientInfo()
+                //check old password
+                var patient = detail.GetPatientDetailById(userInfo.PatientId);
+                if (patient.Password == oldPassword)
                 {
-                    PatientId = userInfo.PatientId,
-                    Password = password
-                };
-                var result = detail.UpdatePatientDetail(info);
-                return Ok("Password Change succesfuly");
+                    PatientInfo info = new PatientInfo()
+                    {
+                        PatientId = userInfo.PatientId,
+                        Password = password
+                    };
+                    var result = detail.UpdatePatientDetail(info);
+                    return Ok("Password Change succesfuly");
+                }
+                else
+                {
+                    ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.OldPasswordWrong];
+                    Response<object> response = new Response<object>(errorDetail, null);
+                    return Ok(response);
+                }
+               
             }
             else
             {
