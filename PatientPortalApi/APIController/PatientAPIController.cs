@@ -39,6 +39,31 @@ namespace PatientPortalApi.APIController
                 var patient = detail.GetPatientDetailById(userInfo.PatientId);
                 if (patient.Password == oldPassword)
                 {
+                    if (password.Trim().Length < 8)
+                    {
+                        ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.Password8CharecterRequired];
+                        Response<object> response = new Response<object>(errorDetail, null);
+                        return Ok(response);
+                    }
+                    else if (!password.Trim().Any(ch => char.IsUpper(ch)))
+                    {
+                        ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.PasswordUpperCharecterRequired];
+                        Response<object> response = new Response<object>(errorDetail, null);
+                        return Ok(response);
+                    }
+                    else if (!password.Trim().Any(ch => char.IsNumber(ch)))
+                    {
+                        ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.PasswordNumericCharecterRequired];
+                        Response<object> response = new Response<object>(errorDetail, null);
+                        return Ok(response);
+                    }
+                    else if (!password.Trim().Any(ch => !char.IsLetterOrDigit(ch)))
+                    {
+                        ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.PasswordSpecialCharecterRequired];
+                        Response<object> response = new Response<object>(errorDetail, null);
+                        return Ok(response);
+                    }
+
                     PatientInfo info = new PatientInfo()
                     {
                         PatientId = userInfo.PatientId,
