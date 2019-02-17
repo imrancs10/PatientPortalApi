@@ -87,9 +87,10 @@ namespace PatientPortalApi.APIController
                 return Ok(response);
             }
         }
-        [Route("forgetuserid")]
+
         [HttpPost]
-        public IHttpActionResult ForgetUserId([FromBody]string emailormobile)
+        [Route("forgetuserid")]
+        public IHttpActionResult ForgetUserId(string emailormobile)
         {
             PatientDetails _detail = new PatientDetails();
             var patient = _detail.GetPatientDetailByMobileNumberOrEmail(emailormobile);

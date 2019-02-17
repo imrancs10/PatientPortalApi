@@ -231,6 +231,7 @@
     <Compile Include="Models\Common\CommonModel.cs" />
     <Compile Include="Models\DischargeSummaryModel.cs" />
     <Compile Include="Models\JwtResponse.cs" />
+    <Compile Include="Models\PatientInfoModelCR.cs" />
     <Compile Include="Models\Patient\PatientRegisterModel.cs" />
     <Compile Include="Models\PDModel.cs" />
     <Compile Include="Models\Masters\AppSettingModel.cs" />
