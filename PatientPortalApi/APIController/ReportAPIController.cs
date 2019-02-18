@@ -23,12 +23,12 @@ namespace PatientPortalApi.APIController
         }
 
         [Authorize]
-        [Route("duplicatereport")]
-        public IHttpActionResult GetDuplicateBilling()
+        [Route("paymentreport")]
+        public IHttpActionResult GetPaymentReciept()
         {
             UserInfo userInfo = new UserInfo(User);
             ReportDetails _details = new ReportDetails();
-            List<PateintLeadger> result = _details.GetBillReportData(userInfo.PatientId);
+            var result = _details.GetPaymentReceipt(userInfo.PatientId);
             return Ok(result);
         }
 
