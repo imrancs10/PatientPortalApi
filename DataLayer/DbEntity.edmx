@@ -338,6 +338,16 @@
           <Property Name="LoginDate" Type="datetime" />
           <Property Name="IPAddress" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="PatientMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientId" Type="int" />
+          <Property Name="Message" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="HasRead" Type="bit" />
+        </EntityType>
         <EntityType Name="PatientTransaction">
           <Key>
             <PropertyRef Name="PatientTransactionId" />
@@ -623,6 +633,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientMessage_PatientInfo">
+          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
+          <End Role="PatientMessage" Type="Self.PatientMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfo">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientMessage">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PatientTransaction_PatientInfo">
           <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
           <End Role="PatientTransaction" Type="Self.PatientTransaction" Multiplicity="*" />
@@ -656,6 +678,7 @@
           <EntitySet Name="PatientInfoCRClone" EntityType="Self.PatientInfoCRClone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginEntry" EntityType="Self.PatientLoginEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginHistory" EntityType="Self.PatientLoginHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientMessage" EntityType="Self.PatientMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientTransaction" EntityType="Self.PatientTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="Self.FK_AppointmentInfo_Doctor">
@@ -745,6 +768,10 @@
           <AssociationSet Name="FK_PatientLoginHistory_PatientInfo" Association="Self.FK_PatientLoginHistory_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfo" />
             <End Role="PatientLoginHistory" EntitySet="PatientLoginHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientMessage_PatientInfo" Association="Self.FK_PatientMessage_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfo" />
+            <End Role="PatientMessage" EntitySet="PatientMessage" />
           </AssociationSet>
           <AssociationSet Name="FK_PatientTransaction_PatientInfo" Association="Self.FK_PatientTransaction_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfo" />
@@ -869,6 +896,11 @@
           <AssociationSet Name="FK_PatientInfoCRClone_State" Association="PatientPortalApiModel.FK_PatientInfoCRClone_State">
             <End Role="State" EntitySet="States" />
             <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
+          </AssociationSet>
+          <EntitySet Name="PatientMessages" EntityType="PatientPortalApiModel.PatientMessage" />
+          <AssociationSet Name="FK_PatientMessage_PatientInfo" Association="PatientPortalApiModel.FK_PatientMessage_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientMessage" EntitySet="PatientMessages" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
@@ -1185,6 +1217,7 @@
           <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalApiModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalApiModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalApiModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
+          <NavigationProperty Name="PatientMessages" Relationship="PatientPortalApiModel.FK_PatientMessage_PatientInfo" FromRole="PatientInfo" ToRole="PatientMessage" />
         </EntityType>
         <EntityType Name="PatientInfoCRClone">
           <Key>
@@ -1544,6 +1577,29 @@
             </Principal>
             <Dependent Role="PatientInfoCRClone">
               <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PatientMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientId" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="HasRead" Type="Boolean" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalApiModel.FK_PatientMessage_PatientInfo" FromRole="PatientMessage" ToRole="PatientInfo" />
+        </EntityType>
+        <Association Name="FK_PatientMessage_PatientInfo">
+          <End Type="PatientPortalApiModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalApiModel.PatientMessage" Role="PatientMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfo">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientMessage">
+              <PropertyRef Name="PatientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1926,6 +1982,17 @@
               <MappingFragment StoreEntitySet="State">
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientMessages">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientMessage">
+              <MappingFragment StoreEntitySet="PatientMessage">
+                <ScalarProperty Name="HasRead" ColumnName="HasRead" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

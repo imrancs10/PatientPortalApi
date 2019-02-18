@@ -487,5 +487,22 @@ namespace PatientPortalApi.BAL.Patient
             _db.PatientInfoCRClones.Remove(deleteData);
             _db.SaveChanges();
         }
+
+        public int GetPatientMessageCount(int Id)
+        {
+            _db = new PatientPortalApiEntities();
+            return _db.PatientMessages.Where(x => x.PatientId == Id && x.HasRead == false).ToList().Count;
+        }
+        public List<PatientMessage> UpdateAndGetPatientMessageList(int Id)
+        {
+            _db = new PatientPortalApiEntities();
+            var result = _db.PatientMessages.Where(x => x.PatientId == Id && x.HasRead == false).ToList();
+            result.ForEach(x =>
+            {
+                x.HasRead = true;
+            });
+            _db.SaveChanges();
+            return _db.PatientMessages.Where(x => x.PatientId == Id).OrderByDescending(x => x.CreatedDate).Take(10).ToList();
+        }
     }
 }

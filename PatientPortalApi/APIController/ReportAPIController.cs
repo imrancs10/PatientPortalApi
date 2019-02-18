@@ -69,6 +69,26 @@ namespace PatientPortalApi.APIController
             });
             return Ok(ledgerData);
         }
+
+        [Authorize]
+        [Route("newmessagecount")]
+        public IHttpActionResult NewMessageCount()
+        {
+            UserInfo userInfo = new UserInfo(User);
+            PatientDetails _detail = new PatientDetails();
+            var result = _detail.GetPatientMessageCount(userInfo.PatientId);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [Route("getmessages")]
+        public IHttpActionResult UpdateAndGetPatientMessageList()
+        {
+            UserInfo userInfo = new UserInfo(User);
+            PatientDetails _detail = new PatientDetails();
+            var result = _detail.UpdateAndGetPatientMessageList(userInfo.PatientId);
+            return Ok(result);
+        }
     }
 
 }

@@ -253,8 +253,8 @@ namespace PatientPortalApi.APIController
             info.FirstName = firstname;
             info.MiddleName = middlename;
             info.LastName = lastname;
-            if (!string.IsNullOrEmpty(DOB))
-                info.DOB = Convert.ToDateTime(DOB);
+            bool parseDateFrom = DateTime.TryParse(DOB, out DateTime dtFrom);
+            info.DOB = parseDateFrom ? dtFrom : DateTime.Now;
             info.Gender = Gender;
             info.MobileNumber = mobilenumber;
             info.Email = email;
@@ -476,7 +476,7 @@ namespace PatientPortalApi.APIController
         }
         [HttpPost]
         [Route("savecrintegrate")]
-        public IHttpActionResult SubmitCRDetail([FromBody]PatientInfoModel crData)//(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string title, string MaritalStatus, string aadharNumber)
+        public IHttpActionResult SubmitCRDetail([FromBody]PatientInfoModelCR crData)//(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string title, string MaritalStatus, string aadharNumber)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (!Regex.IsMatch(crData.Email, emailRegEx, RegexOptions.IgnoreCase))
@@ -500,12 +500,13 @@ namespace PatientPortalApi.APIController
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     string serialNumber = VerificationCodeGeneration.GetSerialNumber();
+                    bool parseDateFrom = DateTime.TryParse(crData.ValidUpto, out DateTime dtFrom);
                     PatientInfo info = new PatientInfo()
                     {
                         RegistrationNumber = serialNumber,
                         CRNumber = !string.IsNullOrEmpty(Convert.ToString(crData.CRNumber)) ? Convert.ToString(crData.CRNumber) : string.Empty,
                         PatientId = ((PatientInfo)result["data"]).PatientId,
-                        ValidUpto = crData.ValidUpto
+                        ValidUpto = parseDateFrom ? dtFrom : DateTime.Now.AddMonths(6)
                     };
 
                     info = _details.UpdatePatientDetail(info);

@@ -50,6 +50,8 @@
         <AssociationConnector Association="PatientPortalApiModel.FK_PatientTransaction_PatientInfo" />
         <AssociationConnector Association="PatientPortalApiModel.FK_PatientInfoCRClone_PatientInfoCRClone" />
         <AssociationConnector Association="PatientPortalApiModel.FK_PatientInfoCRClone_State" />
+        <EntityTypeShape EntityType="PatientPortalApiModel.PatientMessage" Width="1.5" PointX="7.5" PointY="32.75" />
+        <AssociationConnector Association="PatientPortalApiModel.FK_PatientMessage_PatientInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

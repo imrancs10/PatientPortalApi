@@ -22,6 +22,7 @@ namespace DataLayer
             this.PatientLoginEntries = new HashSet<PatientLoginEntry>();
             this.PatientLoginHistories = new HashSet<PatientLoginHistory>();
             this.PatientTransactions = new HashSet<PatientTransaction>();
+            this.PatientMessages = new HashSet<PatientMessage>();
         }
     
         public int PatientId { get; set; }
@@ -73,5 +74,7 @@ namespace DataLayer
         public virtual ICollection<PatientLoginHistory> PatientLoginHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PatientTransaction> PatientTransactions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientMessage> PatientMessages { get; set; }
     }
 }
