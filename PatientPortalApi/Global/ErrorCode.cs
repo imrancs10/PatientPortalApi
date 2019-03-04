@@ -119,6 +119,10 @@ namespace PatientPortalApi.Global
         [HttpStatusCode(HttpStatusCode.BadRequest)]
         [Description("Old Password is wrong.")]
         OldPasswordWrong = 1027,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("Record Not Saved.")]
+        RecordNotSaved = 1028,
     }
 
     public static class ErrorCodeExtensions

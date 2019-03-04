@@ -236,7 +236,7 @@ namespace PatientPortalApi.BAL.Patient
                 var _patientRow = _db.PatientInfoes.Include(x => x.Department).Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
                 if (_patientRow != null)
                 {
-                    _patientRow.Email = info.Email;
+                    _patientRow.Email = !string.IsNullOrEmpty(info.Email) ? info.Email : _patientRow.Email;
                     _patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
                     //_patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
                     //_patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; ;

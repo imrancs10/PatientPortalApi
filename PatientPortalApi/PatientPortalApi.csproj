@@ -233,6 +233,7 @@
     <Compile Include="Models\JwtResponse.cs" />
     <Compile Include="Models\PatientInfoModelCR.cs" />
     <Compile Include="Models\Patient\PatientRegisterModel.cs" />
+    <Compile Include="Models\PatientPhotoModel.cs" />
     <Compile Include="Models\PDModel.cs" />
     <Compile Include="Models\Masters\AppSettingModel.cs" />
     <Compile Include="Models\Masters\DepartmentModel.cs" />

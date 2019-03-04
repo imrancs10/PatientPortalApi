@@ -4,6 +4,7 @@ using PatientPortalApi.Global;
 using PatientPortalApi.Infrastructure;
 using PatientPortalApi.Infrastructure.Utility;
 using PatientPortalApi.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -29,7 +30,7 @@ namespace PatientPortalApi.APIController
         }
         [Authorize]
         [Route("changepassword")]
-        public IHttpActionResult ChangePassword(string oldPassword,string password)
+        public IHttpActionResult ChangePassword(string oldPassword, string password)
         {
             UserInfo userInfo = new UserInfo(User);
             if (userInfo != null)
@@ -78,7 +79,7 @@ namespace PatientPortalApi.APIController
                     Response<object> response = new Response<object>(errorDetail, null);
                     return Ok(response);
                 }
-               
+
             }
             else
             {
@@ -108,7 +109,7 @@ namespace PatientPortalApi.APIController
         }
         [Route("forgetpassword")]
         [HttpPost]
-        public IHttpActionResult ForgetPassword(string registrationNumber,string mobileNumber)
+        public IHttpActionResult ForgetPassword(string registrationNumber, string mobileNumber)
         {
             PatientDetails _detail = new PatientDetails();
             var patient = _detail.GetPatientDetailByRegistrationNumberAndMobileNumber(registrationNumber, mobileNumber);
@@ -127,7 +128,7 @@ namespace PatientPortalApi.APIController
         }
         [Route("resetpassword")]
         [HttpPost]
-        public IHttpActionResult ResetPassword(string registrationNumber,string password)
+        public IHttpActionResult ResetPassword(string registrationNumber, string password)
         {
             if (password.Trim().Length < 8)
             {
@@ -211,6 +212,46 @@ namespace PatientPortalApi.APIController
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
             });
+        }
+
+        [HttpPost]
+        [Route("savepatientimage")]
+        [Authorize]
+        public IHttpActionResult SavePatientImage([FromBody]PatientPhotoModel model)
+        {
+            UserInfo userInfo = new UserInfo(User);
+            if (userInfo != null)
+            {
+                int _patientId = 0;
+                string _sessionPatienId = Convert.ToString(userInfo.PatientId);
+                if (int.TryParse(_sessionPatienId, out _patientId))
+                {
+                    PatientDetails _details = new PatientDetails();
+                    PatientInfo info = new PatientInfo
+                    {
+                        PatientId = _patientId,
+                        Photo = Convert.FromBase64String(model.ImageString)
+                    };
+                    var result = _details.CreateOrUpdatePatientDetail(info);
+                    if (Convert.ToString(result["status"]) == Enums.CrudStatus.Saved.ToString())
+                    {
+                        return Ok(result);
+                    }
+                    else
+                    {
+                        ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.RecordNotSaved];
+                        Response<object> response = new Response<object>(errorDetail, null);
+                        return Ok(response);
+                    }
+                }
+                else
+                {
+                    ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.InvalidUser];
+                    Response<object> response = new Response<object>(errorDetail, null);
+                    return Ok(response);
+                }
+            }
+            return BadRequest();
         }
     }
 
