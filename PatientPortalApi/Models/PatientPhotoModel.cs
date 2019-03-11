@@ -8,5 +8,6 @@ namespace PatientPortalApi.Models
     public class PatientPhotoModel
     {
         public string ImageString { get; set; }
+        public string Email { get; set; }
     }
 }

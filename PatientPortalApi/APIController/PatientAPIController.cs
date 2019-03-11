@@ -215,9 +215,9 @@ namespace PatientPortalApi.APIController
         }
 
         [HttpPost]
-        [Route("savepatientimage")]
+        [Route("savepatientprofile")]
         [Authorize]
-        public IHttpActionResult SavePatientImage([FromBody]PatientPhotoModel model)
+        public IHttpActionResult SavePatientProfile([FromBody]PatientPhotoModel model)
         {
             UserInfo userInfo = new UserInfo(User);
             if (userInfo != null)
@@ -230,7 +230,9 @@ namespace PatientPortalApi.APIController
                     PatientInfo info = new PatientInfo
                     {
                         PatientId = _patientId,
-                        Photo = Convert.FromBase64String(model.ImageString)
+                        Photo = !string.IsNullOrEmpty(model.ImageString) ? Convert.FromBase64String(model.ImageString) : null,
+                        Email = !string.IsNullOrEmpty(model.Email) ? model.Email : string.Empty,
+
                     };
                     var result = _details.CreateOrUpdatePatientDetail(info);
                     if (Convert.ToString(result["status"]) == Enums.CrudStatus.Saved.ToString())
