@@ -69,16 +69,21 @@ namespace PatientPortalApi.BAL.Patient
             return resultDic;
         }
 
-        public Dictionary<string, object> GetPatientDetailByPinAndDeviceId(string loginPin, string deviceIdentifier)
+        public List<PatientInfo> GetPatientLoginDetail(string loginPin, string deviceIdentifier)
         {
             _db = new PatientPortalApiEntities();
-            Dictionary<string, object> resultDic = new Dictionary<string, object>();
-            var result = _db.PatientInfoes.Include(x => x.Department)
-                                    .Include(x => x.PatientLoginEntries)
+            var result = _db.PatientInfoes
                                     .Where(x => (x.LoginPin == loginPin)
                                          && x.DeviceIdentityfier == deviceIdentifier
                                          && DbFunctions.TruncateTime(x.ValidUpto) >= DbFunctions.TruncateTime(DateTime.Now))
-                                    .FirstOrDefault();
+                                    .ToList();
+            return result;
+        }
+
+        public Dictionary<string, object> GetPatientDetailByPinAndDeviceId(PatientInfo result)
+        {
+            _db = new PatientPortalApiEntities();
+            Dictionary<string, object> resultDic = new Dictionary<string, object>();
             if (result != null)
             {
                 resultDic.Add("status", CrudStatus.Updated);
@@ -106,8 +111,8 @@ namespace PatientPortalApi.BAL.Patient
             {
                 var data = _db.PatientInfoes.Include(x => x.Department)
                                     .Include(x => x.PatientLoginEntries)
-                                    .Where(x => x.LoginPin == loginPin
-                                         && x.DeviceIdentityfier == deviceIdentifier)
+                                    .Where(x => x.LoginPin == result.LoginPin
+                                         && x.DeviceIdentityfier == result.DeviceIdentityfier)
                                     .FirstOrDefault();
                 if (data != null)
                 {
@@ -184,7 +189,7 @@ namespace PatientPortalApi.BAL.Patient
             var _patientRow = _db.PatientInfoes.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
             if (_patientRow != null)
             {
-                _patientRow.OTP = info.OTP;
+                _patientRow.OTP = !string.IsNullOrEmpty(info.OTP) ? info.OTP : _patientRow.OTP; 
                 _patientRow.ResetCode = info.ResetCode;
                 _patientRow.ValidUpto = info.ValidUpto > DateTime.Now ? info.ValidUpto : _patientRow.ValidUpto;
                 _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;

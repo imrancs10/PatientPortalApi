@@ -123,6 +123,10 @@ namespace PatientPortalApi.Global
         [HttpStatusCode(HttpStatusCode.BadRequest)]
         [Description("Record Not Saved.")]
         RecordNotSaved = 1028,
+
+        [HttpStatusCode(HttpStatusCode.BadRequest)]
+        [Description("OTP Not Matched.")]
+        OTPNotMatched = 1029,
     }
 
     public static class ErrorCodeExtensions
