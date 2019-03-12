@@ -85,7 +85,7 @@ namespace PatientPortalApi.APIController
         }
 
         [HttpGet]
-        [Route("Loginwithpin/{registrationNumber}")]
+        [Route("Loginwithregistration/{registrationNumber}")]
         public IHttpActionResult LoginWithRegistrationNumber(string registrationNumber)
         {
             if (!string.IsNullOrEmpty(registrationNumber))
