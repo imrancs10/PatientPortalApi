@@ -198,7 +198,7 @@ namespace PatientPortalApi.APIController
                 };
                 var updatedPatient = detail.UpdatePatientDetail(info);
                 SendMailForAppointment(updatedPatient);
-                return Ok("OTP Sent to register mobile/email.");
+                return Ok("OTP Sent to register mobile/email. - OTP : " + verificationCode);
             }
             else
             {
