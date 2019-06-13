@@ -423,12 +423,12 @@ namespace PatientPortalApi.APIController
                 return Ok(response);
             }
 
-            var patientInfoClone = details.GetPatientCloneDetailByCRNumber(CRNumber);
-            if (patientInfoClone != null)
-            {
-                PatientInfoModel crData = GetPatientInfoModelClone(patientInfoClone);
-                return Ok(crData);
-            }
+            //var patientInfoClone = details.GetPatientCloneDetailByCRNumber(CRNumber);
+            //if (patientInfoClone != null)
+            //{
+            //    PatientInfoModel crData = GetPatientInfoModelClone(patientInfoClone);
+            //    return Ok(crData);
+            //}
             else
             {
                 WebServiceIntegration service = new WebServiceIntegration();
