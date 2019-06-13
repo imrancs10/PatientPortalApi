@@ -189,7 +189,7 @@ namespace PatientPortalApi.APIController
             if (userInfo != null)
             {
                 PatientDetails detail = new PatientDetails();
-                var patient = detail.GetPatientDetailByRegistrationNumber(registrationNumber);
+                var patient = detail.GetPatientDetailByRegistrationNumberOrCRNumber(registrationNumber);
                 string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
                 PatientInfo info = new PatientInfo
                 {
