@@ -15,7 +15,7 @@ namespace PatientPortalApi.Infrastructure.Adapter.WebService
         {
             GetPatientDetails service = new GetPatientDetails();
             var result = service.getPatientDetails(crNumber);
-            if (result.ToLower().Contains("no record") || result.ToLower().Contains("n"))
+            if (result.ToUpper().Equals("N") || result.ToUpper().Equals("E"))
                 return null;
             Serializer serilizer = new Serializer();
             result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");

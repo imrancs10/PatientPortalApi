@@ -253,8 +253,8 @@ namespace PatientPortalApi.APIController
             info.FirstName = firstname;
             info.MiddleName = middlename;
             info.LastName = lastname;
-            bool parseDateFrom = DateTime.TryParse(DOB, out DateTime dtFrom);
-            info.DOB = parseDateFrom ? dtFrom : DateTime.Now;
+            if (!string.IsNullOrEmpty(DOB))
+                info.DOB = Convert.ToDateTime(DOB);
             info.Gender = Gender;
             info.MobileNumber = mobilenumber;
             info.Email = email;
@@ -489,13 +489,13 @@ namespace PatientPortalApi.APIController
             {
                 //var crData = (PatientInfoModel)Session["crData"];
                 PatientDetails _details = new PatientDetails();
-                var existingPatient = _details.GetPatientDetailByMobileNumberANDEmail(crData.MobileNumber, crData.Email);
-                if (existingPatient != null)
-                {
-                    ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.EmailOrMobileNoExists];
-                    Response<JwtResponse> response = new Response<JwtResponse>(errorDetail, null);
-                    return Ok(response);
-                }
+                //var existingPatient = _details.GetPatientDetailByMobileNumberANDEmail(crData.MobileNumber, crData.Email);
+                //if (existingPatient != null)
+                //{
+                //    ErrorCodeDetail errorDetail = ResponseCodeCollection.ResponseCodeDetails[ErrorCode.EmailOrMobileNoExists];
+                //    Response<JwtResponse> response = new Response<JwtResponse>(errorDetail, null);
+                //    return Ok(response);
+                //}
                 Dictionary<string, object> result = SavePatientInfo(crData.MaritalStatus, crData.Title, crData.FirstName, crData.MiddleName, crData.LastName, Convert.ToString(crData.DOB), crData.Gender, crData.MobileNumber, crData.Email, crData.Address, crData.CityId, crData.Country, Convert.ToString(crData.PinCode), crData.Religion, Convert.ToString(crData.DepartmentId), "", crData.StateId, crData.FatherOrHusbandName, 0, null, crData.AadharNumber, false, crData.Pid, crData.Location);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {

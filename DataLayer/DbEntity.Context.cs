@@ -18,7 +18,6 @@ namespace DataLayer
         public PatientPortalApiEntities()
             : base("name=PatientPortalApiEntities")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -49,5 +48,8 @@ namespace DataLayer
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<PatientMessage> PatientMessages { get; set; }
+        public virtual DbSet<PatientBillReport> PatientBillReports { get; set; }
+        public virtual DbSet<PatientInfoTemporary> PatientInfoTemporaries { get; set; }
+        public virtual DbSet<PatientLabReport> PatientLabReports { get; set; }
     }
 }

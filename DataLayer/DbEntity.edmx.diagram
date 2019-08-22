@@ -52,6 +52,13 @@
         <AssociationConnector Association="PatientPortalApiModel.FK_PatientInfoCRClone_State" />
         <EntityTypeShape EntityType="PatientPortalApiModel.PatientMessage" Width="1.5" PointX="7.5" PointY="32.75" />
         <AssociationConnector Association="PatientPortalApiModel.FK_PatientMessage_PatientInfo" />
+        <EntityTypeShape EntityType="PatientPortalApiModel.PatientBillReport" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PatientPortalApiModel.PatientInfoTemporary" Width="1.5" PointX="13.25" PointY="18.875" />
+        <EntityTypeShape EntityType="PatientPortalApiModel.PatientLabReport" Width="1.5" PointX="7.5" PointY="36.5" />
+        <AssociationConnector Association="PatientPortalApiModel.FK_PatientInfoTemporary_City" />
+        <AssociationConnector Association="PatientPortalApiModel.FK_PatientInfoTemporary_Department" />
+        <AssociationConnector Association="PatientPortalApiModel.FK__PatientLa__Patie__7C4F7684" />
+        <AssociationConnector Association="PatientPortalApiModel.FK_PatientInfoTemporary_State" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -58,7 +58,7 @@
           </Key>
           <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="DepartmentName" Type="varchar" MaxLength="200" />
-          <Property Name="DepartmentUrl" Type="varchar" MaxLength="500" />
+          <Property Name="DepartmentUrl" Type="nvarchar" MaxLength="500" />
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="Image" Type="varbinary(max)" />
         </EntityType>
@@ -71,10 +71,11 @@
           <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="Designation" Type="varchar" MaxLength="100" />
           <Property Name="Degree" Type="varchar" MaxLength="100" />
-          <Property Name="Description" Type="varchar(max)" />
-          <Property Name="Image" Type="varbinary(max)" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="RegistrationNo" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DoctorLeave">
           <Key>
@@ -193,12 +194,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Billid" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="godcode" Type="varchar" MaxLength="3" />
           <Property Name="opdid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="counterid" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="PId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PId" Type="numeric" Precision="18" Scale="0" />
           <Property Name="regtranid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="inpatientid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="vtype" Type="char" MaxLength="2" />
@@ -245,7 +245,23 @@
           <Property Name="pcode" Type="varchar" MaxLength="15" />
           <Property Name="ipno" Type="varchar" MaxLength="20" />
           <Property Name="entrytype" Type="char" MaxLength="2" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Location" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="PatientBillReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillId" Type="int" />
+          <Property Name="BillNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="BillDate" Type="datetime" />
+          <Property Name="BillType" Type="nvarchar" MaxLength="50" />
+          <Property Name="BillAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModificationDate" Type="datetime" />
+          <Property Name="ReportUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="PId" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
@@ -319,6 +335,58 @@
           <Property Name="pid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Location" Type="varchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="PatientInfoTemporary">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="14" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="MaritalStatus" Type="varchar" MaxLength="100" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="PinCode" Type="int" />
+          <Property Name="Religion" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="OTP" Type="varchar" MaxLength="50" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
+          <Property Name="ResetCode" Type="varchar" MaxLength="100" />
+          <Property Name="CRNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ValidUpto" Type="datetime" />
+          <Property Name="AadharNumber" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="RenewalStatusHIS" Type="varchar" MaxLength="500" />
+          <Property Name="RegistrationStatusHIS" Type="varchar" MaxLength="500" />
+          <Property Name="pid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location" Type="varchar" MaxLength="5" />
+          <Property Name="LoginPin" Type="varchar" MaxLength="10" />
+          <Property Name="DeviceIdentityfier" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PatientLabReport">
+          <Key>
+            <PropertyRef Name="ReferanceId" />
+          </Key>
+          <Property Name="ReferanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BillNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LabName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ReportDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+          <Property Name="ReportUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="PatientId" Type="int" />
+        </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
             <PropertyRef Name="ID" />
@@ -369,6 +437,18 @@
           <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <Association Name="FK__PatientLa__Patie__7C4F7684">
+          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
+          <End Role="PatientLabReport" Type="Self.PatientLabReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfo">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientLabReport">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AppointmentInfo_Doctor">
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
           <End Role="AppointmentInfo" Type="Self.AppointmentInfo" Multiplicity="*" />
@@ -501,18 +581,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LabreportPdf_Doctor">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
-          <End Role="LabreportPdf" Type="Self.LabreportPdf" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Doctor">
-              <PropertyRef Name="DoctorID" />
-            </Principal>
-            <Dependent Role="LabreportPdf">
-              <PropertyRef Name="DoctorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PatientInfo_City">
           <End Role="City" Type="Self.City" Multiplicity="0..1" />
           <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
@@ -609,6 +677,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientInfoTemporary_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="PatientInfoTemporary" Type="Self.PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoTemporary_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="PatientInfoTemporary" Type="Self.PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoTemporary_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="PatientInfoTemporary" Type="Self.PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PatientLoginEntry_PatientInfo">
           <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="1" />
           <End Role="PatientLoginEntry" Type="Self.PatientLoginEntry" Multiplicity="*" />
@@ -674,13 +778,20 @@
           <EntitySet Name="MasterLookup" EntityType="Self.MasterLookup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeridiemMaster" EntityType="Self.MeridiemMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PateintLeadger" EntityType="Self.PateintLeadger" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientBillReport" EntityType="Self.PatientBillReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfoCRClone" EntityType="Self.PatientInfoCRClone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientInfoTemporary" EntityType="Self.PatientInfoTemporary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientLabReport" EntityType="Self.PatientLabReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginEntry" EntityType="Self.PatientLoginEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginHistory" EntityType="Self.PatientLoginHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientMessage" EntityType="Self.PatientMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientTransaction" EntityType="Self.PatientTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PatientLa__Patie__7C4F7684" Association="Self.FK__PatientLa__Patie__7C4F7684">
+            <End Role="PatientInfo" EntitySet="PatientInfo" />
+            <End Role="PatientLabReport" EntitySet="PatientLabReport" />
+          </AssociationSet>
           <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="Self.FK_AppointmentInfo_Doctor">
             <End Role="Doctor" EntitySet="Doctor" />
             <End Role="AppointmentInfo" EntitySet="AppointmentInfo" />
@@ -725,10 +836,6 @@
             <End Role="PatientInfo" EntitySet="PatientInfo" />
             <End Role="LabReport" EntitySet="LabReport" />
           </AssociationSet>
-          <AssociationSet Name="FK_LabreportPdf_Doctor" Association="Self.FK_LabreportPdf_Doctor">
-            <End Role="Doctor" EntitySet="Doctor" />
-            <End Role="LabreportPdf" EntitySet="LabreportPdf" />
-          </AssociationSet>
           <AssociationSet Name="FK_PatientInfo_City" Association="Self.FK_PatientInfo_City">
             <End Role="City" EntitySet="City" />
             <End Role="PatientInfo" EntitySet="PatientInfo" />
@@ -760,6 +867,18 @@
           <AssociationSet Name="FK_PatientInfoCRClone_State" Association="Self.FK_PatientInfoCRClone_State">
             <End Role="State" EntitySet="State" />
             <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_City" Association="Self.FK_PatientInfoTemporary_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_Department" Association="Self.FK_PatientInfoTemporary_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_State" Association="Self.FK_PatientInfoTemporary_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporary" />
           </AssociationSet>
           <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="Self.FK_PatientLoginEntry_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfo" />
@@ -902,6 +1021,25 @@
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientMessage" EntitySet="PatientMessages" />
           </AssociationSet>
+          <EntitySet Name="PatientBillReports" EntityType="PatientPortalApiModel.PatientBillReport" />
+          <EntitySet Name="PatientInfoTemporaries" EntityType="PatientPortalApiModel.PatientInfoTemporary" />
+          <EntitySet Name="PatientLabReports" EntityType="PatientPortalApiModel.PatientLabReport" />
+          <AssociationSet Name="FK_PatientInfoTemporary_City" Association="PatientPortalApiModel.FK_PatientInfoTemporary_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_Department" Association="PatientPortalApiModel.FK_PatientInfoTemporary_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientLa__Patie__7C4F7684" Association="PatientPortalApiModel.FK__PatientLa__Patie__7C4F7684">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientLabReport" EntitySet="PatientLabReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_State" Association="PatientPortalApiModel.FK_PatientInfoTemporary_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporaries" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
           <Key>
@@ -947,6 +1085,7 @@
           <NavigationProperty Name="State" Relationship="PatientPortalApiModel.FK_City_State" FromRole="City" ToRole="State" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalApiModel.FK_PatientInfo_City" FromRole="City" ToRole="PatientInfo" />
           <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_City" FromRole="City" ToRole="PatientInfoCRClone" />
+          <NavigationProperty Name="PatientInfoTemporaries" Relationship="PatientPortalApiModel.FK_PatientInfoTemporary_City" FromRole="City" ToRole="PatientInfoTemporary" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -962,12 +1101,13 @@
           </Key>
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="DepartmentUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Doctors" Relationship="PatientPortalApiModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalApiModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
           <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_Department" FromRole="Department" ToRole="PatientInfoCRClone" />
+          <NavigationProperty Name="PatientInfoTemporaries" Relationship="PatientPortalApiModel.FK_PatientInfoTemporary_Department" FromRole="Department" ToRole="PatientInfoTemporary" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -987,6 +1127,7 @@
           <NavigationProperty Name="DoctorLeaves" Relationship="PatientPortalApiModel.FK_DoctorLeave_Doctor" FromRole="Doctor" ToRole="DoctorLeave" />
           <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalApiModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
           <NavigationProperty Name="LabreportPdfs" Relationship="PatientPortalApiModel.FK_LabreportPdf_Doctor" FromRole="Doctor" ToRole="LabreportPdf" />
+          <Property Name="RegistrationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DoctorLeave">
           <Key>
@@ -1121,7 +1262,7 @@
           <Property Name="godcode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="opdid" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="counterid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="PId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="PId" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="regtranid" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="inpatientid" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="vtype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
@@ -1218,6 +1359,7 @@
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalApiModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalApiModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
           <NavigationProperty Name="PatientMessages" Relationship="PatientPortalApiModel.FK_PatientMessage_PatientInfo" FromRole="PatientInfo" ToRole="PatientMessage" />
+          <NavigationProperty Name="PatientLabReports" Relationship="PatientPortalApiModel.FK__PatientLa__Patie__7C4F7684" FromRole="PatientInfo" ToRole="PatientLabReport" />
         </EntityType>
         <EntityType Name="PatientInfoCRClone">
           <Key>
@@ -1303,6 +1445,7 @@
           <NavigationProperty Name="Cities" Relationship="PatientPortalApiModel.FK_City_State" FromRole="State" ToRole="City" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalApiModel.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
           <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalApiModel.FK_PatientInfoCRClone_State" FromRole="State" ToRole="PatientInfoCRClone" />
+          <NavigationProperty Name="PatientInfoTemporaries" Relationship="PatientPortalApiModel.FK_PatientInfoTemporary_State" FromRole="State" ToRole="PatientInfoTemporary" />
         </EntityType>
         <Association Name="FK_AppointmentInfo_Doctor">
           <End Type="PatientPortalApiModel.Doctor" Role="Doctor" Multiplicity="1" />
@@ -1603,6 +1746,125 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PatientBillReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillId" Type="Int32" />
+          <Property Name="BillNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillDate" Type="DateTime" Precision="3" />
+          <Property Name="BillType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
+          <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PId" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="PatientInfoTemporary">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PinCode" Type="Int32" />
+          <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="OTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FatherOrHusbandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValidUpto" Type="DateTime" Precision="3" />
+          <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="RenewalStatusHIS" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RegistrationStatusHIS" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="pid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LoginPin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceIdentityfier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="City" Relationship="PatientPortalApiModel.FK_PatientInfoTemporary_City" FromRole="PatientInfoTemporary" ToRole="City" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalApiModel.FK_PatientInfoTemporary_Department" FromRole="PatientInfoTemporary" ToRole="Department" />
+          <NavigationProperty Name="State" Relationship="PatientPortalApiModel.FK_PatientInfoTemporary_State" FromRole="PatientInfoTemporary" ToRole="State" />
+        </EntityType>
+        <EntityType Name="PatientLabReport">
+          <Key>
+            <PropertyRef Name="ReferanceId" />
+          </Key>
+          <Property Name="ReferanceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LabName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ReportDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PatientId" Type="Int32" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalApiModel.FK__PatientLa__Patie__7C4F7684" FromRole="PatientLabReport" ToRole="PatientInfo" />
+        </EntityType>
+        <Association Name="FK_PatientInfoTemporary_City">
+          <End Type="PatientPortalApiModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="PatientPortalApiModel.PatientInfoTemporary" Role="PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoTemporary_Department">
+          <End Type="PatientPortalApiModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="PatientPortalApiModel.PatientInfoTemporary" Role="PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientLa__Patie__7C4F7684">
+          <End Type="PatientPortalApiModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalApiModel.PatientLabReport" Role="PatientLabReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfo">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientLabReport">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoTemporary_State">
+          <End Type="PatientPortalApiModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PatientPortalApiModel.PatientInfoTemporary" Role="PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1674,6 +1936,7 @@
           <EntitySetMapping Name="Doctors">
             <EntityTypeMapping TypeName="PatientPortalApiModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="RegistrationNo" ColumnName="RegistrationNo" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
@@ -1993,6 +2256,76 @@
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientBillReports">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientBillReport">
+              <MappingFragment StoreEntitySet="PatientBillReport">
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="BillAmount" ColumnName="BillAmount" />
+                <ScalarProperty Name="BillType" ColumnName="BillType" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="BillId" ColumnName="BillId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientInfoTemporaries">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientInfoTemporary">
+              <MappingFragment StoreEntitySet="PatientInfoTemporary">
+                <ScalarProperty Name="DeviceIdentityfier" ColumnName="DeviceIdentityfier" />
+                <ScalarProperty Name="LoginPin" ColumnName="LoginPin" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="RegistrationStatusHIS" ColumnName="RegistrationStatusHIS" />
+                <ScalarProperty Name="RenewalStatusHIS" ColumnName="RenewalStatusHIS" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
+                <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
+                <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />
+                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
+                <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientLabReports">
+            <EntityTypeMapping TypeName="PatientPortalApiModel.PatientLabReport">
+              <MappingFragment StoreEntitySet="PatientLabReport">
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="LabName" ColumnName="LabName" />
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
