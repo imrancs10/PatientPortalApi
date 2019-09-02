@@ -18,6 +18,7 @@ namespace DataLayer
         public PatientPortalApiEntities()
             : base("name=PatientPortalApiEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
